@@ -28,7 +28,9 @@
 <table cellpadding="0" cellspacing="0" bgcolor="WhiteSmoke" Width="520px">
     <tr>
         <td Width="49px">
-            <asp:Label ID="lblSelect" runat="server" Width="39px"></asp:Label>
+            <asp:Image ID="Image6" runat="server" 
+                ImageUrl="~/DesktopModules/ADefHelpDesk/images/GridSpacer.gif" 
+                Visible="False" />
         </td>
         <td style="border: 1px solid #CCCCCC" align="center" Width="23px">
             <asp:Image ID="Image1" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/World.png"
@@ -55,7 +57,7 @@
         <Columns>
             <asp:TemplateField ShowHeader="False">
                 <ItemTemplate>
-                    <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" 
+                    <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" Font-Underline="True" 
                         CommandArgument='<%# Bind("DetailID") %>' CommandName="Select" Text="Select"></asp:LinkButton>
                 </ItemTemplate>
                 <ItemStyle Width="48px" />
@@ -84,7 +86,7 @@
             <asp:TemplateField HeaderText="InsertDate" SortExpression="InsertDate">
                 <ItemTemplate>
                     <asp:Label ID="lblDate" runat="server" Font-Size="XX-Small" Text='<%# Bind("InsertDate") %>'
-                        Width="150px"></asp:Label>
+                        Width="148px"></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>

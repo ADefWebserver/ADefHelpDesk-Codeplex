@@ -958,7 +958,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                         strBody = String.Format(@"A new help desk ticket #{0} has been created '{1}'.", TaskID, txtDescription.Text);
                         strBody = strBody + Environment.NewLine;
                         strBody = strBody + String.Format(@"You may see the status here: {0}", DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", TaskID)));
-                        
+
                         // Get all users in the Admin Role
                         RoleController objRoleController = new RoleController();
                         ArrayList colAdminUsers = objRoleController.GetUsersByRoleName(PortalId, GetAdminRole());
@@ -1208,45 +1208,45 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 if (!(UserInfo.IsInRole(GetAdminRole()) || UserInfo.IsInRole("Administrators") || UserInfo.IsSuperUser))
                 {
                     colExistingTasks = (from ADefHelpDesk_Tasks in objADefHelpDeskDALDataContext.ADefHelpDesk_Tasks
-                                       where (ADefHelpDesk_Tasks.TaskID == intTmpTaskID ||
-                                       ADefHelpDesk_Tasks.Description.Contains(strSearchText))
-                                       where (ADefHelpDesk_Tasks.RequesterUserID == UserId ||
-                                       UsersRoleIDs.Contains(ADefHelpDesk_Tasks.AssignedRoleID))
-                                       select new ExistingTasks
-                                       {
-                                           TaskID = ADefHelpDesk_Tasks.TaskID,
-                                           Status = ADefHelpDesk_Tasks.Status,
-                                           Priority = ADefHelpDesk_Tasks.Priority,
-                                           DueDate = ADefHelpDesk_Tasks.DueDate,
-                                           CreatedDate = ADefHelpDesk_Tasks.CreatedDate,
-                                           Assigned = ADefHelpDesk_Tasks.AssignedRoleID.ToString(),
-                                           Description = ADefHelpDesk_Tasks.Description,
-                                           Requester = ADefHelpDesk_Tasks.RequesterUserID.ToString(),
-                                           RequesterName = ADefHelpDesk_Tasks.RequesterName
-                                       }).ToList();
+                                        where (ADefHelpDesk_Tasks.TaskID == intTmpTaskID ||
+                                        ADefHelpDesk_Tasks.Description.Contains(strSearchText))
+                                        where (ADefHelpDesk_Tasks.RequesterUserID == UserId ||
+                                        UsersRoleIDs.Contains(ADefHelpDesk_Tasks.AssignedRoleID))
+                                        select new ExistingTasks
+                                        {
+                                            TaskID = ADefHelpDesk_Tasks.TaskID,
+                                            Status = ADefHelpDesk_Tasks.Status,
+                                            Priority = ADefHelpDesk_Tasks.Priority,
+                                            DueDate = ADefHelpDesk_Tasks.DueDate,
+                                            CreatedDate = ADefHelpDesk_Tasks.CreatedDate,
+                                            Assigned = ADefHelpDesk_Tasks.AssignedRoleID.ToString(),
+                                            Description = ADefHelpDesk_Tasks.Description,
+                                            Requester = ADefHelpDesk_Tasks.RequesterUserID.ToString(),
+                                            RequesterName = ADefHelpDesk_Tasks.RequesterName
+                                        }).ToList();
 
                 }
                 else
                 {
                     // An Admin
                     colExistingTasks = (from ADefHelpDesk_Tasks in objADefHelpDeskDALDataContext.ADefHelpDesk_Tasks
-                                       where (ADefHelpDesk_Tasks.TaskID == intTmpTaskID ||
-                                       ADefHelpDesk_Tasks.Description.Contains(strSearchText))
-                                       select new ExistingTasks
-                                       {
-                                           TaskID = ADefHelpDesk_Tasks.TaskID,
-                                           Status = ADefHelpDesk_Tasks.Status,
-                                           Priority = ADefHelpDesk_Tasks.Priority,
-                                           DueDate = ADefHelpDesk_Tasks.DueDate,
-                                           CreatedDate = ADefHelpDesk_Tasks.CreatedDate,
-                                           Assigned = ADefHelpDesk_Tasks.AssignedRoleID.ToString(),
-                                           Description = ADefHelpDesk_Tasks.Description,
-                                           Requester = ADefHelpDesk_Tasks.RequesterUserID.ToString(),
-                                           RequesterName = ADefHelpDesk_Tasks.RequesterName
-                                       }).ToList();
+                                        where (ADefHelpDesk_Tasks.TaskID == intTmpTaskID ||
+                                        ADefHelpDesk_Tasks.Description.Contains(strSearchText))
+                                        select new ExistingTasks
+                                        {
+                                            TaskID = ADefHelpDesk_Tasks.TaskID,
+                                            Status = ADefHelpDesk_Tasks.Status,
+                                            Priority = ADefHelpDesk_Tasks.Priority,
+                                            DueDate = ADefHelpDesk_Tasks.DueDate,
+                                            CreatedDate = ADefHelpDesk_Tasks.CreatedDate,
+                                            Assigned = ADefHelpDesk_Tasks.AssignedRoleID.ToString(),
+                                            Description = ADefHelpDesk_Tasks.Description,
+                                            Requester = ADefHelpDesk_Tasks.RequesterUserID.ToString(),
+                                            RequesterName = ADefHelpDesk_Tasks.RequesterName
+                                        }).ToList();
                 }
 
-                foreach(ExistingTasks objExistingTask in colExistingTasks)
+                foreach (ExistingTasks objExistingTask in colExistingTasks)
                 {
                     // See if the TaskID is already in the final collection
                     if (FinalResult.FindAll(x => x.TaskID == objExistingTask.TaskID).Count() == 0)
@@ -1255,7 +1255,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                         FinalResult.Add(objExistingTask);
                     }
                 }
-            } 
+            }
             #endregion
 
             #region Filter Tags
@@ -1358,7 +1358,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             if (DescriptionLabel.Text.Length > 10)
             {
                 DescriptionLabel.Text = String.Format("{0} ...", Strings.Left(DescriptionLabel.Text, 10));
-                
+
             }
 
             // Format Assigned
@@ -1613,7 +1613,19 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
                 if (objADefHelpDesk_LastSearch.AssignedRoleID != null)
                 {
-                    ddlAssigned.SelectedValue = objADefHelpDesk_LastSearch.AssignedRoleID.ToString();
+                    // Ensure that the item exists
+                    ListItem AssignedRoleListItem = ddlAssigned.Items.FindByValue(objADefHelpDesk_LastSearch.AssignedRoleID.ToString());
+                    if (AssignedRoleListItem != null)
+                    {
+                        ddlAssigned.SelectedValue = objADefHelpDesk_LastSearch.AssignedRoleID.ToString();
+                    }
+                    else
+                    {
+                        // The item in the search is no longer valid
+                        ADefHelpDesk_LastSearch ExistingADefHelpDesk_LastSearch = GetLastSearchCriteria();
+                        ExistingADefHelpDesk_LastSearch.AssignedRoleID = null;
+                        SaveLastSearchCriteria(ExistingADefHelpDesk_LastSearch);
+                    }
                 }
 
                 if (objADefHelpDesk_LastSearch.DueDate != null)

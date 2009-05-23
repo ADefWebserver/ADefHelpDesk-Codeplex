@@ -156,8 +156,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
 
             List<ADefHelpDesk_Setting> colADefHelpDesk_Setting = (from ADefHelpDesk_Settings in objADefHelpDeskDALDataContext.ADefHelpDesk_Settings
-                                                                where ADefHelpDesk_Settings.PortalID == PortalId
-                                                                select ADefHelpDesk_Settings).ToList();
+                                                                  where ADefHelpDesk_Settings.PortalID == PortalId
+                                                                  select ADefHelpDesk_Settings).ToList();
 
             if (colADefHelpDesk_Setting.Count == 0)
             {
@@ -181,8 +181,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 objADefHelpDeskDALDataContext.SubmitChanges();
 
                 colADefHelpDesk_Setting = (from ADefHelpDesk_Settings in objADefHelpDeskDALDataContext.ADefHelpDesk_Settings
-                                          where ADefHelpDesk_Settings.PortalID == PortalId
-                                          select ADefHelpDesk_Settings).ToList();
+                                           where ADefHelpDesk_Settings.PortalID == PortalId
+                                           select ADefHelpDesk_Settings).ToList();
             }
 
             return colADefHelpDesk_Setting;
@@ -260,9 +260,9 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
 
             ADefHelpDesk_Setting objADefHelpDesk_Setting = (from ADefHelpDesk_Settings in objADefHelpDeskDALDataContext.ADefHelpDesk_Settings
-                                                          where ADefHelpDesk_Settings.PortalID == PortalId
-                                                          where ADefHelpDesk_Settings.SettingName == "UploadefFilesPath"
-                                                          select ADefHelpDesk_Settings).FirstOrDefault();
+                                                            where ADefHelpDesk_Settings.PortalID == PortalId
+                                                            where ADefHelpDesk_Settings.SettingName == "UploadefFilesPath"
+                                                            select ADefHelpDesk_Settings).FirstOrDefault();
 
             txtUploadedFilesPath.Text = objADefHelpDesk_Setting.SettingValue;
         }
@@ -283,9 +283,9 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
 
             ADefHelpDesk_Setting objADefHelpDesk_Setting = (from ADefHelpDesk_Settings in objADefHelpDeskDALDataContext.ADefHelpDesk_Settings
-                                                          where ADefHelpDesk_Settings.PortalID == PortalId
-                                                          where ADefHelpDesk_Settings.SettingName == "AdminRole"
-                                                          select ADefHelpDesk_Settings).FirstOrDefault();
+                                                            where ADefHelpDesk_Settings.PortalID == PortalId
+                                                            where ADefHelpDesk_Settings.SettingName == "AdminRole"
+                                                            select ADefHelpDesk_Settings).FirstOrDefault();
 
 
             objADefHelpDesk_Setting.SettingValue = ddlAdminRole.SelectedValue;
@@ -301,9 +301,9 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
 
             ADefHelpDesk_Setting objADefHelpDesk_Setting = (from ADefHelpDesk_Settings in objADefHelpDeskDALDataContext.ADefHelpDesk_Settings
-                                                          where ADefHelpDesk_Settings.PortalID == PortalId
-                                                          where ADefHelpDesk_Settings.SettingName == "UploadefFilesPath"
-                                                          select ADefHelpDesk_Settings).FirstOrDefault();
+                                                            where ADefHelpDesk_Settings.PortalID == PortalId
+                                                            where ADefHelpDesk_Settings.SettingName == "UploadefFilesPath"
+                                                            select ADefHelpDesk_Settings).FirstOrDefault();
 
             objADefHelpDesk_Setting.SettingValue = txtUploadedFilesPath.Text.Trim();
             objADefHelpDeskDALDataContext.SubmitChanges();
@@ -486,7 +486,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
                 result.CategoryName = txtCategory.Text.Trim();
 
-                result.ParentCategoryID = (ddlParentCategory.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlParentCategory.SelectedValue);
+                result.ParentCategoryID = (GetParentCategoryID(ddlParentCategory.SelectedValue) == "0") ? (int?)null : Convert.ToInt32(ddlParentCategory.SelectedValue);
                 txtParentCategoryID.Text = (ddlParentCategory.SelectedValue == "0") ? "" : ddlParentCategory.SelectedValue;
 
                 result.Level = (ddlParentCategory.SelectedValue == "0") ? 1 : GetLevelOfParent(Convert.ToInt32(ddlParentCategory.SelectedValue)) + 1;
@@ -501,13 +501,12 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             }
             else
             {
-                // This is a Save for a new Node
-                txtParentCategoryID.Text = (ddlParentCategory.SelectedValue == "0") ? "" : ddlParentCategory.SelectedValue;
+                // This is a Save for a new Node                
 
                 ADefHelpDesk_Category objADefHelpDesk_Category = new ADefHelpDesk_Category();
                 objADefHelpDesk_Category.PortalID = PortalId;
                 objADefHelpDesk_Category.CategoryName = txtCategory.Text.Trim();
-                objADefHelpDesk_Category.ParentCategoryID = (ddlParentCategory.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlParentCategory.SelectedValue);
+                objADefHelpDesk_Category.ParentCategoryID = (GetParentCategoryID(ddlParentCategory.SelectedValue) == "0") ? (int?)null : Convert.ToInt32(ddlParentCategory.SelectedValue);
                 objADefHelpDesk_Category.Level = (ddlParentCategory.SelectedValue == "0") ? 1 : GetLevelOfParent(Convert.ToInt32(ddlParentCategory.SelectedValue)) + 1;
                 objADefHelpDesk_Category.RequestorVisible = chkRequesterVisible.Checked;
                 objADefHelpDesk_Category.Selectable = chkSelectable.Checked;
@@ -516,6 +515,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 objADefHelpDeskDALDataContext.SubmitChanges();
 
                 // Set the Hidden CategoryID
+                txtParentCategoryID.Text = (objADefHelpDesk_Category.ParentCategoryID == null) ? "" : ddlParentCategory.SelectedValue;
                 txtCategoryID.Text = objADefHelpDesk_Category.CategoryID.ToString();
                 ResetForm();
             }
@@ -577,6 +577,32 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         }
         #endregion
 
+        #region GetParentCategoryID
+        private string GetParentCategoryID(string strParentCategoryID)
+        {
+            // This is to ensure that the ParentCategoryID does exist and has not been deleted since the last time the form was loaded
+            int ParentCategoryID = 0;
+            if (strParentCategoryID != "0")
+            {
+                ParentCategoryID = Convert.ToInt32(strParentCategoryID);
+            }
+
+            ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
+
+            var result = (from ADefHelpDesk_Categories in objADefHelpDeskDALDataContext.ADefHelpDesk_Categories
+                          where ADefHelpDesk_Categories.CategoryID == ParentCategoryID
+                          select ADefHelpDesk_Categories).FirstOrDefault();
+
+            string strResultParentCategoryID = "0";
+            if (result != null)
+            {
+                strResultParentCategoryID = result.CategoryID.ToString();
+            }
+
+            return strResultParentCategoryID;
+        }
+        #endregion
+
         #region btnAddNew_Click
         protected void btnAddNew_Click(object sender, EventArgs e)
         {
@@ -611,7 +637,14 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             }
             else
             {
-                ddlParentCategory.SelectedValue = tvCategories.SelectedNode.Value;
+                try
+                {
+                    ddlParentCategory.SelectedValue = tvCategories.SelectedNode.Value;
+                }
+                catch (Exception ex)
+                {
+                    lblTagError.Text = ex.Message;
+                }
             }
         }
         #endregion
@@ -770,9 +803,9 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
             // See if Role already exists
             ADefHelpDesk_Role colADefHelpDesk_Roles = (from ADefHelpDesk_Roles in objADefHelpDeskDALDataContext.ADefHelpDesk_Roles
-                                                     where ADefHelpDesk_Roles.PortalID == PortalId
-                                                     where ADefHelpDesk_Roles.RoleID == Convert.ToInt32(ddlRole.SelectedValue)
-                                                     select ADefHelpDesk_Roles).FirstOrDefault();
+                                                       where ADefHelpDesk_Roles.PortalID == PortalId
+                                                       where ADefHelpDesk_Roles.RoleID == Convert.ToInt32(ddlRole.SelectedValue)
+                                                       select ADefHelpDesk_Roles).FirstOrDefault();
             if (colADefHelpDesk_Roles != null)
             {
                 RoleController objRoleController = new RoleController();

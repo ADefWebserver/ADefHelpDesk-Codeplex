@@ -139,7 +139,7 @@
                                         </tr>
                                     </ItemTemplate>
                                     <EmptyDataTemplate>
-                                        <table runat="server" style="">
+                                        <table id="Table1" runat="server" style="">
                                             <tr>
                                                 <td>
                                                     No data was returned.
@@ -148,14 +148,14 @@
                                         </table>
                                     </EmptyDataTemplate>
                                     <LayoutTemplate>
-                                        <table runat="server">
-                                            <tr runat="server">
-                                                <td runat="server">
+                                        <table id="Table2" runat="server">
+                                            <tr id="Tr1" runat="server">
+                                                <td id="Td1" runat="server">
                                                     <table id="itemPlaceholderContainer" runat="server" border="0" style="">
-                                                        <tr runat="server" style="">
-                                                            <th runat="server">
+                                                        <tr id="Tr2" runat="server" style="">
+                                                            <th id="Th1" runat="server">
                                                             </th>
-                                                            <th runat="server">
+                                                            <th id="Th2" runat="server">
                                                                 Role
                                                             </th>
                                                         </tr>
@@ -164,8 +164,8 @@
                                                     </table>
                                                 </td>
                                             </tr>
-                                            <tr runat="server">
-                                                <td runat="server" style="">
+                                            <tr id="Tr3" runat="server">
+                                                <td id="Td2" runat="server" style="">
                                                 </td>
                                             </tr>
                                         </table>
@@ -196,6 +196,8 @@
                     <table cellpadding="8" cellspacing="8">
                         <tr>
                             <td valign="top">
+                                <asp:Label ID="lblTagError" runat="server" EnableViewState="False" 
+                                    Font-Italic="True" ForeColor="Red"></asp:Label>
                                 <asp:TreeView ID="tvCategories" runat="server" ExpandDepth="0" OnSelectedNodeChanged="tvCategories_SelectedNodeChanged"
                                     BorderColor="#CCCCCC" BorderStyle="Solid" OnTreeNodeDataBound="tvCategories_TreeNodeDataBound">
                                     <SelectedNodeStyle BackColor="#CCCCCC" Font-Bold="False" Font-Underline="False" />

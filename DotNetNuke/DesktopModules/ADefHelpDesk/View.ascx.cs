@@ -1304,6 +1304,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             if (DescriptionLabel.Text.Length > 10)
             {
                 DescriptionLabel.Text = String.Format("{0} ...", Strings.Left(DescriptionLabel.Text, 10));
+                
             }
 
             // Format Assigned

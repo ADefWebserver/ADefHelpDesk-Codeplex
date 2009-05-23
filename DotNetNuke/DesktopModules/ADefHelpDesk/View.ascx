@@ -270,12 +270,12 @@
                                 <asp:Label ID="AssignedRoleIDLabel" runat="server" Text='<%# Eval("Assigned") %>' />
                             </td>
                             <td nowrap="nowrap">
-                                <asp:Label ID="DescriptionLabel" runat="server" Text='<%# Eval("Description") %>' />
+                                <asp:Label ID="DescriptionLabel" runat="server" Text='<%# Eval("Description") %>' ToolTip='<%# Eval("Description") %>' />
                             </td>
                             <td nowrap="nowrap">
                                 <asp:Label ID="RequesterUserIDLabel" runat="server" Text='<%# Eval("Requester") %>'
                                     Visible="false" />
-                                <asp:Label ID="RequesterNameLabel" runat="server" Text='<%# Eval("RequesterName") %>' />
+                                <asp:Label ID="RequesterNameLabel" runat="server" Text='<%# Eval("RequesterName") %>' ToolTip='<%# Eval("RequesterName") %>' />
                             </td>
                         </tr>
                     </ItemTemplate>

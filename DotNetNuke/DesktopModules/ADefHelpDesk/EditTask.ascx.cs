@@ -97,8 +97,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
 
             List<ADefHelpDesk_Role> colADefHelpDesk_Roles = (from ADefHelpDesk_Roles in objADefHelpDeskDALDataContext.ADefHelpDesk_Roles
-                                                           where ADefHelpDesk_Roles.PortalID == PortalId
-                                                           select ADefHelpDesk_Roles).ToList();
+                                                             where ADefHelpDesk_Roles.PortalID == PortalId
+                                                             select ADefHelpDesk_Roles).ToList();
 
             // Create a ListItemCollection to hold the Roles 
             ListItemCollection colListItemCollection = new ListItemCollection();
@@ -141,8 +141,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
 
             ADefHelpDesk_Task objADefHelpDesk_Tasks = (from ADefHelpDesk_Tasks in objADefHelpDeskDALDataContext.ADefHelpDesk_Tasks
-                                                     where ADefHelpDesk_Tasks.TaskID == Convert.ToInt32(Request.QueryString["TaskID"])
-                                                     select ADefHelpDesk_Tasks).FirstOrDefault();
+                                                       where ADefHelpDesk_Tasks.TaskID == Convert.ToInt32(Request.QueryString["TaskID"])
+                                                       select ADefHelpDesk_Tasks).FirstOrDefault();
             if (objADefHelpDesk_Tasks == null)
             {
                 pnlEditTask.Visible = false;
@@ -281,8 +281,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
 
             List<ADefHelpDesk_Setting> colADefHelpDesk_Setting = (from ADefHelpDesk_Settings in objADefHelpDeskDALDataContext.ADefHelpDesk_Settings
-                                                                where ADefHelpDesk_Settings.PortalID == PortalId
-                                                                select ADefHelpDesk_Settings).ToList();
+                                                                  where ADefHelpDesk_Settings.PortalID == PortalId
+                                                                  select ADefHelpDesk_Settings).ToList();
 
             if (colADefHelpDesk_Setting.Count == 0)
             {
@@ -306,8 +306,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 objADefHelpDeskDALDataContext.SubmitChanges();
 
                 colADefHelpDesk_Setting = (from ADefHelpDesk_Settings in objADefHelpDeskDALDataContext.ADefHelpDesk_Settings
-                                          where ADefHelpDesk_Settings.PortalID == PortalId
-                                          select ADefHelpDesk_Settings).ToList();
+                                           where ADefHelpDesk_Settings.PortalID == PortalId
+                                           select ADefHelpDesk_Settings).ToList();
             }
 
             return colADefHelpDesk_Setting;
@@ -323,8 +323,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
 
             ADefHelpDesk_Task objADefHelpDesk_Tasks = (from ADefHelpDesk_Tasks in objADefHelpDeskDALDataContext.ADefHelpDesk_Tasks
-                                                     where ADefHelpDesk_Tasks.TaskID == Convert.ToInt32(Request.QueryString["TaskID"])
-                                                     select ADefHelpDesk_Tasks).FirstOrDefault();
+                                                       where ADefHelpDesk_Tasks.TaskID == Convert.ToInt32(Request.QueryString["TaskID"])
+                                                       select ADefHelpDesk_Tasks).FirstOrDefault();
 
             //Is user in the Assigned Role?
             RoleController objRoleController = new RoleController();
@@ -381,8 +381,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
 
             ADefHelpDesk_Task objADefHelpDesk_Tasks = (from ADefHelpDesk_Tasks in objADefHelpDeskDALDataContext.ADefHelpDesk_Tasks
-                                                     where ADefHelpDesk_Tasks.TaskID == Convert.ToInt32(Request.QueryString["TaskID"])
-                                                     select ADefHelpDesk_Tasks).FirstOrDefault();
+                                                       where ADefHelpDesk_Tasks.TaskID == Convert.ToInt32(Request.QueryString["TaskID"])
+                                                       select ADefHelpDesk_Tasks).FirstOrDefault();
 
             // Name is editable only if user is Anonymous
             if (objADefHelpDesk_Tasks.RequesterUserID == -1)
@@ -554,8 +554,11 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
 
             ADefHelpDesk_Task objADefHelpDesk_Task = (from ADefHelpDesk_Tasks in objADefHelpDeskDALDataContext.ADefHelpDesk_Tasks
-                                                    where ADefHelpDesk_Tasks.TaskID == Convert.ToInt32(Request.QueryString["TaskID"])
-                                                    select ADefHelpDesk_Tasks).FirstOrDefault();
+                                                      where ADefHelpDesk_Tasks.TaskID == Convert.ToInt32(Request.QueryString["TaskID"])
+                                                      select ADefHelpDesk_Tasks).FirstOrDefault();
+
+            // Save original Assigned Group
+            int intOriginalAssignedGroup = objADefHelpDesk_Task.AssignedRoleID; 
 
             // Save Task
             objADefHelpDesk_Task.Status = ddlStatus.SelectedValue;
@@ -616,6 +619,16 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             }
 
             objADefHelpDeskDALDataContext.SubmitChanges();
+
+            // Notify Assigned Group
+            if (Convert.ToInt32(ddlAssigned.SelectedValue) > -1)
+            {
+                // Only notify if Assigned group has changed
+                if (intOriginalAssignedGroup != Convert.ToInt32(ddlAssigned.SelectedValue))
+                {
+                    NotifyAssignedGroup();                    
+                }
+            }
 
             // Insert Log
             Log.InsertLog(objADefHelpDesk_Task.TaskID, UserId, String.Format("{0} updated ticket.", UserInfo.DisplayName));
@@ -747,6 +760,31 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             btnAssociations.Font.Bold = true;
             btnAssociations.ForeColor = Color.Red;
             pnlAssociations.Visible = true;
+        }
+        #endregion
+
+        // Emails
+
+        #region NotifyAssignedGroup
+        private void NotifyAssignedGroup()
+        {
+            RoleController objRoleController = new RoleController();
+            string strAssignedRole = String.Format("{0}", objRoleController.GetRole(Convert.ToInt32(ddlAssigned.SelectedValue), PortalId).RoleName);
+
+            string strSubject = String.Format("A Help Desk Ticket #{0} at http://{1} hass been assigned to {2}", Request.QueryString["TaskID"], PortalSettings.PortalAlias.HTTPAlias, strAssignedRole);
+            string strBody = String.Format(@"A new help desk ticket #{0} has been Assigned '{1}'.", Request.QueryString["TaskID"], txtDescription.Text);
+            strBody = strBody + Environment.NewLine;
+            strBody = strBody + String.Format(@"You may see the status here: {0}", DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", Request.QueryString["TaskID"])));
+
+            // Get all users in the AssignedRole Role
+            ArrayList colAssignedRoleUsers = objRoleController.GetUsersByRoleName(PortalId, strAssignedRole);
+
+            foreach (UserInfo objUserInfo in colAssignedRoleUsers)
+            {
+                DotNetNuke.Services.Mail.Mail.SendMail(objUserInfo.Email, PortalSettings.Email, "", strSubject, strBody, "", "HTML", "", "", "", "");
+            }
+
+            Log.InsertLog(Convert.ToInt32(Request.QueryString["TaskID"]), UserId, String.Format("{0} assigned ticket to {1}.", UserInfo.DisplayName, strAssignedRole));
         }
         #endregion
 

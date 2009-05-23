@@ -165,8 +165,7 @@
                         <uc2:Comments ID="CommentsControl" runat="server" />
                     </asp:Panel>
                 </asp:Panel>
-                <asp:Panel ID="pnlWorkItems" runat="server" BorderColor="#CCCCCC" BorderStyle="Solid"
-                    BorderWidth="1px" Height="250px" ScrollBars="Vertical" Width="500px" Visible="False">
+                <asp:Panel ID="pnlWorkItems" runat="server" Visible="False">
                     WorkItems</asp:Panel>
                 <asp:Panel ID="pnlAssociations" runat="server" BorderColor="#CCCCCC" BorderStyle="Solid"
                     BorderWidth="1px" Height="250px" ScrollBars="Vertical" Width="500px" Visible="False">

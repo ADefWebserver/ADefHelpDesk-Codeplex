@@ -941,6 +941,33 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     }
 
                     DotNetNuke.Services.Mail.Mail.SendMail(PortalSettings.Email, strEmail, "", strSubject, strBody, "", "HTML", "", "", "", "");
+
+                    // If pnlAdminUserSelection is visible then this is an admin
+                    if (pnlAdminUserSelection.Visible)
+                    {
+                        // If Ticket is assigned to any group other than unassigned notify them
+                        if (Convert.ToInt32(ddlAssignedAdmin.SelectedValue) > -1)
+                        {
+                            NotifyAssignedGroup(TaskID);
+                        }
+                    }
+                    else
+                    {
+                        // This is not an Admin so Notify the Admins
+                        strSubject = String.Format("New Help Desk Ticket Created #{0} at http://{1}", TaskID, PortalSettings.PortalAlias.HTTPAlias);
+                        strBody = String.Format(@"A new help desk ticket #{0} has been created '{1}'.", TaskID, txtDescription.Text);
+                        strBody = strBody + Environment.NewLine;
+                        strBody = strBody + String.Format(@"You may see the status here: {0}", DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", TaskID)));
+                        
+                        // Get all users in the Admin Role
+                        RoleController objRoleController = new RoleController();
+                        ArrayList colAdminUsers = objRoleController.GetUsersByRoleName(PortalId, GetAdminRole());
+
+                        foreach (UserInfo objUserInfo in colAdminUsers)
+                        {
+                            DotNetNuke.Services.Mail.Mail.SendMail(objUserInfo.Email, PortalSettings.Email, "", strSubject, strBody, "", "HTML", "", "", "", "");
+                        }
+                    }
                 }
                 else
                 {
@@ -965,6 +992,29 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 Exceptions.ProcessModuleLoadException(this, ex);
             }
 
+        }
+        #endregion
+
+        #region NotifyAssignedGroup
+        private void NotifyAssignedGroup(string TaskID)
+        {
+            RoleController objRoleController = new RoleController();
+            string strAssignedRole = String.Format("{0}", objRoleController.GetRole(Convert.ToInt32(ddlAssignedAdmin.SelectedValue), PortalId).RoleName);
+
+            string strSubject = String.Format("A Help Desk Ticket #{0} at http://{1} hass been assigned to {2}", TaskID, PortalSettings.PortalAlias.HTTPAlias, strAssignedRole);
+            string strBody = String.Format(@"A new help desk ticket #{0} has been Assigned '{1}'.", TaskID, txtDescription.Text);
+            strBody = strBody + Environment.NewLine;
+            strBody = strBody + String.Format(@"You may see the status here: {0}", DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", TaskID)));
+
+            // Get all users in the AssignedRole Role
+            ArrayList colAssignedRoleUsers = objRoleController.GetUsersByRoleName(PortalId, strAssignedRole);
+
+            foreach (UserInfo objUserInfo in colAssignedRoleUsers)
+            {
+                DotNetNuke.Services.Mail.Mail.SendMail(objUserInfo.Email, PortalSettings.Email, "", strSubject, strBody, "", "HTML", "", "", "", "");
+            }
+
+            Log.InsertLog(Convert.ToInt32(TaskID), UserId, String.Format("{0} assigned ticket to {1}.", UserInfo.DisplayName, strAssignedRole));
         }
         #endregion
 
@@ -1316,6 +1366,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             {
                 RoleController objRoleController = new RoleController();
                 AssignedLabel.Text = String.Format("{0}", objRoleController.GetRole(Convert.ToInt32(AssignedLabel.Text), PortalId).RoleName);
+                AssignedLabel.ToolTip = AssignedLabel.Text;
 
                 if (AssignedLabel.Text.Length > 10)
                 {

@@ -965,7 +965,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
                         foreach (UserInfo objUserInfo in colAdminUsers)
                         {
-                            DotNetNuke.Services.Mail.Mail.SendMail(objUserInfo.Email, PortalSettings.Email, "", strSubject, strBody, "", "HTML", "", "", "", "");
+                            DotNetNuke.Services.Mail.Mail.SendMail(PortalSettings.Email, objUserInfo.Email, "", strSubject, strBody, "", "HTML", "", "", "", "");
                         }
                     }
                 }
@@ -983,7 +983,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
                     foreach (UserInfo objUserInfo in colAdminUsers)
                     {
-                        DotNetNuke.Services.Mail.Mail.SendMail(objUserInfo.Email, PortalSettings.Email, "", strSubject, strBody, "", "HTML", "", "", "", "");
+                        DotNetNuke.Services.Mail.Mail.SendMail(PortalSettings.Email, objUserInfo.Email,"", strSubject, strBody, "", "HTML", "", "", "", "");
                     }
                 }
             }
@@ -1011,7 +1011,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
             foreach (UserInfo objUserInfo in colAssignedRoleUsers)
             {
-                DotNetNuke.Services.Mail.Mail.SendMail(objUserInfo.Email, PortalSettings.Email, "", strSubject, strBody, "", "HTML", "", "", "", "");
+                DotNetNuke.Services.Mail.Mail.SendMail(PortalSettings.Email, objUserInfo.Email, "", strSubject, strBody, "", "HTML", "", "", "", "");
             }
 
             Log.InsertLog(Convert.ToInt32(TaskID), UserId, String.Format("{0} assigned ticket to {1}.", UserInfo.DisplayName, strAssignedRole));

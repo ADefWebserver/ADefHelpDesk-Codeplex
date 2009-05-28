@@ -87,6 +87,9 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             btnSave.Visible = false;
             btnComments.Visible = false;
             btnLogs.Visible = false;
+            ddlAssigned.Enabled = false;
+            ddlStatus.Enabled = false;
+            ddlPriority.Enabled = false;
         }
         #endregion
 
@@ -626,7 +629,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 // Only notify if Assigned group has changed
                 if (intOriginalAssignedGroup != Convert.ToInt32(ddlAssigned.SelectedValue))
                 {
-                    NotifyAssignedGroup();                    
+                    NotifyAssignedGroupOfAssignment();                    
                 }
             }
 
@@ -765,8 +768,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
         // Emails
 
-        #region NotifyAssignedGroup
-        private void NotifyAssignedGroup()
+        #region NotifyAssignedGroupOfAssignment
+        private void NotifyAssignedGroupOfAssignment()
         {
             RoleController objRoleController = new RoleController();
             string strAssignedRole = String.Format("{0}", objRoleController.GetRole(Convert.ToInt32(ddlAssigned.SelectedValue), PortalId).RoleName);
@@ -781,7 +784,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
             foreach (UserInfo objUserInfo in colAssignedRoleUsers)
             {
-                DotNetNuke.Services.Mail.Mail.SendMail(objUserInfo.Email, PortalSettings.Email, "", strSubject, strBody, "", "HTML", "", "", "", "");
+                DotNetNuke.Services.Mail.Mail.SendMail(PortalSettings.Email, objUserInfo.Email, "", strSubject, strBody, "", "HTML", "", "", "", "");
             }
 
             Log.InsertLog(Convert.ToInt32(Request.QueryString["TaskID"]), UserId, String.Format("{0} assigned ticket to {1}.", UserInfo.DisplayName, strAssignedRole));

@@ -161,6 +161,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     Log.InsertLog(TaskID, UserId, String.Format("{0} uploaded file '{1}'.", GetUserName(), TicketFileUpload.FileName));
                 }
 
+                NotifyAssignedGroupOfComment(strComment);
+
                 gvComments.DataBind();
             }
         }
@@ -352,8 +354,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
 
             var objADefHelpDesk_TaskDetail = (from ADefHelpDesk_TaskDetails in objADefHelpDeskDALDataContext.ADefHelpDesk_TaskDetails
-                                             where ADefHelpDesk_TaskDetails.DetailID == Convert.ToInt32(lblDetailID.Text)
-                                             select ADefHelpDesk_TaskDetails).FirstOrDefault();
+                                              where ADefHelpDesk_TaskDetails.DetailID == Convert.ToInt32(lblDetailID.Text)
+                                              select ADefHelpDesk_TaskDetails).FirstOrDefault();
 
             if (objADefHelpDesk_TaskDetail != null)
             {
@@ -396,8 +398,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
 
             var objADefHelpDesk_Attachment = (from ADefHelpDesk_Attachments in objADefHelpDeskDALDataContext.ADefHelpDesk_Attachments
-                                             where ADefHelpDesk_Attachments.AttachmentID == Convert.ToInt32(lnkFileAttachment.CommandArgument)
-                                             select ADefHelpDesk_Attachments).FirstOrDefault();
+                                              where ADefHelpDesk_Attachments.AttachmentID == Convert.ToInt32(lnkFileAttachment.CommandArgument)
+                                              select ADefHelpDesk_Attachments).FirstOrDefault();
 
             if (objADefHelpDesk_Attachment != null)
             {
@@ -482,8 +484,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
 
             var objADefHelpDesk_TaskDetail = (from ADefHelpDesk_TaskDetails in objADefHelpDeskDALDataContext.ADefHelpDesk_TaskDetails
-                                             where ADefHelpDesk_TaskDetails.DetailID == Convert.ToInt32(lblDetailID.Text)
-                                             select ADefHelpDesk_TaskDetails).FirstOrDefault();
+                                              where ADefHelpDesk_TaskDetails.DetailID == Convert.ToInt32(lblDetailID.Text)
+                                              select ADefHelpDesk_TaskDetails).FirstOrDefault();
 
             // Delete any Attachments
             if (objADefHelpDesk_TaskDetail.ADefHelpDesk_Attachments.Count > 0)
@@ -530,8 +532,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
 
             var objADefHelpDesk_TaskDetail = (from ADefHelpDesk_TaskDetails in objADefHelpDeskDALDataContext.ADefHelpDesk_TaskDetails
-                                             where ADefHelpDesk_TaskDetails.DetailID == Convert.ToInt32(lblDetailID.Text)
-                                             select ADefHelpDesk_TaskDetails).FirstOrDefault();
+                                              where ADefHelpDesk_TaskDetails.DetailID == Convert.ToInt32(lblDetailID.Text)
+                                              select ADefHelpDesk_TaskDetails).FirstOrDefault();
 
             // Delete Attachment
             if (objADefHelpDesk_TaskDetail.ADefHelpDesk_Attachments.Count > 0)
@@ -595,8 +597,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
                 // Save Task Details
                 var objADefHelpDesk_TaskDetail = (from ADefHelpDesk_TaskDetails in objADefHelpDeskDALDataContext.ADefHelpDesk_TaskDetails
-                                                 where ADefHelpDesk_TaskDetails.DetailID == Convert.ToInt32(lblDetailID.Text)
-                                                 select ADefHelpDesk_TaskDetails).FirstOrDefault();
+                                                  where ADefHelpDesk_TaskDetails.DetailID == Convert.ToInt32(lblDetailID.Text)
+                                                  select ADefHelpDesk_TaskDetails).FirstOrDefault();
 
                 if (objADefHelpDesk_TaskDetail != null)
                 {
@@ -660,6 +662,54 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
             // Insert Log
             Log.InsertLog(TaskID, UserId, String.Format("{0} uploaded file '{1}'.", GetUserName(), fuAttachment.FileName));
+        }
+        #endregion
+
+        // Emails
+
+        #region NotifyAssignedGroupOfComment
+        private void NotifyAssignedGroupOfComment(string strComment)
+        {
+            int intRole = GetAssignedRole();
+            if (intRole > -1)
+            {
+                RoleController objRoleController = new RoleController();
+                string strAssignedRole = String.Format("{0}", objRoleController.GetRole(intRole, PortalId).RoleName);
+
+                string strSubject = String.Format("Help Desk Ticket #{0} at http://{1} has been updated", Request.QueryString["TaskID"], PortalSettings.PortalAlias.HTTPAlias);
+                string strBody = String.Format(@"Help desk ticket #{0} has been updated '{1}'.", Request.QueryString["TaskID"], strComment);
+                strBody = strBody + Environment.NewLine;
+                strBody = strBody + String.Format(@"You may see the full status here: {0}", DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", Request.QueryString["TaskID"])));
+
+                // Get all users in the AssignedRole Role
+                ArrayList colAssignedRoleUsers = objRoleController.GetUsersByRoleName(PortalId, strAssignedRole);
+
+                foreach (UserInfo objUserInfo in colAssignedRoleUsers)
+                {
+                    DotNetNuke.Services.Mail.Mail.SendMail(PortalSettings.Email, objUserInfo.Email, "", strSubject, strBody, "", "HTML", "", "", "", "");
+                }
+
+                Log.InsertLog(Convert.ToInt32(Request.QueryString["TaskID"]), UserId, String.Format("{0} assigned ticket to {1}.", UserInfo.DisplayName, strAssignedRole));
+            }
+        }
+        #endregion
+
+        #region GetAssignedRole
+        private int GetAssignedRole()
+        {
+            int intRole = -1;
+
+            ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
+            var result = from ADefHelpDesk_TaskDetails in objADefHelpDeskDALDataContext.ADefHelpDesk_Tasks
+                         where ADefHelpDesk_TaskDetails.TaskID == Convert.ToInt32(Request.QueryString["TaskID"])
+                         select ADefHelpDesk_TaskDetails;
+
+            if (result != null)
+            {
+                intRole = result.FirstOrDefault().AssignedRoleID;
+            }
+
+            return intRole;
         }
         #endregion
     }

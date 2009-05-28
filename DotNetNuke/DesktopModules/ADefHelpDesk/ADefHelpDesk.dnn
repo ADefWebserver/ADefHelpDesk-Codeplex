@@ -6,7 +6,7 @@
       <foldername>ADefHelpDesk</foldername>
       <modulename>ADefHelpDesk</modulename>
       <description>http://ADefWebserver.com</description>
-      <version>01.00.00</version>
+      <version>01.10.00</version>
       <businesscontrollerclass>
       </businesscontrollerclass>
       <modules>
@@ -90,6 +90,10 @@
         <file>
           <path>images</path>
           <name>folder.png</name>
+        </file>
+        <file>
+          <path>images</path>
+          <name>GridSpacer.gif</name>
         </file>
         <file>
           <path>images</path>

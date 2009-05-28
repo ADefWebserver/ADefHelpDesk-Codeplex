@@ -161,7 +161,10 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     Log.InsertLog(TaskID, UserId, String.Format("{0} uploaded file '{1}'.", GetUserName(), TicketFileUpload.FileName));
                 }
 
-                NotifyAssignedGroupOfComment(strComment);
+                if (UserIsRequestor())
+                {
+                    NotifyAssignedGroupOfComment(strComment);
+                }
 
                 gvComments.DataBind();
             }
@@ -712,5 +715,28 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             return intRole;
         }
         #endregion
+
+        #region UserIsRequestor
+        private bool UserIsRequestor()
+        {
+            bool isRequestor = false;
+
+            ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
+            var result = from ADefHelpDesk_TaskDetails in objADefHelpDeskDALDataContext.ADefHelpDesk_Tasks
+                         where ADefHelpDesk_TaskDetails.TaskID == Convert.ToInt32(Request.QueryString["TaskID"])
+                         select ADefHelpDesk_TaskDetails;
+
+            if (result != null)
+            {
+                if (UserId == result.FirstOrDefault().RequesterUserID)
+                {
+                    isRequestor = true;
+                }
+            }
+
+            return isRequestor;
+        }
+        #endregion
+
     }
 }

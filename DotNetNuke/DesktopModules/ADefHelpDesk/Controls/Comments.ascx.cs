@@ -45,6 +45,12 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             set { ViewState["TaskID"] = value; }
         }
 
+        public int ModuleID
+        {
+            get { return Convert.ToInt32(ViewState["ModuleID"]); }
+            set { ViewState["ModuleID"] = value; }
+        }
+
         public bool ViewOnly
         {
             get { return Convert.ToBoolean(ViewState["ViewOnly"]); }
@@ -682,7 +688,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 string strSubject = String.Format("Help Desk Ticket #{0} at http://{1} has been updated", Request.QueryString["TaskID"], PortalSettings.PortalAlias.HTTPAlias);
                 string strBody = String.Format(@"Help desk ticket #{0} has been updated '{1}'.", Request.QueryString["TaskID"], strComment);
                 strBody = strBody + Environment.NewLine;
-                strBody = strBody + String.Format(@"You may see the full status here: {0}", DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", Request.QueryString["TaskID"])));
+                strBody = strBody + String.Format(@"You may see the full status here: {0}", DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleID.ToString(), String.Format(@"&TaskID={0}", Request.QueryString["TaskID"])));
 
                 // Get all users in the AssignedRole Role
                 ArrayList colAssignedRoleUsers = objRoleController.GetUsersByRoleName(PortalId, strAssignedRole);

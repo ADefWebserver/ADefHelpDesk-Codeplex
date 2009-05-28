@@ -55,6 +55,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                         DisplayCategoryTree();
                         DisplayTicketData();
                         CommentsControl.TaskID = Convert.ToInt32(lblTask.Text);
+                        CommentsControl.ModuleID = ModuleId;
                         LogsControl.TaskID = Convert.ToInt32(lblTask.Text);
 
                         // If at this point CommentsControl is in View Only mode

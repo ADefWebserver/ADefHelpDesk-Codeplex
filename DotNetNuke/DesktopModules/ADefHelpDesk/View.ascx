@@ -66,9 +66,6 @@
                                     Text="Search" />
                             </td>
                             <td nowrap="nowrap" valign="top">
-                                <asp:UpdatePanel ID="upCurrentProcessor" runat="server" 
-                                    ChildrenAsTriggers="False" UpdateMode="Conditional">
-                                    <ContentTemplate>
                                         <asp:Label ID="lblCurrentProcessorNotFound" runat="server" 
                                             Text="User is not found" Visible="False"></asp:Label>
                                         <asp:GridView ID="gvCurrentProcessor" runat="server" 
@@ -86,14 +83,7 @@
                                                 </asp:TemplateField>
                                             </Columns>
                                         </asp:GridView>
-                                    </ContentTemplate>
-                                    <Triggers>
-                                        <asp:AsyncPostBackTrigger ControlID="btnSearchUser" EventName="Click" />
-                                        <asp:AsyncPostBackTrigger ControlID="gvCurrentProcessor" 
-                                            EventName="SelectedIndexChanged" />
-                                    </Triggers>
-                                </asp:UpdatePanel>
-                            </td>
+                              </td>
                         </tr>
                     </table>
                 </asp:Panel>

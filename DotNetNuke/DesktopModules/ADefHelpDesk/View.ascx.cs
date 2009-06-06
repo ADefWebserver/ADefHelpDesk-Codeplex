@@ -119,7 +119,6 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         protected void Page_Load(object sender, EventArgs e)
         {
             cmdStartCalendar.NavigateUrl = DotNetNuke.Common.Utilities.Calendar.InvokePopupCal(txtDueDate);
-
             if (!Page.IsPostBack)
             {
                 ShowAdministratorLink();

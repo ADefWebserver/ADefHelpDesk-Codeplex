@@ -104,11 +104,32 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             pnlDisplayFile.Visible = false;
             pnlAttachFile.Visible = false;
             imgDelete.Visible = false;
+            lnkUpdateRequestor.Visible = false;
+            ImgEmailUser.Visible = false;
+            btnInsertCommentAndEmail.Visible = false;
         }
         #endregion
 
+        // Insert Comment
+
         #region btnInsertComment_Click
         protected void btnInsertComment_Click(object sender, EventArgs e)
+        {
+            InsertComment();
+        }
+        #endregion
+
+        #region btnInsertCommentAndEmail_Click
+        protected void btnInsertCommentAndEmail_Click(object sender, EventArgs e)
+        {
+            string strComment = txtComment.Text;
+            InsertComment();
+            NotifyRequestorOfComment(strComment);
+        }
+        #endregion
+
+        #region InsertComment
+        private void InsertComment()
         {
             // Validate file upload
             if (TicketFileUpload.HasFile)
@@ -175,7 +196,6 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 gvComments.DataBind();
             }
         }
-
         #endregion
 
         #region LDSComments_Selecting
@@ -373,6 +393,13 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 lblInsertDate.Text = String.Format("{0} {1}", objADefHelpDesk_TaskDetail.InsertDate.ToLongDateString(), objADefHelpDesk_TaskDetail.InsertDate.ToLongTimeString());
                 chkCommentVisibleEdit.Checked = (objADefHelpDesk_TaskDetail.DetailType == "Comment") ? false : true;
 
+                // Only set the Display of the Email to Requestor link if it is already showing
+                if (lnkUpdateRequestor.Visible)
+                {
+                    // Only Display Email to Requestor link if chkCommentVisibleEdit is checked
+                    lnkUpdateRequestor.Visible = chkCommentVisibleEdit.Checked;
+                    ImgEmailUser.Visible = chkCommentVisibleEdit.Checked;
+                }
 
                 if (objADefHelpDesk_TaskDetail.ADefHelpDesk_Attachments.Count > 0)
                 {
@@ -579,6 +606,22 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         #region lnkUpdate_Click
         protected void lnkUpdate_Click(object sender, EventArgs e)
         {
+            UpdateComment();
+        }
+        #endregion
+
+        #region lnkUpdateRequestor_Click
+        protected void lnkUpdateRequestor_Click(object sender, EventArgs e)
+        {
+            string strComment = txtDescription.Text;
+            UpdateComment();
+            NotifyRequestorOfComment(strComment);
+        }
+        #endregion
+
+        #region UpdateComment
+        private void UpdateComment()
+        {
             // Validate file upload
             if (fuAttachment.HasFile)
             {
@@ -679,27 +722,60 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         #region NotifyAssignedGroupOfComment
         private void NotifyAssignedGroupOfComment(string strComment)
         {
+            RoleController objRoleController = new RoleController();
+            string strDescription = GetDescriptionOfTicket();
+
+            // Send to Administrator Role
+            string strAssignedRole = "Administrators";
             int intRole = GetAssignedRole();
             if (intRole > -1)
             {
-                RoleController objRoleController = new RoleController();
-                string strAssignedRole = String.Format("{0}", objRoleController.GetRole(intRole, PortalId).RoleName);
-                string strLinkUrl = Utility.FixURLLink(DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", TaskID)), PortalSettings.PortalAlias.HTTPAlias);              
-                
+                strAssignedRole = String.Format("{0}", objRoleController.GetRole(intRole, PortalId).RoleName);                
+            }
+            else
+            {
+                strAssignedRole = GetAdminRole();
+            }
+
+            string strLinkUrl = Utility.FixURLLink(DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleID.ToString(), String.Format(@"&TaskID={0}", TaskID)), PortalSettings.PortalAlias.HTTPAlias);
+
+            string strSubject = String.Format("Help Desk Ticket #{0} at http://{1} has been updated", Request.QueryString["TaskID"], PortalSettings.PortalAlias.HTTPAlias);
+            string strBody = String.Format(@"Help desk ticket #{0} '{1}' has been updated.", Request.QueryString["TaskID"], strDescription);
+            strBody = strBody + Environment.NewLine + Environment.NewLine;
+            strBody = strBody + "Comments:" + Environment.NewLine;
+            strBody = strBody + strComment;
+            strBody = strBody + Environment.NewLine + Environment.NewLine;
+            strBody = strBody + String.Format(@"You may see the full status here: {0}", strLinkUrl);
+
+            // Get all users in the AssignedRole Role
+            ArrayList colAssignedRoleUsers = objRoleController.GetUsersByRoleName(PortalId, strAssignedRole);
+
+            foreach (UserInfo objUserInfo in colAssignedRoleUsers)
+            {
+                DotNetNuke.Services.Mail.Mail.SendMail(PortalSettings.Email, objUserInfo.Email, "", strSubject, strBody, "", "HTML", "", "", "", "");
+            }
+
+            Log.InsertLog(Convert.ToInt32(Request.QueryString["TaskID"]), UserId, String.Format("{0} assigned ticket to {1}.", UserInfo.DisplayName, strAssignedRole));
+        }
+        #endregion
+
+        #region NotifyRequestorOfComment
+        private void NotifyRequestorOfComment(string strComment)
+        {
+            string strEmail = GetEmailOfRequestor();
+
+            if (strEmail != "")
+            {
+                string strDescription = GetDescriptionOfTicket();
                 string strSubject = String.Format("Help Desk Ticket #{0} at http://{1} has been updated", Request.QueryString["TaskID"], PortalSettings.PortalAlias.HTTPAlias);
-                string strBody = String.Format(@"Help desk ticket #{0} has been updated '{1}'.", Request.QueryString["TaskID"], strComment);
-                strBody = strBody + Environment.NewLine;
-                strBody = strBody + String.Format(@"You may see the full status here: {0}", strLinkUrl);
+                string strBody = String.Format(@"Help desk ticket #{0} '{1}' has been updated.", Request.QueryString["TaskID"], strDescription);
+                strBody = strBody + Environment.NewLine + Environment.NewLine;
+                strBody = strBody + "Comments:" + Environment.NewLine;
+                strBody = strBody + strComment;
 
-                // Get all users in the AssignedRole Role
-                ArrayList colAssignedRoleUsers = objRoleController.GetUsersByRoleName(PortalId, strAssignedRole);
+                DotNetNuke.Services.Mail.Mail.SendMail(PortalSettings.Email, strEmail, "", strSubject, strBody, "", "HTML", "", "", "", "");
 
-                foreach (UserInfo objUserInfo in colAssignedRoleUsers)
-                {
-                    DotNetNuke.Services.Mail.Mail.SendMail(PortalSettings.Email, objUserInfo.Email, "", strSubject, strBody, "", "HTML", "", "", "", "");
-                }
-
-                Log.InsertLog(Convert.ToInt32(Request.QueryString["TaskID"]), UserId, String.Format("{0} assigned ticket to {1}.", UserInfo.DisplayName, strAssignedRole));
+                Log.InsertLog(Convert.ToInt32(Request.QueryString["TaskID"]), UserId, String.Format("Requestor at '{0}', emailed comment: {1}.", strEmail, strComment));
             }
         }
         #endregion
@@ -745,5 +821,102 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         }
         #endregion
 
+        // Visible to Requestor CheckBox
+
+        #region chkCommentVisibleEdit_CheckedChanged
+        protected void chkCommentVisibleEdit_CheckedChanged(object sender, EventArgs e)
+        {
+            // Only Display Email to Requestor link if chkCommentVisibleEdit is checked
+            lnkUpdateRequestor.Visible = chkCommentVisibleEdit.Checked;
+            ImgEmailUser.Visible = chkCommentVisibleEdit.Checked;
+        }
+        #endregion
+
+        #region chkCommentVisible_CheckedChanged
+        protected void chkCommentVisible_CheckedChanged(object sender, EventArgs e)
+        {
+            // Only Display Email link if chkCommentVisibleEdit is checked
+            btnInsertCommentAndEmail.Visible = chkCommentVisible.Checked;
+        }
+        #endregion
+
+        // Utility
+
+        #region GetEmailOfRequestor
+        private string GetEmailOfRequestor()
+        {
+            string strEmail = "";
+            int intTaskId = Convert.ToInt32(Request.QueryString["TaskID"]);
+
+            ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
+            var result = (from ADefHelpDesk_TaskDetails in objADefHelpDeskDALDataContext.ADefHelpDesk_Tasks
+                          where ADefHelpDesk_TaskDetails.TaskID == Convert.ToInt32(Request.QueryString["TaskID"])
+                          select ADefHelpDesk_TaskDetails).FirstOrDefault();
+
+            if (result != null)
+            {
+                if (result.RequesterUserID == -1)
+                {
+                    try
+                    {
+                        strEmail = result.RequesterEmail;
+                    }
+                    catch (Exception)
+                    {
+                        // User no longer exists
+                        strEmail = "";
+                    }
+                }
+                else
+                {
+                    strEmail = UserController.GetUser(PortalId, result.RequesterUserID, false).Email;
+                }
+            }
+
+            return strEmail;
+        }
+        #endregion
+
+        #region GetDescriptionOfTicket
+        private string GetDescriptionOfTicket()
+        {
+            string strDescription = "";
+            int intTaskId = Convert.ToInt32(Request.QueryString["TaskID"]);
+
+            ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
+            var result = (from ADefHelpDesk_TaskDetails in objADefHelpDeskDALDataContext.ADefHelpDesk_Tasks
+                          where ADefHelpDesk_TaskDetails.TaskID == Convert.ToInt32(Request.QueryString["TaskID"])
+                          select ADefHelpDesk_TaskDetails).FirstOrDefault();
+
+            if (result != null)
+            {
+                strDescription = result.Description;
+            }
+
+            return strDescription;
+        }
+        #endregion
+
+        #region GetAdminRole
+        private string GetAdminRole()
+        {
+            ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
+
+            List<ADefHelpDesk_Setting> colADefHelpDesk_Setting = (from ADefHelpDesk_Settings in objADefHelpDeskDALDataContext.ADefHelpDesk_Settings
+                                                                  where ADefHelpDesk_Settings.PortalID == PortalId
+                                                                  select ADefHelpDesk_Settings).ToList();
+
+            ADefHelpDesk_Setting objADefHelpDesk_Setting = colADefHelpDesk_Setting.Where(x => x.SettingName == "AdminRole").FirstOrDefault();
+
+            string strAdminRoleID = "Administrators";
+            if (objADefHelpDesk_Setting != null)
+            {
+                strAdminRoleID = objADefHelpDesk_Setting.SettingValue;
+            }
+
+            return strAdminRoleID;
+        }
+        #endregion
     }
+
 }

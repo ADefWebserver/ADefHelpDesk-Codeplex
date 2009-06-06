@@ -1,4 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Comments.ascx.cs" Inherits="ADefWebserver.Modules.ADefHelpDesk.Comments" %>
+<style type="text/css">
+    .style1
+    {
+        font-weight: bold;
+    }
+</style>
 <asp:Panel ID="pnlInsertComment" runat="server" GroupingText="Insert New Comment" Width="540px"
     Font-Size="X-Small" BorderStyle="Outset">
     <table>
@@ -6,18 +12,20 @@
             <td valign="top">
                 <asp:TextBox ID="txtComment" runat="server" Columns="50" Rows="2" TextMode="MultiLine"></asp:TextBox>
             </td>
-            <td valign="top" align="right">
+            <td valign="top" align="center">
                 <asp:CheckBox ID="chkCommentVisible" runat="server" Checked="True" Font-Size="X-Small"
-                    Text="Visible to Requestor" />
+                    Text="Visible to Requestor" AutoPostBack="True" 
+                    oncheckedchanged="chkCommentVisible_CheckedChanged" />
             </td>
         </tr>
         <tr>
-            <td colspan="2">
-                &nbsp;<span style="font-size: x-small">Attach File:</span>
-                <asp:FileUpload ID="TicketFileUpload" runat="server" />
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Button ID="btnInsertComment" runat="server" Font-Bold="True" OnClick="btnInsertComment_Click"
-                    Text="Insert Comment" />
+            <td colspan="2" nowrap="nowrap">
+                &nbsp;<span style="font-size: x-small" class="style1">Attach File:</span>
+                <asp:FileUpload ID="TicketFileUpload" runat="server" Width="190px" />
+                &nbsp;<asp:Button ID="btnInsertComment" runat="server" Font-Bold="True" OnClick="btnInsertComment_Click"
+                    Text="Insert" />
+                &nbsp;<asp:Button ID="btnInsertCommentAndEmail" runat="server" Font-Bold="True" 
+                    OnClick="btnInsertCommentAndEmail_Click" Text="Insert and Email " />
                 <br />
                 <asp:Label ID="lblError" runat="server" EnableViewState="False" ForeColor="Red"></asp:Label>
             </td>
@@ -95,7 +103,7 @@
 <asp:Panel ID="pnlEditComment" runat="server" Visible="False">
         <table>
         <tr>
-            <td valign="top">
+            <td valign="top" nowrap="nowrap">
                 <asp:Image ID="Image3" runat="server" 
                     ImageUrl="~/DesktopModules/ADefHelpDesk/images/application_side_contract.png" />
                 <asp:LinkButton ID="lnkBack" runat="server" Font-Underline="True" 
@@ -103,7 +111,10 @@
                     runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/page_add.png" />
                 <asp:LinkButton ID="lnkUpdate" runat="server" Text="Update" 
                     Font-Underline="True" onclick="lnkUpdate_Click" />
-                &nbsp;<asp:Image ID="Image5" runat="server" 
+                <asp:Image ID="ImgEmailUser" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/user_suit.png" /><asp:LinkButton 
+                    ID="lnkUpdateRequestor" runat="server" Font-Underline="True" 
+                    onclick="lnkUpdateRequestor_Click" Text="Update and Email Requestor" />
+&nbsp;<asp:Image ID="Image5" runat="server" 
                     ImageUrl="~/DesktopModules/ADefHelpDesk/images/page_delete.png" />
                 <asp:LinkButton ID="lnkDelete" runat="server" 
                     OnClientClick='if (!confirm("Are you sure you want to delete?") ){return false;}' 
@@ -111,7 +122,8 @@
             </td>
             <td valign="top" align="right">
                 <asp:CheckBox ID="chkCommentVisibleEdit" runat="server" Font-Size="X-Small" 
-                    Text="Visible to Requestor" />
+                    Text="Visible to Requestor" AutoPostBack="True" 
+                    oncheckedchanged="chkCommentVisibleEdit_CheckedChanged" />
             </td>
         </tr>
             <tr>

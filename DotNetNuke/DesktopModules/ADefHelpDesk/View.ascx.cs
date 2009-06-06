@@ -1195,7 +1195,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
             // Convert the results to a list because the query to filter the tags 
             // must be made after the preceeding query results have been pulled from the database
-            List<ExistingTasks> FinalResult = result.Distinct().ToList();            
+            List<ExistingTasks> FinalResult = result.Distinct().ToList();
 
             #region Filter Tags
             // Filter Tags
@@ -1699,7 +1699,6 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             objAssignedRolesUnassigned.AssignedRoleID = "Unassigned";
             objAssignedRolesUnassigned.Key = "-1";
             resultcolAssignedRoles.Add(objAssignedRolesUnassigned);
-
             resultcolAssignedRoles.AddRange(colAssignedRoles);
 
             e.Result = resultcolAssignedRoles;

@@ -913,7 +913,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                                                            select ADefHelpDesk_Tasks).FirstOrDefault();
 
                 string strPasswordLinkUrl = Utility.FixURLLink(DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}&TP={1}", TaskID, objADefHelpDesk_Tasks.TicketPassword)), PortalSettings.PortalAlias.HTTPAlias);
-                string strLinkUrl = Utility.FixURLLink(DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", TaskID)), PortalSettings.PortalAlias.HTTPAlias);              
+                string strLinkUrl = Utility.FixURLLink(DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", TaskID)), PortalSettings.PortalAlias.HTTPAlias);
                 string strSubject = String.Format("New Help Desk Ticket Created #{0}", TaskID);
                 string strBody = "";
 
@@ -984,7 +984,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
                     foreach (UserInfo objUserInfo in colAdminUsers)
                     {
-                        DotNetNuke.Services.Mail.Mail.SendMail(PortalSettings.Email, objUserInfo.Email,"", strSubject, strBody, "", "HTML", "", "", "", "");
+                        DotNetNuke.Services.Mail.Mail.SendMail(PortalSettings.Email, objUserInfo.Email, "", strSubject, strBody, "", "HTML", "", "", "", "");
                     }
                 }
             }
@@ -1195,69 +1195,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
             // Convert the results to a list because the query to filter the tags 
             // must be made after the preceeding query results have been pulled from the database
-            List<ExistingTasks> FinalResult = result.ToList();
-
-            #region Search for TicketID and Description
-            // Search for TicketID and Description
-            if (strSearchText.Trim().Length > 0)
-            {
-                List<ExistingTasks> colExistingTasks;
-                int intTmpTaskID;
-                bool BoolResult = Int32.TryParse(strSearchText, out intTmpTaskID);
-
-                // If not an Admin
-                if (!(UserInfo.IsInRole(GetAdminRole()) || UserInfo.IsInRole("Administrators") || UserInfo.IsSuperUser))
-                {
-                    colExistingTasks = (from ADefHelpDesk_Tasks in objADefHelpDeskDALDataContext.ADefHelpDesk_Tasks
-                                        where (ADefHelpDesk_Tasks.TaskID == intTmpTaskID ||
-                                        ADefHelpDesk_Tasks.Description.Contains(strSearchText))
-                                        where (ADefHelpDesk_Tasks.RequesterUserID == UserId ||
-                                        UsersRoleIDs.Contains(ADefHelpDesk_Tasks.AssignedRoleID))
-                                        select new ExistingTasks
-                                        {
-                                            TaskID = ADefHelpDesk_Tasks.TaskID,
-                                            Status = ADefHelpDesk_Tasks.Status,
-                                            Priority = ADefHelpDesk_Tasks.Priority,
-                                            DueDate = ADefHelpDesk_Tasks.DueDate,
-                                            CreatedDate = ADefHelpDesk_Tasks.CreatedDate,
-                                            Assigned = ADefHelpDesk_Tasks.AssignedRoleID.ToString(),
-                                            Description = ADefHelpDesk_Tasks.Description,
-                                            Requester = ADefHelpDesk_Tasks.RequesterUserID.ToString(),
-                                            RequesterName = ADefHelpDesk_Tasks.RequesterName
-                                        }).ToList();
-
-                }
-                else
-                {
-                    // An Admin
-                    colExistingTasks = (from ADefHelpDesk_Tasks in objADefHelpDeskDALDataContext.ADefHelpDesk_Tasks
-                                        where (ADefHelpDesk_Tasks.TaskID == intTmpTaskID ||
-                                        ADefHelpDesk_Tasks.Description.Contains(strSearchText))
-                                        select new ExistingTasks
-                                        {
-                                            TaskID = ADefHelpDesk_Tasks.TaskID,
-                                            Status = ADefHelpDesk_Tasks.Status,
-                                            Priority = ADefHelpDesk_Tasks.Priority,
-                                            DueDate = ADefHelpDesk_Tasks.DueDate,
-                                            CreatedDate = ADefHelpDesk_Tasks.CreatedDate,
-                                            Assigned = ADefHelpDesk_Tasks.AssignedRoleID.ToString(),
-                                            Description = ADefHelpDesk_Tasks.Description,
-                                            Requester = ADefHelpDesk_Tasks.RequesterUserID.ToString(),
-                                            RequesterName = ADefHelpDesk_Tasks.RequesterName
-                                        }).ToList();
-                }
-
-                foreach (ExistingTasks objExistingTask in colExistingTasks)
-                {
-                    // See if the TaskID is already in the final collection
-                    if (FinalResult.FindAll(x => x.TaskID == objExistingTask.TaskID).Count() == 0)
-                    {
-                        // Add it
-                        FinalResult.Add(objExistingTask);
-                    }
-                }
-            }
-            #endregion
+            List<ExistingTasks> FinalResult = result.Distinct().ToList();            
 
             #region Filter Tags
             // Filter Tags

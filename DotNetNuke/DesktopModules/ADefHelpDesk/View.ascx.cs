@@ -913,6 +913,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                                                            where ADefHelpDesk_Tasks.TaskID == Convert.ToInt32(TaskID)
                                                            select ADefHelpDesk_Tasks).FirstOrDefault();
 
+                string strPasswordLinkUrl = Utility.FixURLLink(DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}&TP={1}", TaskID, objADefHelpDesk_Tasks.TicketPassword)), PortalSettings.PortalAlias.HTTPAlias);
+                string strLinkUrl = Utility.FixURLLink(DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", TaskID)), PortalSettings.PortalAlias.HTTPAlias);              
                 string strSubject = String.Format("New Help Desk Ticket Created #{0}", TaskID);
                 string strBody = "";
 
@@ -930,7 +932,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     }
 
                     strBody = strBody + Environment.NewLine;
-                    strBody = strBody + String.Format(@"You may see the status here: {0}", DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}&TP={1}", TaskID, objADefHelpDesk_Tasks.TicketPassword)));
+                    strBody = strBody + String.Format(@"You may see the status here: {0}", strPasswordLinkUrl);
 
                     string strEmail = txtEmail.Text;
 
@@ -957,7 +959,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                         strSubject = String.Format("New Help Desk Ticket Created #{0} at http://{1}", TaskID, PortalSettings.PortalAlias.HTTPAlias);
                         strBody = String.Format(@"A new help desk ticket #{0} has been created '{1}'.", TaskID, txtDescription.Text);
                         strBody = strBody + Environment.NewLine;
-                        strBody = strBody + String.Format(@"You may see the status here: {0}", DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", TaskID)));
+                        strBody = strBody + String.Format(@"You may see the status here: {0}", strLinkUrl);
 
                         // Get all users in the Admin Role
                         RoleController objRoleController = new RoleController();
@@ -975,7 +977,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     strSubject = String.Format("New Help Desk Ticket Created #{0} at http://{1}", TaskID, PortalSettings.PortalAlias.HTTPAlias);
                     strBody = String.Format(@"A new help desk ticket #{0} has been created '{1}'.", TaskID, txtDescription.Text);
                     strBody = strBody + Environment.NewLine;
-                    strBody = strBody + String.Format(@"You may see the status here: {0}", DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", TaskID)));
+                    strBody = strBody + String.Format(@"You may see the status here: {0}", strLinkUrl);
 
                     // Get all users in the Admin Role
                     RoleController objRoleController = new RoleController();

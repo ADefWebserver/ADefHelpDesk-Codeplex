@@ -684,11 +684,12 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             {
                 RoleController objRoleController = new RoleController();
                 string strAssignedRole = String.Format("{0}", objRoleController.GetRole(intRole, PortalId).RoleName);
-
+                string strLinkUrl = Utility.FixURLLink(DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", TaskID)), PortalSettings.PortalAlias.HTTPAlias);              
+                
                 string strSubject = String.Format("Help Desk Ticket #{0} at http://{1} has been updated", Request.QueryString["TaskID"], PortalSettings.PortalAlias.HTTPAlias);
                 string strBody = String.Format(@"Help desk ticket #{0} has been updated '{1}'.", Request.QueryString["TaskID"], strComment);
                 strBody = strBody + Environment.NewLine;
-                strBody = strBody + String.Format(@"You may see the full status here: {0}", DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleID.ToString(), String.Format(@"&TaskID={0}", Request.QueryString["TaskID"])));
+                strBody = strBody + String.Format(@"You may see the full status here: {0}", strLinkUrl);
 
                 // Get all users in the AssignedRole Role
                 ArrayList colAssignedRoleUsers = objRoleController.GetUsersByRoleName(PortalId, strAssignedRole);

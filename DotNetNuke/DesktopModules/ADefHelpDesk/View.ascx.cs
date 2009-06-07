@@ -1131,68 +1131,6 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             }
             #endregion
 
-            #region Sort
-            switch (SortExpression)
-            {
-                case "TaskID":
-                case "TaskID ASC":
-                    result = result.OrderBy(p => p.TaskID);
-                    break;
-                case "TaskID DESC":
-                    result = result.OrderByDescending(p => p.TaskID);
-                    break;
-                case "Status":
-                case "Status ASC":
-                    result = result.OrderBy(p => p.Status);
-                    break;
-                case "Status DESC":
-                    result = result.OrderByDescending(p => p.Status);
-                    break;
-                case "Priority":
-                case "Priority ASC":
-                    result = result.OrderBy(p => p.Priority);
-                    break;
-                case "Priority DESC":
-                    result = result.OrderByDescending(p => p.Priority);
-                    break;
-                case "DueDate":
-                case "DueDate ASC":
-                    result = result.OrderBy(p => p.DueDate);
-                    break;
-                case "DueDate DESC":
-                    result = result.OrderByDescending(p => p.DueDate);
-                    break;
-                case "CreatedDate":
-                case "CreatedDate ASC":
-                    result = result.OrderBy(p => p.CreatedDate);
-                    break;
-                case "CreatedDate DESC":
-                    result = result.OrderByDescending(p => p.CreatedDate);
-                    break;
-                case "Assigned":
-                case "Assigned ASC":
-                    result = result.OrderBy(p => p.Assigned);
-                    break;
-                case "Assigned DESC":
-                    result = result.OrderByDescending(p => p.Assigned);
-                    break;
-                case "Description":
-                case "Description ASC":
-                    result = result.OrderBy(p => p.Description);
-                    break;
-                case "Description DESC":
-                    result = result.OrderByDescending(p => p.Description);
-                    break;
-                case "Requester":
-                case "Requester ASC":
-                    result = result.OrderBy(p => p.RequesterName);
-                    break;
-                case "Requester DESC":
-                    result = result.OrderByDescending(p => p.RequesterName);
-                    break;
-            }
-            #endregion
-
             // Convert the results to a list because the query to filter the tags 
             // must be made after the preceeding query results have been pulled from the database
             List<ExistingTasks> FinalResult = result.Distinct().ToList();
@@ -1213,6 +1151,68 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                                        where ADefHelpDesk_TaskCategories.TaskID == Categories.TaskID
                                        select ADefHelpDesk_TaskCategories.CategoryID).ToArray<int>()).Intersect(ArrIntCatagories).Count() == ArrIntCatagories.Length
                                select Categories).ToList();
+            }
+            #endregion
+
+            #region Sort
+            switch (SortExpression)
+            {
+                case "TaskID":
+                case "TaskID ASC":
+                    FinalResult = FinalResult.AsEnumerable().OrderBy(p => p.TaskID).ToList();
+                    break;
+                case "TaskID DESC":
+                    FinalResult = FinalResult.AsEnumerable().OrderByDescending(p => p.TaskID).ToList();
+                    break;
+                case "Status":
+                case "Status ASC":
+                    FinalResult = FinalResult.AsEnumerable().OrderBy(p => p.Status).ToList();
+                    break;
+                case "Status DESC":
+                    FinalResult = FinalResult.AsEnumerable().OrderByDescending(p => p.Status).ToList();
+                    break;
+                case "Priority":
+                case "Priority ASC":
+                    FinalResult = FinalResult.AsEnumerable().OrderBy(p => p.Priority).ToList();
+                    break;
+                case "Priority DESC":
+                    FinalResult = FinalResult.AsEnumerable().OrderByDescending(p => p.Priority).ToList();
+                    break;
+                case "DueDate":
+                case "DueDate ASC":
+                    FinalResult = FinalResult.AsEnumerable().OrderBy(p => p.DueDate).ToList();
+                    break;
+                case "DueDate DESC":
+                    FinalResult = FinalResult.AsEnumerable().OrderByDescending(p => p.DueDate).ToList();
+                    break;
+                case "CreatedDate":
+                case "CreatedDate ASC":
+                    FinalResult = FinalResult.AsEnumerable().OrderBy(p => p.CreatedDate).ToList();
+                    break;
+                case "CreatedDate DESC":
+                    FinalResult = FinalResult.AsEnumerable().OrderByDescending(p => p.CreatedDate).ToList();
+                    break;
+                case "Assigned":
+                case "Assigned ASC":
+                    FinalResult = FinalResult.AsEnumerable().OrderBy(p => p.Assigned).ToList();
+                    break;
+                case "Assigned DESC":
+                    FinalResult = FinalResult.AsEnumerable().OrderByDescending(p => p.Assigned).ToList();
+                    break;
+                case "Description":
+                case "Description ASC":
+                    FinalResult = FinalResult.AsEnumerable().OrderBy(p => p.Description).ToList();
+                    break;
+                case "Description DESC":
+                    FinalResult = FinalResult.AsEnumerable().OrderByDescending(p => p.Description).ToList();
+                    break;
+                case "Requester":
+                case "Requester ASC":
+                    FinalResult = FinalResult.AsEnumerable().OrderBy(p => p.RequesterName).ToList();
+                    break;
+                case "Requester DESC":
+                    FinalResult = FinalResult.AsEnumerable().OrderByDescending(p => p.RequesterName).ToList();
+                    break;
             }
             #endregion
 

@@ -775,7 +775,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
                 DotNetNuke.Services.Mail.Mail.SendMail(PortalSettings.Email, strEmail, "", strSubject, strBody, "", "HTML", "", "", "", "");
 
-                Log.InsertLog(Convert.ToInt32(Request.QueryString["TaskID"]), UserId, String.Format("Requestor at '{0}', emailed comment: {1}.", strEmail, strComment));
+                Log.InsertLog(Convert.ToInt32(Request.QueryString["TaskID"]), UserId, String.Format("Requestor at '{0}', was emailed comment: {1}.", strEmail, strComment));
             }
         }
         #endregion

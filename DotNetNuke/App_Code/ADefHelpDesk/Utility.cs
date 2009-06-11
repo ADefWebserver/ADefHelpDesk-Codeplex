@@ -36,7 +36,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             string strFixedURL = strURL;
 
             // If http is not present add it
-            if (!strFixedURL.Contains("http://"))
+            if ((!strFixedURL.Contains("http://")) & (!strFixedURL.Contains("https://")))
             {
                 strFixedURL = String.Format("http://{0}", strHTTPAlias) + strFixedURL;
             }

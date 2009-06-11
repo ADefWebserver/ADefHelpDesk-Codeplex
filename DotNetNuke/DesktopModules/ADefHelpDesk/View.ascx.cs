@@ -1262,7 +1262,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             if (objExistingTasks.DueDate != null)
             {
                 DueDateLabel.Text = objExistingTasks.DueDate.Value.ToShortDateString();
-                if (objExistingTasks.DueDate < DateTime.Now)
+                if ((objExistingTasks.DueDate < DateTime.Now) & (StatusLabel.Text == "New" || StatusLabel.Text == "Active" || StatusLabel.Text == "On Hold"))
                 {
                     DueDateLabel.BackColor = System.Drawing.Color.Yellow;
                 }

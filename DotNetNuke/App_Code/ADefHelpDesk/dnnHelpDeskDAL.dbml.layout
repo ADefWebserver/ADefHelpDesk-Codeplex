@@ -92,16 +92,16 @@
         <classShapeMoniker Id="01b4d4a1-bb1d-4222-bd81-38548294090e" />
       </nodes>
     </associationConnector>
-    <classShape Id="a5df2869-c9c6-48f8-9a0a-bd0bde67cdf7" absoluteBounds="6.125, 6.125, 2, 2.7324039713541666">
-      <DataClassMoniker Name="/ADefHelpDeskDALDataContext/ADefHelpDesk_LastSearch" />
-      <nestedChildShapes>
-        <elementListCompartment Id="bcc5a49a-9b12-487d-9307-16adb928ccd0" absoluteBounds="6.14, 6.5850000000000009, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="da3c7f68-fdf1-488f-96ea-00528e26c166" absoluteBounds="6.125, 9.125, 2, 1.3862939453125">
       <DataClassMoniker Name="/ADefHelpDeskDALDataContext/ADefHelpDesk_Role" />
       <nestedChildShapes>
         <elementListCompartment Id="6f42d9ab-92ae-4c60-a51a-ef0d57ebe590" absoluteBounds="6.14, 9.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="13329265-30e3-459d-b35a-ac0c59f16a38" absoluteBounds="6.125, 6, 2, 2.9247054036458331">
+      <DataClassMoniker Name="/ADefHelpDeskDALDataContext/ADefHelpDesk_LastSearch" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f7641c85-090d-4316-ad2e-b2ef6a479801" absoluteBounds="6.14, 6.46, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

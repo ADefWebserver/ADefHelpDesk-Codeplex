@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Database Name="DotNetNukeDev" EntityNamespace="ADefWebserver.Modules.ADefHelpDesk" ContextNamespace="ADefWebserver.Modules.ADefHelpDesk" Class="ADefHelpDeskDALDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=(local);Initial Catalog=DotNetNukeDev;User ID=dotnet" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SiteSqlServer" Provider="System.Data.SqlClient" />
+<Database Name="ADefHelpDesk" EntityNamespace="ADefWebserver.Modules.ADefHelpDesk" ContextNamespace="ADefWebserver.Modules.ADefHelpDesk" Class="ADefHelpDeskDALDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(local);Initial Catalog=ADefHelpDesk;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SiteSqlServer" Provider="System.Data.SqlClient" />
   <Table Name="dbo.ADefHelpDesk_Log" Member="ADefHelpDesk_Logs">
     <Type Name="ADefHelpDesk_Log">
       <Column Name="LogID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -97,6 +97,13 @@
       <Association Name="ADefHelpDesk_Task_ADefHelpDesk_TaskDetail" Member="ADefHelpDesk_TaskDetails" ThisKey="TaskID" OtherKey="TaskID" Type="ADefHelpDesk_TaskDetail" />
     </Type>
   </Table>
+  <Table Name="dbo.ADefHelpDesk_Roles" Member="ADefHelpDesk_Roles">
+    <Type Name="ADefHelpDesk_Role">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PortalID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Table Name="dbo.ADefHelpDesk_LastSearch" Member="ADefHelpDesk_LastSearches">
     <Type Name="ADefHelpDesk_LastSearch">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -109,13 +116,7 @@
       <Column Name="DueDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="AssignedRoleID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Categories" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ADefHelpDesk_Roles" Member="ADefHelpDesk_Roles">
-    <Type Name="ADefHelpDesk_Role">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="PortalID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CurrentPage" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

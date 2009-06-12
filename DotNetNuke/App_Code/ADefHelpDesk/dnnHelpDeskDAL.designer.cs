@@ -22,7 +22,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 	using System;
 	
 	
-	[System.Data.Linq.Mapping.DatabaseAttribute(Name="DotNetNukeDev")]
+	[System.Data.Linq.Mapping.DatabaseAttribute(Name="ADefHelpDesk")]
 	public partial class ADefHelpDeskDALDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -54,12 +54,12 @@ namespace ADefWebserver.Modules.ADefHelpDesk
     partial void InsertADefHelpDesk_Task(ADefHelpDesk_Task instance);
     partial void UpdateADefHelpDesk_Task(ADefHelpDesk_Task instance);
     partial void DeleteADefHelpDesk_Task(ADefHelpDesk_Task instance);
-    partial void InsertADefHelpDesk_LastSearch(ADefHelpDesk_LastSearch instance);
-    partial void UpdateADefHelpDesk_LastSearch(ADefHelpDesk_LastSearch instance);
-    partial void DeleteADefHelpDesk_LastSearch(ADefHelpDesk_LastSearch instance);
     partial void InsertADefHelpDesk_Role(ADefHelpDesk_Role instance);
     partial void UpdateADefHelpDesk_Role(ADefHelpDesk_Role instance);
     partial void DeleteADefHelpDesk_Role(ADefHelpDesk_Role instance);
+    partial void InsertADefHelpDesk_LastSearch(ADefHelpDesk_LastSearch instance);
+    partial void UpdateADefHelpDesk_LastSearch(ADefHelpDesk_LastSearch instance);
+    partial void DeleteADefHelpDesk_LastSearch(ADefHelpDesk_LastSearch instance);
     #endregion
 		
 		public ADefHelpDeskDALDataContext() : 
@@ -156,19 +156,19 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 			}
 		}
 		
-		public System.Data.Linq.Table<ADefHelpDesk_LastSearch> ADefHelpDesk_LastSearches
-		{
-			get
-			{
-				return this.GetTable<ADefHelpDesk_LastSearch>();
-			}
-		}
-		
 		public System.Data.Linq.Table<ADefHelpDesk_Role> ADefHelpDesk_Roles
 		{
 			get
 			{
 				return this.GetTable<ADefHelpDesk_Role>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ADefHelpDesk_LastSearch> ADefHelpDesk_LastSearches
+		{
+			get
+			{
+				return this.GetTable<ADefHelpDesk_LastSearch>();
 			}
 		}
 	}
@@ -2139,6 +2139,116 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 		}
 	}
 	
+	[Table(Name="dbo.ADefHelpDesk_Roles")]
+	public partial class ADefHelpDesk_Role : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private int _PortalID;
+		
+		private int _RoleID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnPortalIDChanging(int value);
+    partial void OnPortalIDChanged();
+    partial void OnRoleIDChanging(int value);
+    partial void OnRoleIDChanged();
+    #endregion
+		
+		public ADefHelpDesk_Role()
+		{
+			OnCreated();
+		}
+		
+		[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_PortalID", DbType="Int NOT NULL")]
+		public int PortalID
+		{
+			get
+			{
+				return this._PortalID;
+			}
+			set
+			{
+				if ((this._PortalID != value))
+				{
+					this.OnPortalIDChanging(value);
+					this.SendPropertyChanging();
+					this._PortalID = value;
+					this.SendPropertyChanged("PortalID");
+					this.OnPortalIDChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_RoleID", DbType="Int NOT NULL")]
+		public int RoleID
+		{
+			get
+			{
+				return this._RoleID;
+			}
+			set
+			{
+				if ((this._RoleID != value))
+				{
+					this.OnRoleIDChanging(value);
+					this.SendPropertyChanging();
+					this._RoleID = value;
+					this.SendPropertyChanged("RoleID");
+					this.OnRoleIDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[Table(Name="dbo.ADefHelpDesk_LastSearch")]
 	public partial class ADefHelpDesk_LastSearch : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2165,6 +2275,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 		
 		private string _Categories;
 		
+		private System.Nullable<int> _CurrentPage;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2189,6 +2301,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
     partial void OnAssignedRoleIDChanged();
     partial void OnCategoriesChanging(string value);
     partial void OnCategoriesChanged();
+    partial void OnCurrentPageChanging(System.Nullable<int> value);
+    partial void OnCurrentPageChanged();
     #endregion
 		
 		public ADefHelpDesk_LastSearch()
@@ -2396,112 +2510,22 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 			}
 		}
 		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[Table(Name="dbo.ADefHelpDesk_Roles")]
-	public partial class ADefHelpDesk_Role : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private int _PortalID;
-		
-		private int _RoleID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnPortalIDChanging(int value);
-    partial void OnPortalIDChanged();
-    partial void OnRoleIDChanging(int value);
-    partial void OnRoleIDChanged();
-    #endregion
-		
-		public ADefHelpDesk_Role()
-		{
-			OnCreated();
-		}
-		
-		[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
+		[Column(Storage="_CurrentPage", DbType="Int")]
+		public System.Nullable<int> CurrentPage
 		{
 			get
 			{
-				return this._ID;
+				return this._CurrentPage;
 			}
 			set
 			{
-				if ((this._ID != value))
+				if ((this._CurrentPage != value))
 				{
-					this.OnIDChanging(value);
+					this.OnCurrentPageChanging(value);
 					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_PortalID", DbType="Int NOT NULL")]
-		public int PortalID
-		{
-			get
-			{
-				return this._PortalID;
-			}
-			set
-			{
-				if ((this._PortalID != value))
-				{
-					this.OnPortalIDChanging(value);
-					this.SendPropertyChanging();
-					this._PortalID = value;
-					this.SendPropertyChanged("PortalID");
-					this.OnPortalIDChanged();
-				}
-			}
-		}
-		
-		[Column(Storage="_RoleID", DbType="Int NOT NULL")]
-		public int RoleID
-		{
-			get
-			{
-				return this._RoleID;
-			}
-			set
-			{
-				if ((this._RoleID != value))
-				{
-					this.OnRoleIDChanging(value);
-					this.SendPropertyChanging();
-					this._RoleID = value;
-					this.SendPropertyChanged("RoleID");
-					this.OnRoleIDChanged();
+					this._CurrentPage = value;
+					this.SendPropertyChanged("CurrentPage");
+					this.OnCurrentPageChanged();
 				}
 			}
 		}

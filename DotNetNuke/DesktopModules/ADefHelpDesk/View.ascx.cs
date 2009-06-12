@@ -195,6 +195,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             objADefHelpDesk_LastSearch.DueDate = UpdateADefHelpDesk_LastSearch.DueDate;
             objADefHelpDesk_LastSearch.Priority = UpdateADefHelpDesk_LastSearch.Priority;
             objADefHelpDesk_LastSearch.Status = UpdateADefHelpDesk_LastSearch.Status;
+            objADefHelpDesk_LastSearch.CurrentPage = UpdateADefHelpDesk_LastSearch.CurrentPage;
 
             objADefHelpDeskDALDataContext.SubmitChanges();
         }
@@ -234,7 +235,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 pnlAdminUserSelection.Visible = true;
                 pnlAdminTicketStatus.Visible = true;
 
-                // Load the Roled dropdown
+                // Load the Roles dropdown
                 LoadRolesDropDown();
 
                 // Display default Admin view
@@ -293,7 +294,6 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             UnassignedRoleListItem.Text = "Unassigned";
             UnassignedRoleListItem.Value = "-1";
             ddlAssignedAdmin.Items.Add(UnassignedRoleListItem);
-
         }
         #endregion
 
@@ -440,6 +440,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             ExistingADefHelpDesk_LastSearch.DueDate = null;
             ExistingADefHelpDesk_LastSearch.Priority = null;
             ExistingADefHelpDesk_LastSearch.Status = null;
+            ExistingADefHelpDesk_LastSearch.CurrentPage = 1;
             SaveLastSearchCriteria(ExistingADefHelpDesk_LastSearch);
 
             Response.Redirect(DotNetNuke.Common.Globals.NavigateURL(), true);
@@ -1216,11 +1217,63 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             }
             #endregion
 
-            lvTasks.DataSource = FinalResult.Take(1000);
+            #region Paging
+            int intPageSize = 25;
+            int intCurrentPage = (Convert.ToInt32(objLastSearch.CurrentPage) == 0) ? 1 : Convert.ToInt32(objLastSearch.CurrentPage);
+
+            //Paging
+            int intPages = 0;
+            int intRecords = FinalResult.Count();
+            if ((intRecords > 0) & (intRecords > intPageSize))
+            {
+                intPages = (intRecords / intPageSize);
+
+                // If there are more records add 1 to page count
+                if (intRecords % intPageSize > 0)
+                {
+                    intPages += 1;
+                }
+
+                // Show and hide buttons
+                lnkPrevious.Visible = (intCurrentPage > 1);
+                lnkNext.Visible = (intCurrentPage != intPages);
+
+                lblRecords.Text = String.Format("{0} of {1}", intCurrentPage.ToString(), intPages.ToString());
+            } 
+            #endregion
+
+            // If the current page is greater than the number of pages
+            // reset to page one and save 
+            if (intCurrentPage > intPages)
+            {
+                intCurrentPage = 1;
+                ADefHelpDesk_LastSearch objADefHelpDesk_LastSearch = GetLastSearchCriteria();
+                objADefHelpDesk_LastSearch.CurrentPage = intCurrentPage;
+                SaveLastSearchCriteria(objADefHelpDesk_LastSearch);
+
+                lnkPrevious.Visible = true;
+            }
+
+            // Display Records
+            lvTasks.DataSource = FinalResult.Skip((intCurrentPage - 1) * intPageSize).Take(intPageSize);
             lvTasks.DataBind();
 
-            lbl1000Records.Visible = (FinalResult.Count() > 1000);
+            // Display paging panel
+            pnlPaging.Visible = (intPages > 1);
         }
+        #endregion  
+      
+        #region GetCurrentPage
+        private int GetCurrentPage()
+        {
+            int intCurrentPage;
+            if (int.TryParse(txtCurrentPage.Text, out intCurrentPage) == false)
+            {
+                intCurrentPage = 1;
+            }
+
+            return intCurrentPage;
+        } 
         #endregion
 
         #region ConvertStringToInt
@@ -1484,6 +1537,9 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     objADefHelpDesk_LastSearch.Categories = strCategories;
                 }
 
+                // Current Page
+                objADefHelpDesk_LastSearch.CurrentPage = GetCurrentPage();
+
                 // Save Search Criteria
                 SaveLastSearchCriteria(objADefHelpDesk_LastSearch);
                 // Execute Search
@@ -1518,9 +1574,9 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     txtSearch = (TextBox)EmptyDataTemplateTable.FindControl("txtSearch");
                     ddlStatus = (DropDownList)EmptyDataTemplateTable.FindControl("ddlStatus");
                     ddlPriority = (DropDownList)EmptyDataTemplateTable.FindControl("ddlPriority");
-                    ddlAssigned = (DropDownList)EmptyDataTemplateTable.FindControl("ddlAssigned");
                     txtDue = (TextBox)EmptyDataTemplateTable.FindControl("txtDue");
                     txtCreated = (TextBox)EmptyDataTemplateTable.FindControl("txtCreated");
+                    ddlAssigned = (DropDownList)EmptyDataTemplateTable.FindControl("ddlAssigned");
                 }
                 else
                 {
@@ -1528,9 +1584,9 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     txtSearch = (TextBox)lvTasks.FindControl("txtSearch");
                     ddlStatus = (DropDownList)lvTasks.FindControl("ddlStatus");
                     ddlPriority = (DropDownList)lvTasks.FindControl("ddlPriority");
-                    ddlAssigned = (DropDownList)lvTasks.FindControl("ddlAssigned");
                     txtDue = (TextBox)lvTasks.FindControl("txtDue");
                     txtCreated = (TextBox)lvTasks.FindControl("txtCreated");
+                    ddlAssigned = (DropDownList)lvTasks.FindControl("ddlAssigned");
                 }
 
                 ADefHelpDesk_LastSearch objADefHelpDesk_LastSearch = (ADefHelpDesk_LastSearch)SearchCriteria;
@@ -1550,23 +1606,6 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     ddlPriority.SelectedValue = objADefHelpDesk_LastSearch.Priority;
                 }
 
-                if (objADefHelpDesk_LastSearch.AssignedRoleID != null)
-                {
-                    // Ensure that the item exists
-                    ListItem AssignedRoleListItem = ddlAssigned.Items.FindByValue(objADefHelpDesk_LastSearch.AssignedRoleID.ToString());
-                    if (AssignedRoleListItem != null)
-                    {
-                        ddlAssigned.SelectedValue = objADefHelpDesk_LastSearch.AssignedRoleID.ToString();
-                    }
-                    else
-                    {
-                        // The item in the search is no longer valid
-                        ADefHelpDesk_LastSearch ExistingADefHelpDesk_LastSearch = GetLastSearchCriteria();
-                        ExistingADefHelpDesk_LastSearch.AssignedRoleID = null;
-                        SaveLastSearchCriteria(ExistingADefHelpDesk_LastSearch);
-                    }
-                }
-
                 if (objADefHelpDesk_LastSearch.DueDate != null)
                 {
                     txtDue.Text = objADefHelpDesk_LastSearch.DueDate.Value.AddDays(1).ToShortDateString();
@@ -1576,6 +1615,77 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 {
                     txtCreated.Text = objADefHelpDesk_LastSearch.CreatedDate.Value.AddDays(1).ToShortDateString();
                 }
+
+                // Load Dropdown
+                ddlAssigned.Items.Clear();
+
+                RoleController objRoleController = new RoleController();
+                ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
+
+                List<ADefHelpDesk_Role> colADefHelpDesk_Roles = (from ADefHelpDesk_Roles in objADefHelpDeskDALDataContext.ADefHelpDesk_Roles
+                                                                 where ADefHelpDesk_Roles.PortalID == PortalId
+                                                                 select ADefHelpDesk_Roles).ToList();
+
+                // Create a ListItemCollection to hold the Roles 
+                ListItemCollection colListItemCollection = new ListItemCollection();
+
+                // Add All
+                ListItem AllRoleListItem = new ListItem();
+                AllRoleListItem.Text = "*All*";
+                AllRoleListItem.Value = "-2";
+                if (objADefHelpDesk_LastSearch.AssignedRoleID != null)
+                {
+                    if (objADefHelpDesk_LastSearch.AssignedRoleID == -2)
+                    {
+                        AllRoleListItem.Selected = true;
+                    }
+                }
+                ddlAssigned.Items.Add(AllRoleListItem);
+
+                // Add the Roles to the List
+                foreach (ADefHelpDesk_Role objADefHelpDesk_Role in colADefHelpDesk_Roles)
+                {
+                    try
+                    {
+                        RoleInfo objRoleInfo = objRoleController.GetRole(Convert.ToInt32(objADefHelpDesk_Role.RoleID), PortalId);
+
+                        ListItem RoleListItem = new ListItem();
+                        RoleListItem.Text = objRoleInfo.RoleName;
+                        RoleListItem.Value = objADefHelpDesk_Role.RoleID.ToString();
+
+                        if (objADefHelpDesk_LastSearch.AssignedRoleID != null)
+                        {
+                            if (objADefHelpDesk_Role.RoleID == objADefHelpDesk_LastSearch.AssignedRoleID)
+                            {
+                                RoleListItem.Selected = true;
+                            }
+                        }
+
+                        ddlAssigned.Items.Add(RoleListItem);
+                    }
+                    catch
+                    {
+                        // Role no longer exists in Portal
+                        ListItem RoleListItem = new ListItem();
+                        RoleListItem.Text = "[Deleted Role]";
+                        RoleListItem.Value = objADefHelpDesk_Role.RoleID.ToString();
+                        ddlAssigned.Items.Add(RoleListItem);
+                    }
+                }
+
+                // Add UnAssigned
+                ListItem UnassignedRoleListItem = new ListItem();
+                UnassignedRoleListItem.Text = "Unassigned";
+                UnassignedRoleListItem.Value = "-1";
+                if (objADefHelpDesk_LastSearch.AssignedRoleID != null)
+                {
+                    if (objADefHelpDesk_LastSearch.AssignedRoleID == -1)
+                    {
+                        UnassignedRoleListItem.Selected = true;
+                    }
+                }
+                ddlAssigned.Items.Add(UnassignedRoleListItem);
+
             }
         }
         #endregion
@@ -1639,6 +1749,9 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             {
                 objADefHelpDesk_LastSearch.Categories = strCategories;
             }
+
+            // Current Page
+            objADefHelpDesk_LastSearch.CurrentPage = GetCurrentPage();
 
             return objADefHelpDesk_LastSearch;
         }
@@ -1719,5 +1832,31 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         }
         #endregion
 
-    }
+        // Paging
+
+        #region lnkNext_Click
+        protected void lnkNext_Click(object sender, EventArgs e)
+        {
+            ADefHelpDesk_LastSearch objADefHelpDesk_LastSearch = GetLastSearchCriteria();
+            int intCurrentPage = Convert.ToInt32(objADefHelpDesk_LastSearch.CurrentPage ?? 1);
+            intCurrentPage++;
+            objADefHelpDesk_LastSearch.CurrentPage = intCurrentPage;
+            SaveLastSearchCriteria(objADefHelpDesk_LastSearch);
+            DisplayExistingTickets(SearchCriteria);
+        } 
+        #endregion
+
+        #region lnkPrevious_Click
+        protected void lnkPrevious_Click(object sender, EventArgs e)
+        {
+            ADefHelpDesk_LastSearch objADefHelpDesk_LastSearch = GetLastSearchCriteria();
+            int intCurrentPage = Convert.ToInt32(objADefHelpDesk_LastSearch.CurrentPage ?? 2);
+            intCurrentPage--;
+            objADefHelpDesk_LastSearch.CurrentPage = intCurrentPage;
+            SaveLastSearchCriteria(objADefHelpDesk_LastSearch);
+            DisplayExistingTickets(SearchCriteria);
+        } 
+        #endregion
+
+}
 }

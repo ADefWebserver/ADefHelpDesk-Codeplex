@@ -308,7 +308,7 @@
                                     <asp:TextBox ID="txtCreated" runat="server" Width="70" />
                                 </th>
                                 <th id="Th6" runat="server" nowrap="nowrap">
-                                    <asp:DropDownList ID="ddlAssigned" runat="server" Width="70" DataSourceID="LDSAssignedRoleID" DataTextField="AssignedRoleID" DataValueField="Key" />
+                                    <asp:DropDownList ID="ddlAssigned" runat="server" Width="90" DataTextField="AssignedRoleID" DataValueField="Key" />
                                 </th>
                                 <th id="Th7" runat="server" nowrap="nowrap" colspan="2">
                                     <asp:TextBox ID="txtSearch" runat="server" Width="200" />
@@ -395,7 +395,7 @@
                                                 <asp:TextBox ID="txtCreated" runat="server" Width="70" />
                                             </th>
                                             <th id="Th6" runat="server" nowrap="nowrap">
-                                                <asp:DropDownList ID="ddlAssigned" runat="server" Width="70" DataSourceID="LDSAssignedRoleID" DataTextField="AssignedRoleID" DataValueField="Key" />
+                                                <asp:DropDownList ID="ddlAssigned" runat="server" Width="90" DataTextField="AssignedRoleID" DataValueField="Key" />
                                             </th>
                                             <th id="Th7" runat="server" nowrap="nowrap" colspan="2">
                                                 <asp:TextBox ID="txtSearch" runat="server" Width="200" />
@@ -467,8 +467,13 @@
                         </table>
                     </LayoutTemplate>
                 </asp:ListView>
-                <asp:Label ID="lbl1000Records" runat="server" Font-Italic="True" Text="Only showing first 1000 records"
-                    Visible="False"></asp:Label>
+                <asp:Panel ID="pnlPaging" runat="server">
+                    <asp:LinkButton ID="lnkPrevious" runat="server" onclick="lnkPrevious_Click">&lt;</asp:LinkButton>
+                    &nbsp;<asp:Label ID="lblRecords" runat="server"></asp:Label>
+                    &nbsp;<asp:LinkButton ID="lnkNext" runat="server" onclick="lnkNext_Click">&gt;</asp:LinkButton>
+                    <asp:TextBox ID="txtCurrentPage" runat="server" Columns="1" Visible="False"></asp:TextBox>
+                </asp:Panel>
+                <br />
             </td>
             <td valign="top" nowrap="nowrap">
                 <asp:Image ID="Image2" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/tag_blue.png" />
@@ -494,8 +499,5 @@
         </tr>
     </table>
 </asp:Panel>
-<asp:LinqDataSource ID="LDSAssignedRoleID" runat="server" 
- onselecting="LDSAssignedRoleID_Selecting">
-</asp:LinqDataSource>
 
 

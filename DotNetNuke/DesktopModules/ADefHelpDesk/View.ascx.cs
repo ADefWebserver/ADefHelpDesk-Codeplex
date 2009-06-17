@@ -1357,7 +1357,14 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             if (AssignedLabel.Text != "-1")
             {
                 RoleController objRoleController = new RoleController();
-                AssignedLabel.Text = String.Format("{0}", objRoleController.GetRole(Convert.ToInt32(AssignedLabel.Text), PortalId).RoleName);
+                try
+                {
+                    AssignedLabel.Text = String.Format("{0}", objRoleController.GetRole(Convert.ToInt32(AssignedLabel.Text), PortalId).RoleName);
+                }
+                catch 
+                {
+                    AssignedLabel.Text = "(Role Deleted)";
+                } 
                 AssignedLabel.ToolTip = AssignedLabel.Text;
 
                 if (AssignedLabel.Text.Length > 10)

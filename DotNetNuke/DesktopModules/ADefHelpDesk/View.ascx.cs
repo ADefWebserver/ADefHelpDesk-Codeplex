@@ -1121,12 +1121,13 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             if (strSearchText.Trim().Length > 0)
             {
                 result = (from Search in result
-                          from ADefHelpDesk_TaskDetails in objADefHelpDeskDALDataContext.ADefHelpDesk_TaskDetails
-                          where Search.TaskID == ADefHelpDesk_TaskDetails.TaskID
+                          join details in objADefHelpDeskDALDataContext.ADefHelpDesk_TaskDetails
+                          on Search.TaskID equals details.TaskID into joined
+                          from leftjoin in joined.DefaultIfEmpty()
                           where Search.Description.Contains(strSearchText) ||
                           Search.RequesterName.Contains(strSearchText) ||
                           Search.TaskID.ToString().Contains(strSearchText) ||
-                          ADefHelpDesk_TaskDetails.Description.Contains(strSearchText)
+                          leftjoin.Description.Contains(strSearchText)
                           select Search).Distinct();
 
             }

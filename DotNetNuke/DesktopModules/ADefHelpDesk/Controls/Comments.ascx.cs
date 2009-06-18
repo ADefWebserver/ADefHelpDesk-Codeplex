@@ -66,10 +66,51 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
                 if (ViewOnly)
                 {
-                    SetViewOnlyMode();
+                    SetViewOnlyMode();                    
                 }
+
+                ShowFileUpload();
             }
         }
+
+        #region ShowFileUpload
+        private void ShowFileUpload()
+        {
+            string strAdminRoleID = GetAdminRole();
+            if (!(UserInfo.IsInRole(strAdminRoleID) || UserInfo.IsInRole("Administrators") || UserInfo.IsSuperUser))
+            {
+                string strUploadPermission = GetUploadPermission();
+
+                // Only supress Upload if permission is not set to All              
+                if (strUploadPermission != "All")
+                {
+                    // Is user Logged in?
+                    if (UserId > -1)
+                    {
+                        #region if (strUploadPermission != "Administrator/Registered Users")
+                        // Only check this if security is set to "Administrator/Registered Users"
+                        if (strUploadPermission != "Administrator/Registered Users")
+                        {
+                            // If User is not an Administrator so they cannot see upload
+                            lblAttachFile1.Visible = false;
+                            TicketFileUpload.Visible = false;
+                            lblAttachFile2.Visible = false;
+                            fuAttachment.Visible = false;
+                        }
+                        #endregion
+                    }
+                    else
+                    {
+                        // If User is not logged in they cannot see upload
+                        lblAttachFile1.Visible = false;
+                        TicketFileUpload.Visible = false;
+                        lblAttachFile2.Visible = false;
+                        fuAttachment.Visible = false;
+                    }
+                }
+            }
+        } 
+        #endregion
 
         #region SetView
         public void SetView(string ViewMode)
@@ -897,6 +938,71 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         }
         #endregion
 
+        #region GetSettings
+        private List<ADefHelpDesk_Setting> GetSettings()
+        {
+            // Get Settings
+            ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
+
+            List<ADefHelpDesk_Setting> colADefHelpDesk_Setting = (from ADefHelpDesk_Settings in objADefHelpDeskDALDataContext.ADefHelpDesk_Settings
+                                                                  where ADefHelpDesk_Settings.PortalID == PortalId
+                                                                  select ADefHelpDesk_Settings).ToList();
+
+            if (colADefHelpDesk_Setting.Count == 0)
+            {
+                // Create Default vaules
+                ADefHelpDesk_Setting objADefHelpDesk_Setting1 = new ADefHelpDesk_Setting();
+
+                objADefHelpDesk_Setting1.PortalID = PortalId;
+                objADefHelpDesk_Setting1.SettingName = "AdminRole";
+                objADefHelpDesk_Setting1.SettingValue = "Administrators";
+
+                objADefHelpDeskDALDataContext.ADefHelpDesk_Settings.InsertOnSubmit(objADefHelpDesk_Setting1);
+                objADefHelpDeskDALDataContext.SubmitChanges();
+
+                ADefHelpDesk_Setting objADefHelpDesk_Setting2 = new ADefHelpDesk_Setting();
+
+                objADefHelpDesk_Setting2.PortalID = PortalId;
+                objADefHelpDesk_Setting2.SettingName = "UploadefFilesPath";
+                objADefHelpDesk_Setting2.SettingValue = Server.MapPath("~/DesktopModules/ADefHelpDesk/Upload");
+
+                objADefHelpDeskDALDataContext.ADefHelpDesk_Settings.InsertOnSubmit(objADefHelpDesk_Setting2);
+                objADefHelpDeskDALDataContext.SubmitChanges();
+
+                colADefHelpDesk_Setting = (from ADefHelpDesk_Settings in objADefHelpDeskDALDataContext.ADefHelpDesk_Settings
+                                           where ADefHelpDesk_Settings.PortalID == PortalId
+                                           select ADefHelpDesk_Settings).ToList();
+            }
+
+            // Upload Permission
+            ADefHelpDesk_Setting UploadPermissionADefHelpDesk_Setting = (from ADefHelpDesk_Settings in objADefHelpDeskDALDataContext.ADefHelpDesk_Settings
+                                                                         where ADefHelpDesk_Settings.PortalID == PortalId
+                                                                         where ADefHelpDesk_Settings.SettingName == "UploadPermission"
+                                                                         select ADefHelpDesk_Settings).FirstOrDefault();
+
+            if (UploadPermissionADefHelpDesk_Setting != null)
+            {
+                // Add to collection
+                colADefHelpDesk_Setting.Add(UploadPermissionADefHelpDesk_Setting);
+            }
+            else
+            {
+                // Add Default value
+                ADefHelpDesk_Setting objADefHelpDesk_Setting = new ADefHelpDesk_Setting();
+                objADefHelpDesk_Setting.SettingName = "UploadPermission";
+                objADefHelpDesk_Setting.SettingValue = "All";
+                objADefHelpDesk_Setting.PortalID = PortalId;
+                objADefHelpDeskDALDataContext.ADefHelpDesk_Settings.InsertOnSubmit(objADefHelpDesk_Setting);
+                objADefHelpDeskDALDataContext.SubmitChanges();
+
+                // Add to collection
+                colADefHelpDesk_Setting.Add(objADefHelpDesk_Setting);
+            }
+
+            return colADefHelpDesk_Setting;
+        }
+        #endregion
+
         #region GetAdminRole
         private string GetAdminRole()
         {
@@ -917,6 +1023,21 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             return strAdminRoleID;
         }
         #endregion
-    }
 
+        #region GetUploadPermission
+        private string GetUploadPermission()
+        {
+            List<ADefHelpDesk_Setting> objADefHelpDesk_Settings = GetSettings();
+            ADefHelpDesk_Setting objADefHelpDesk_Setting = objADefHelpDesk_Settings.Where(x => x.SettingName == "UploadPermission").FirstOrDefault();
+
+            string strUploadPermission = "All";
+            if (objADefHelpDesk_Setting != null)
+            {
+                strUploadPermission = objADefHelpDesk_Setting.SettingValue;
+            }
+
+            return strUploadPermission;
+        }
+        #endregion
+    }
 }

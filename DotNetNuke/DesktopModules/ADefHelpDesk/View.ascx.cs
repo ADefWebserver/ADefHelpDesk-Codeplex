@@ -121,7 +121,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             cmdStartCalendar.NavigateUrl = DotNetNuke.Common.Utilities.Calendar.InvokePopupCal(txtDueDate);
             if (!Page.IsPostBack)
             {
-                ShowAdministratorLink();
+                ShowAdministratorLinkAndFileUpload();
                 ShowExistingTicketsLink();
                 txtUserID.Text = UserId.ToString();
                 DisplayCategoryTree();
@@ -131,7 +131,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     if (Convert.ToString(Request.QueryString["Ticket"]) == "new")
                     {
                         SetView("New Ticket");
-                        ShowAdministratorLink();
+                        ShowAdministratorLinkAndFileUpload();
                     }
                 }
             }
@@ -220,11 +220,12 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         }
         #endregion
 
-        #region ShowAdministratorLink
-        private void ShowAdministratorLink()
+        #region ShowAdministratorLinkAndFileUpload
+        private void ShowAdministratorLinkAndFileUpload()
         {
             // Get Admin Role
             string strAdminRoleID = GetAdminRole();
+            string strUploadPermission = GetUploadPermission();
             // Show Admin link if user is an Administrator
             if (UserInfo.IsInRole(strAdminRoleID) || UserInfo.IsInRole("Administrators") || UserInfo.IsSuperUser)
             {
@@ -243,11 +244,38 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             }
             else
             {
+                // ** Non Administrators **
                 lnkAdministratorSettings.Visible = false;
                 imgAdministrator.Visible = false;
 
                 // Do not show the Administrator user selector
                 pnlAdminUserSelection.Visible = false;
+
+                // Only supress Upload if permission is not set to All
+                #region if (strUploadPermission != "All")
+                if (strUploadPermission != "All")
+                {
+                    // Is user Logged in?
+                    if (UserId > -1)
+                    {
+                        #region if (strUploadPermission != "Administrator/Registered Users")
+                        // Only check this if security is set to "Administrator/Registered Users"
+                        if (strUploadPermission != "Administrator/Registered Users")
+                        {
+                            // If User is not an Administrator so they cannot see upload
+                            lblAttachFile.Visible = false;
+                            TicketFileUpload.Visible = false;
+                        } 
+                        #endregion
+                    }
+                    else
+                    {
+                        // If User is not logged in they cannot see upload
+                        lblAttachFile.Visible = false;
+                        TicketFileUpload.Visible = false;
+                    }
+                } 
+                #endregion
             }
         }
         #endregion
@@ -357,6 +385,22 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         }
         #endregion
 
+        #region GetUploadPermission
+        private string GetUploadPermission()
+        {
+            List<ADefHelpDesk_Setting> objADefHelpDesk_Settings = GetSettings();
+            ADefHelpDesk_Setting objADefHelpDesk_Setting = objADefHelpDesk_Settings.Where(x => x.SettingName == "UploadPermission").FirstOrDefault();
+
+            string strUploadPermission = "All";
+            if (objADefHelpDesk_Setting != null)
+            {
+                strUploadPermission = objADefHelpDesk_Setting.SettingValue;
+            }
+
+            return strUploadPermission;
+        }
+        #endregion
+
         #region lnkAdministratorSettings_Click
         protected void lnkAdministratorSettings_Click(object sender, EventArgs e)
         {
@@ -400,6 +444,31 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                                            select ADefHelpDesk_Settings).ToList();
             }
 
+            // Upload Permission
+            ADefHelpDesk_Setting UploadPermissionADefHelpDesk_Setting = (from ADefHelpDesk_Settings in objADefHelpDeskDALDataContext.ADefHelpDesk_Settings
+                                                                         where ADefHelpDesk_Settings.PortalID == PortalId
+                                                                         where ADefHelpDesk_Settings.SettingName == "UploadPermission"
+                                                                         select ADefHelpDesk_Settings).FirstOrDefault();
+
+            if (UploadPermissionADefHelpDesk_Setting != null)
+            {
+                // Add to collection
+                colADefHelpDesk_Setting.Add(UploadPermissionADefHelpDesk_Setting);
+            }
+            else
+            {
+                // Add Default value
+                ADefHelpDesk_Setting objADefHelpDesk_Setting = new ADefHelpDesk_Setting();
+                objADefHelpDesk_Setting.SettingName = "UploadPermission";
+                objADefHelpDesk_Setting.SettingValue = "All";
+                objADefHelpDesk_Setting.PortalID = PortalId;
+                objADefHelpDeskDALDataContext.ADefHelpDesk_Settings.InsertOnSubmit(objADefHelpDesk_Setting);
+                objADefHelpDeskDALDataContext.SubmitChanges();
+
+                // Add to collection
+                colADefHelpDesk_Setting.Add(objADefHelpDesk_Setting);
+            }
+
             return colADefHelpDesk_Setting;
         }
         #endregion
@@ -418,7 +487,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             txtUserID.Text = UserId.ToString();
 
             SetView("New Ticket");
-            ShowAdministratorLink();
+            ShowAdministratorLinkAndFileUpload();
         }
         #endregion
 
@@ -1129,7 +1198,6 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                           Search.TaskID.ToString().Contains(strSearchText) ||
                           leftjoin.Description.Contains(strSearchText)
                           select Search).Distinct();
-
             }
             #endregion
 
@@ -1240,7 +1308,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 lnkNext.Visible = (intCurrentPage != intPages);
 
                 lblRecords.Text = String.Format("{0} of {1}", intCurrentPage.ToString(), intPages.ToString());
-            } 
+            }
             #endregion
 
             // If the current page is greater than the number of pages
@@ -1262,8 +1330,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             // Display paging panel
             pnlPaging.Visible = (intPages > 1);
         }
-        #endregion  
-      
+        #endregion
+
         #region GetCurrentPage
         private int GetCurrentPage()
         {
@@ -1274,7 +1342,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             }
 
             return intCurrentPage;
-        } 
+        }
         #endregion
 
         #region ConvertStringToInt
@@ -1362,10 +1430,10 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 {
                     AssignedLabel.Text = String.Format("{0}", objRoleController.GetRole(Convert.ToInt32(AssignedLabel.Text), PortalId).RoleName);
                 }
-                catch 
+                catch
                 {
                     AssignedLabel.Text = "(Role Deleted)";
-                } 
+                }
                 AssignedLabel.ToolTip = AssignedLabel.Text;
 
                 if (AssignedLabel.Text.Length > 10)
@@ -1851,7 +1919,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             objADefHelpDesk_LastSearch.CurrentPage = intCurrentPage;
             SaveLastSearchCriteria(objADefHelpDesk_LastSearch);
             DisplayExistingTickets(SearchCriteria);
-        } 
+        }
         #endregion
 
         #region lnkPrevious_Click
@@ -1863,8 +1931,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             objADefHelpDesk_LastSearch.CurrentPage = intCurrentPage;
             SaveLastSearchCriteria(objADefHelpDesk_LastSearch);
             DisplayExistingTickets(SearchCriteria);
-        } 
+        }
         #endregion
 
-}
+    }
 }

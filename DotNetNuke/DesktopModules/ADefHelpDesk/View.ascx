@@ -183,7 +183,8 @@
         </tr>
         <tr>
             <td align="right">
-                <b>Attach File:</b>
+                &nbsp;<asp:Label ID="lblAttachFile" runat="server" Font-Bold="True" 
+                    Text="Attach File:"></asp:Label>
             </td>
             <td>
                 <asp:FileUpload ID="TicketFileUpload" runat="server" TabIndex="8" />

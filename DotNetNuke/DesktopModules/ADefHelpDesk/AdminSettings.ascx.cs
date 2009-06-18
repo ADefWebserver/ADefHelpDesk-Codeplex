@@ -185,6 +185,31 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                                            select ADefHelpDesk_Settings).ToList();
             }
 
+            // Upload Permission
+            ADefHelpDesk_Setting UploadPermissionADefHelpDesk_Setting = (from ADefHelpDesk_Settings in objADefHelpDeskDALDataContext.ADefHelpDesk_Settings
+                                                                         where ADefHelpDesk_Settings.PortalID == PortalId
+                                                                         where ADefHelpDesk_Settings.SettingName == "UploadPermission"
+                                                                         select ADefHelpDesk_Settings).FirstOrDefault();
+
+            if (UploadPermissionADefHelpDesk_Setting != null)
+            {
+                // Add to collection
+                colADefHelpDesk_Setting.Add(UploadPermissionADefHelpDesk_Setting);
+            }
+            else
+            {
+                // Add Default value
+                ADefHelpDesk_Setting objADefHelpDesk_Setting = new ADefHelpDesk_Setting();
+                objADefHelpDesk_Setting.SettingName = "UploadPermission";
+                objADefHelpDesk_Setting.SettingValue = "All";
+                objADefHelpDesk_Setting.PortalID = PortalId;
+                objADefHelpDeskDALDataContext.ADefHelpDesk_Settings.InsertOnSubmit(objADefHelpDesk_Setting);
+                objADefHelpDeskDALDataContext.SubmitChanges();
+
+                // Add to collection
+                colADefHelpDesk_Setting.Add(objADefHelpDesk_Setting);
+            }
+
             return colADefHelpDesk_Setting;
         }
         #endregion
@@ -259,12 +284,21 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         {
             ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
 
+            // Uploaded Files Path
             ADefHelpDesk_Setting objADefHelpDesk_Setting = (from ADefHelpDesk_Settings in objADefHelpDeskDALDataContext.ADefHelpDesk_Settings
                                                             where ADefHelpDesk_Settings.PortalID == PortalId
                                                             where ADefHelpDesk_Settings.SettingName == "UploadefFilesPath"
                                                             select ADefHelpDesk_Settings).FirstOrDefault();
 
             txtUploadedFilesPath.Text = objADefHelpDesk_Setting.SettingValue;
+
+            // Upload Permissions
+            ADefHelpDesk_Setting UploadPermissionADefHelpDesk_Setting = (from ADefHelpDesk_Settings in objADefHelpDeskDALDataContext.ADefHelpDesk_Settings
+                                                                         where ADefHelpDesk_Settings.PortalID == PortalId
+                                                                         where ADefHelpDesk_Settings.SettingName == "UploadPermission"
+                                                                         select ADefHelpDesk_Settings).FirstOrDefault();
+
+            ddlUploadPermission.SelectedValue = UploadPermissionADefHelpDesk_Setting.SettingValue;
         }
         #endregion
 
@@ -300,12 +334,20 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         {
             ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
 
-            ADefHelpDesk_Setting objADefHelpDesk_Setting = (from ADefHelpDesk_Settings in objADefHelpDeskDALDataContext.ADefHelpDesk_Settings
-                                                            where ADefHelpDesk_Settings.PortalID == PortalId
-                                                            where ADefHelpDesk_Settings.SettingName == "UploadefFilesPath"
-                                                            select ADefHelpDesk_Settings).FirstOrDefault();
+            ADefHelpDesk_Setting UploadefFilesADefHelpDesk_Setting = (from ADefHelpDesk_Settings in objADefHelpDeskDALDataContext.ADefHelpDesk_Settings
+                                                                      where ADefHelpDesk_Settings.PortalID == PortalId
+                                                                      where ADefHelpDesk_Settings.SettingName == "UploadefFilesPath"
+                                                                      select ADefHelpDesk_Settings).FirstOrDefault();
 
-            objADefHelpDesk_Setting.SettingValue = txtUploadedFilesPath.Text.Trim();
+            UploadefFilesADefHelpDesk_Setting.SettingValue = txtUploadedFilesPath.Text.Trim();
+            objADefHelpDeskDALDataContext.SubmitChanges();
+
+            ADefHelpDesk_Setting UploadPermissionADefHelpDesk_Setting = (from ADefHelpDesk_Settings in objADefHelpDeskDALDataContext.ADefHelpDesk_Settings
+                                                                         where ADefHelpDesk_Settings.PortalID == PortalId
+                                                                         where ADefHelpDesk_Settings.SettingName == "UploadPermission"
+                                                                         select ADefHelpDesk_Settings).FirstOrDefault();
+
+            UploadPermissionADefHelpDesk_Setting.SettingValue = ddlUploadPermission.SelectedValue;
             objADefHelpDeskDALDataContext.SubmitChanges();
 
             lblUploadedFilesPath.Text = "Updated";

@@ -1,10 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Comments.ascx.cs" Inherits="ADefWebserver.Modules.ADefHelpDesk.Comments" %>
-<style type="text/css">
-    .style1
-    {
-        font-weight: bold;
-    }
-</style>
 <asp:Panel ID="pnlInsertComment" runat="server" GroupingText="Insert New Comment" Width="540px"
     Font-Size="X-Small" BorderStyle="Outset">
     <table>
@@ -20,7 +14,8 @@
         </tr>
         <tr>
             <td colspan="2" nowrap="nowrap">
-                &nbsp;<span style="font-size: x-small" class="style1">Attach File:</span>
+                &nbsp;<asp:Label ID="lblAttachFile1" runat="server" Font-Bold="True" 
+                    Text="Attach File:"></asp:Label>
                 <asp:FileUpload ID="TicketFileUpload" runat="server" Width="190px" />
                 &nbsp;<asp:Button ID="btnInsertComment" runat="server" Font-Bold="True" OnClick="btnInsertComment_Click"
                     Text="Insert" />
@@ -154,8 +149,10 @@
                 <asp:Panel ID="pnlAttachFile" runat="server" Visible="False">
                     <span style="font-size: x-small; font-weight: bold;">
                     <br />
-                    Attach File:</span>
-                    <asp:FileUpload ID="fuAttachment" runat="server" />
+                    <asp:Label ID="lblAttachFile2" runat="server" Font-Bold="True" 
+                        Text="Attach File:"></asp:Label>
+                    </span>
+                    &nbsp;<asp:FileUpload ID="fuAttachment" runat="server" />
                     &nbsp;&nbsp;&nbsp;&nbsp;</asp:Panel>
                 <br />
                 <asp:Label ID="lblErrorEditComment" runat="server" EnableViewState="False" 

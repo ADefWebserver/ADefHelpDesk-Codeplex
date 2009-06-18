@@ -13,7 +13,7 @@
     <br />
     <table cellpadding="2">
         <tr>
-            <td valign="top" align="left">
+            <td valign="top" align="left" nowrap="nowrap">
                 <p>
                     <asp:Image ID="Image1" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/user_suit.png" />
                     <asp:LinkButton ID="lnkAdminRole" runat="server" Font-Underline="True" OnClick="lnkAdminRole_Click">Administrator Role</asp:LinkButton>
@@ -21,7 +21,7 @@
                 <p>
                     <asp:Image ID="Image4" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/folder.png"
                         Height="16px" />
-                    <asp:LinkButton ID="lnkUploadefFilesPath" runat="server" Font-Underline="True" OnClick="lnkUploadefFilesPath_Click">Uploaded Files Path</asp:LinkButton>
+                    <asp:LinkButton ID="lnkUploadefFilesPath" runat="server" Font-Underline="True" OnClick="lnkUploadefFilesPath_Click">File Upload Settings</asp:LinkButton>
                 </p>
                 <p>
                     <asp:Image ID="Image5" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/group.png"
@@ -88,12 +88,37 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>
-                                Uploaded Files Path:
+                            <td nowrap="nowrap" align="right">
+                                File Upload Path:
                             </td>
                             <td>
                                 <asp:TextBox ID="txtUploadedFilesPath" runat="server" Columns="50"></asp:TextBox>
                             </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                &nbsp;</td>
+                            <td>
+                                &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td align="right" nowrap="nowrap">
+                                File Upload Permission:
+                            </td>
+                            <td>
+                                <asp:DropDownList ID="ddlUploadPermission" runat="server">
+                                    <asp:ListItem Selected="True" Text="All" Value="All" />
+                                    <asp:ListItem Text="Administrator" Value="Administrator" />
+                                     <asp:ListItem Text="Administrator/Registered Users" 
+                                        Value="Administrator/Registered Users" />
+                                </asp:DropDownList>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                &nbsp;</td>
+                            <td>
+                                &nbsp;</td>
                         </tr>
                         <tr>
                             <td>
@@ -196,8 +221,8 @@
                     <table cellpadding="8" cellspacing="8">
                         <tr>
                             <td valign="top">
-                                <asp:Label ID="lblTagError" runat="server" EnableViewState="False" 
-                                    Font-Italic="True" ForeColor="Red"></asp:Label>
+                                <asp:Label ID="lblTagError" runat="server" EnableViewState="False" Font-Italic="True"
+                                    ForeColor="Red"></asp:Label>
                                 <asp:TreeView ID="tvCategories" runat="server" ExpandDepth="0" OnSelectedNodeChanged="tvCategories_SelectedNodeChanged"
                                     BorderColor="#CCCCCC" BorderStyle="Solid" OnTreeNodeDataBound="tvCategories_TreeNodeDataBound">
                                     <SelectedNodeStyle BackColor="#CCCCCC" Font-Bold="False" Font-Underline="False" />

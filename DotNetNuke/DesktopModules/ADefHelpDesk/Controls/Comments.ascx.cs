@@ -434,6 +434,12 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 lblInsertDate.Text = String.Format("{0} {1}", objADefHelpDesk_TaskDetail.InsertDate.ToLongDateString(), objADefHelpDesk_TaskDetail.InsertDate.ToLongTimeString());
                 chkCommentVisibleEdit.Checked = (objADefHelpDesk_TaskDetail.DetailType == "Comment") ? false : true;
 
+                if (!ViewOnly)
+                {
+                    ImgEmailUser.Visible = (objADefHelpDesk_TaskDetail.DetailType == "Comment") ? false : true;
+                    lnkUpdateRequestor.Visible = (objADefHelpDesk_TaskDetail.DetailType == "Comment") ? false : true;
+                }
+
                 // Only set the Display of the Email to Requestor link if it is already showing
                 if (lnkUpdateRequestor.Visible)
                 {

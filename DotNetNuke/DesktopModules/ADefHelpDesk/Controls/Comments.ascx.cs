@@ -796,7 +796,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 DotNetNuke.Services.Mail.Mail.SendMail(PortalSettings.Email, objUserInfo.Email, "", strSubject, strBody, "", "HTML", "", "", "", "");
             }
 
-            Log.InsertLog(Convert.ToInt32(Request.QueryString["TaskID"]), UserId, String.Format("{0} assigned ticket to {1}.", UserInfo.DisplayName, strAssignedRole));
+            Log.InsertLog(Convert.ToInt32(Request.QueryString["TaskID"]), UserId, String.Format("{0} sent comment to {1}.", UserInfo.DisplayName, strAssignedRole));
         }
         #endregion
 

@@ -56,6 +56,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                         DisplayTicketData();
                         CommentsControl.TaskID = Convert.ToInt32(lblTask.Text);
                         CommentsControl.ModuleID = ModuleId;
+                        WorkControl.TaskID = Convert.ToInt32(lblTask.Text);
+                        WorkControl.ModuleID = ModuleId;
                         LogsControl.TaskID = Convert.ToInt32(lblTask.Text);
 
                         // If at this point CommentsControl is in View Only mode
@@ -87,6 +89,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         {
             btnSave.Visible = false;
             btnComments.Visible = false;
+            btnWorkItems.Visible = false;
             btnLogs.Visible = false;
             ddlAssigned.Enabled = false;
             ddlStatus.Enabled = false;

@@ -2,6 +2,7 @@
 <%@ Register Src="Controls/Tags.ascx" TagName="Tags" TagPrefix="uc1" %>
 <%@ Register src="Controls/Comments.ascx" tagname="Comments" tagprefix="uc2" %>
 <%@ Register src="Controls/Logs.ascx" tagname="Logs" tagprefix="uc3" %>
+<%@ Register src="Controls/Work.ascx" tagname="Work" tagprefix="uc4" %>
 <body>
 <asp:Panel ID="pnlEditTask" runat="server" HorizontalAlign="Left">
     <table cellpadding="2">
@@ -144,20 +145,15 @@
                                 <asp:Button ID="btnComments" runat="server" OnClick="btnComments_Click" Text="Comments"
                                     BackColor="#CCCCCC" BorderColor="#CCCCCC" BorderStyle="Inset" Font-Bold="True"
                                     ForeColor="Red" Width="100px" />
-                            </td>
-                            <td>
-                                <asp:Button ID="btnWorkItems" runat="server" OnClick="btnWorkItems_Click" Text="Work Items"
-                                    BackColor="#F0F0F0" BorderColor="#CCCCCC" BorderStyle="Outset" 
-                                    Width="100px" Visible="False" />
-                            </td>
-                            <td>
-                                <asp:Button ID="btnAssociations" runat="server" BackColor="#F0F0F0" BorderColor="#CCCCCC"
-                                    BorderStyle="Outset" OnClick="btnAssociations_Click" Text="Associations" 
-                                    Width="100px" Visible="False" />
-                            </td>
-                            <td>
-                                <asp:Button ID="btnLogs" runat="server" BackColor="#F0F0F0" BorderColor="#CCCCCC"
-                                    BorderStyle="Outset" OnClick="btnLogs_Click" Text="Logs" Width="100px" />
+                                <asp:Button ID="btnWorkItems" runat="server" BackColor="#F0F0F0" 
+                                    BorderColor="#CCCCCC" BorderStyle="Outset" OnClick="btnWorkItems_Click" 
+                                    Text="Work" Width="100px" />
+                                <asp:Button ID="btnAssociations" runat="server" BackColor="#F0F0F0" 
+                                    BorderColor="#CCCCCC" BorderStyle="Outset" OnClick="btnAssociations_Click" 
+                                    Text="Associations" Visible="False" Width="100px" />
+                                <asp:Button ID="btnLogs" runat="server" BackColor="#F0F0F0" 
+                                    BorderColor="#CCCCCC" BorderStyle="Outset" OnClick="btnLogs_Click" Text="Logs" 
+                                    Width="100px" />
                             </td>
                         </tr>
                     </table>
@@ -166,7 +162,8 @@
                     </asp:Panel>
                 </asp:Panel>
                 <asp:Panel ID="pnlWorkItems" runat="server" Visible="False">
-                    WorkItems</asp:Panel>
+                    <uc4:Work ID="WorkControl" runat="server" />
+                </asp:Panel>
                 <asp:Panel ID="pnlAssociations" runat="server" BorderColor="#CCCCCC" BorderStyle="Solid"
                     BorderWidth="1px" Height="250px" ScrollBars="Vertical" Width="500px" Visible="False">
                     Associated Tickets</asp:Panel>

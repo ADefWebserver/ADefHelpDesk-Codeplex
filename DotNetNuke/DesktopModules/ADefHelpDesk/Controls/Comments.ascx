@@ -27,20 +27,26 @@
         </tr>
     </table>
 </asp:Panel>
-<asp:Panel ID="pnlTableHeader" runat="server"><br />
-<table cellpadding="0" cellspacing="0" bgcolor="WhiteSmoke" Width="520px">
+<asp:Panel ID="pnlTableHeader" runat="server">
+<style type="text/css">
+    .style1
+    {
+        width: 43px;
+    }
+</style><br />
+<table cellpadding="0" cellspacing="0" bgcolor="WhiteSmoke" Width="540px">
     <tr>
-        <td Width="49px">
+        <td class="style1">
             <asp:Image ID="Image6" runat="server" 
                 ImageUrl="~/DesktopModules/ADefHelpDesk/images/GridSpacer.gif" 
-                Visible="False" />
+                Visible="False" Width="34px" />
         </td>
         <td style="border: 1px solid #CCCCCC" align="center" Width="23px">
             <asp:Image ID="Image1" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/World.png"
                 AlternateText="Visible to Requestor" />
         </td>
         <td style="border: 1px solid #CCCCCC" align="center">
-            <asp:Label ID="lblDescription" runat="server" Width="150px" Font-Bold="True">Comment</asp:Label>
+            <asp:Label ID="lblDescription" runat="server" Width="140px" Font-Bold="True">Comment</asp:Label>
         </td>
         <td style="border: 1px solid #CCCCCC" align="center">
             <asp:Label ID="lblUser" runat="server" Width="152px" Font-Bold="True">User</asp:Label>
@@ -52,7 +58,7 @@
 </table></asp:Panel>
 
 <asp:Panel ID="pnlExistingComments" runat="server" Height="250px" ScrollBars="Vertical"
-    Width="520px">
+    Width="540px">
     <asp:GridView ID="gvComments" runat="server" AutoGenerateColumns="False" DataKeyNames="DetailID"
         DataSourceID="LDSComments" ShowHeader="False" 
         OnRowDataBound="gvComments_RowDataBound" 

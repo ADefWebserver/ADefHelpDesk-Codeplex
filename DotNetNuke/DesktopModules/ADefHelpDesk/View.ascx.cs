@@ -118,22 +118,29 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            cmdStartCalendar.NavigateUrl = DotNetNuke.Common.Utilities.Calendar.InvokePopupCal(txtDueDate);
-            if (!Page.IsPostBack)
+            try
             {
-                ShowAdministratorLinkAndFileUpload();
-                ShowExistingTicketsLink();
-                txtUserID.Text = UserId.ToString();
-                DisplayCategoryTree();
-
-                if (Request.QueryString["Ticket"] != null)
+                cmdStartCalendar.NavigateUrl = DotNetNuke.Common.Utilities.Calendar.InvokePopupCal(txtDueDate);
+                if (!Page.IsPostBack)
                 {
-                    if (Convert.ToString(Request.QueryString["Ticket"]) == "new")
+                    ShowAdministratorLinkAndFileUpload();
+                    ShowExistingTicketsLink();
+                    txtUserID.Text = UserId.ToString();
+                    DisplayCategoryTree();
+
+                    if (Request.QueryString["Ticket"] != null)
                     {
-                        SetView("New Ticket");
-                        ShowAdministratorLinkAndFileUpload();
+                        if (Convert.ToString(Request.QueryString["Ticket"]) == "new")
+                        {
+                            SetView("New Ticket");
+                            ShowAdministratorLinkAndFileUpload();
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Exceptions.ProcessModuleLoadException(this, ex);
             }
         }
 

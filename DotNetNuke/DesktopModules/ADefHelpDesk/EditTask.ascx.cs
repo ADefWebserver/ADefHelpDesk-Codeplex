@@ -202,6 +202,20 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                         CommentsControl.ViewOnly = false;
                     }
                 }
+
+                // Does user have a valid temporary password?
+                if (Request.QueryString["TP"] != null)
+                {
+                    // Check the password for this Ticket
+                    if (objADefHelpDesk_Tasks.TicketPassword == Convert.ToString(Request.QueryString["TP"]))
+                    {
+                        boolPassedSecurity = true;
+                    }
+                    else
+                    {
+                        boolPassedSecurity = false;
+                    }
+                }
             }
 
             return boolPassedSecurity;
@@ -779,7 +793,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             string strAssignedRole = String.Format("{0}", objRoleController.GetRole(Convert.ToInt32(ddlAssigned.SelectedValue), PortalId).RoleName);
             string strLinkUrl = Utility.FixURLLink(DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", Request.QueryString["TaskID"])), PortalSettings.PortalAlias.HTTPAlias);  
 
-            string strSubject = String.Format("A Help Desk Ticket #{0} at http://{1} hass been assigned to {2}", Request.QueryString["TaskID"], PortalSettings.PortalAlias.HTTPAlias, strAssignedRole);
+            string strSubject = String.Format("A Help Desk Ticket #{0} at http://{1} has been assigned to {2}", Request.QueryString["TaskID"], PortalSettings.PortalAlias.HTTPAlias, strAssignedRole);
             string strBody = String.Format(@"A new help desk ticket #{0} has been Assigned '{1}'.", Request.QueryString["TaskID"], txtDescription.Text);
             strBody = strBody + Environment.NewLine;
             strBody = strBody + String.Format(@"You may see the status here: {0}", strLinkUrl);

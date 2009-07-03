@@ -6,7 +6,7 @@
       <foldername>ADefHelpDesk</foldername>
       <modulename>ADefHelpDesk</modulename>
       <description>http://ADefWebserver.com</description>
-      <version>01.50.00</version>
+      <version>01.60.00</version>
       <businesscontrollerclass>
       </businesscontrollerclass>
       <modules>
@@ -58,6 +58,14 @@
         <file>
           <path>Controls</path>
           <name>Tags.ascx.cs</name>
+        </file>
+        <file>
+          <path>Controls</path>
+          <name>Work.ascx</name>
+        </file>
+        <file>
+          <path>Controls</path>
+          <name>Work.ascx.cs</name>
         </file>
         <file>
           <path>images</path>

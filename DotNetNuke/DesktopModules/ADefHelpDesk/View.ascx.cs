@@ -272,7 +272,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                             // If User is not an Administrator so they cannot see upload
                             lblAttachFile.Visible = false;
                             TicketFileUpload.Visible = false;
-                        } 
+                        }
                         #endregion
                     }
                     else
@@ -281,7 +281,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                         lblAttachFile.Visible = false;
                         TicketFileUpload.Visible = false;
                     }
-                } 
+                }
                 #endregion
             }
         }
@@ -1020,8 +1020,10 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
                     DotNetNuke.Services.Mail.Mail.SendMail(PortalSettings.Email, strEmail, "", strSubject, strBody, "", "HTML", "", "", "", "");
 
-                    // If pnlAdminUserSelection is visible then this is an admin
-                    if (pnlAdminUserSelection.Visible)
+                    // Get Admin Role
+                    string strAdminRoleID = GetAdminRole();
+                    // User is an Administrator
+                    if (UserInfo.IsInRole(strAdminRoleID) || UserInfo.IsInRole("Administrators") || UserInfo.IsSuperUser)
                     {
                         // If Ticket is assigned to any group other than unassigned notify them
                         if (Convert.ToInt32(ddlAssignedAdmin.SelectedValue) > -1)
@@ -1079,7 +1081,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             RoleController objRoleController = new RoleController();
             string strAssignedRole = String.Format("{0}", objRoleController.GetRole(Convert.ToInt32(ddlAssignedAdmin.SelectedValue), PortalId).RoleName);
 
-            string strSubject = String.Format("A Help Desk Ticket #{0} at http://{1} hass been assigned to {2}", TaskID, PortalSettings.PortalAlias.HTTPAlias, strAssignedRole);
+            string strSubject = String.Format("A Help Desk Ticket #{0} at http://{1} has been assigned to {2}", TaskID, PortalSettings.PortalAlias.HTTPAlias, strAssignedRole);
             string strBody = String.Format(@"A new help desk ticket #{0} has been Assigned '{1}'.", TaskID, txtDescription.Text);
             strBody = strBody + Environment.NewLine;
             strBody = strBody + String.Format(@"You may see the status here: {0}", DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", TaskID)));

@@ -1,11 +1,12 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="EditTask.ascx.cs" Inherits="ADefWebserver.Modules.ADefHelpDesk.EditTask" %>
 <%@ Register Src="Controls/Tags.ascx" TagName="Tags" TagPrefix="uc1" %>
-<%@ Register src="Controls/Comments.ascx" tagname="Comments" tagprefix="uc2" %>
-<%@ Register src="Controls/Logs.ascx" tagname="Logs" tagprefix="uc3" %>
-<%@ Register src="Controls/Work.ascx" tagname="Work" tagprefix="uc4" %>
-<body>
+<%@ Register Src="Controls/Comments.ascx" TagName="Comments" TagPrefix="uc2" %>
+<%@ Register Src="Controls/Logs.ascx" TagName="Logs" TagPrefix="uc3" %>
+<%@ Register Src="Controls/Work.ascx" TagName="Work" TagPrefix="uc4" %>
 <asp:Panel ID="pnlEditTask" runat="server" HorizontalAlign="Left">
-    <table cellpadding="2">
+<table>
+<tr>
+            <td valign="top"><table cellpadding="2">
         <tr>
             <td>
                 <asp:Image ID="imgNewTicket" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/layout_add.png" />
@@ -21,23 +22,24 @@
                     OnClick="lnkAdministratorSettings_Click">Administrator Settings</asp:LinkButton>
             </td>
             <td>
-                &nbsp;&nbsp;</td>
+                &nbsp;&nbsp;
+            </td>
         </tr>
     </table>
     <table>
         <tr>
-            <td valign="top">
+            <td valign="top" title="Ticket">
                 <table>
                     <tr>
-                        <td align="center">
-                            <asp:Button ID="btnSave" runat="server" ForeColor="Red" OnClick="btnSave_Click" 
-                                Text="Save" Width="63px" />
+                        <td align="center" >
+                            <asp:Button ID="btnSave" runat="server" ForeColor="Red" OnClick="btnSave_Click" Text="Save"
+                                Width="63px" />
                         </td>
-                        <td nowrap="nowrap">
+                        <td nowrap="nowrap" colspan="1">
                             <b>Ticket:</b>&nbsp;<asp:Label ID="lblTask" runat="server"></asp:Label>
                             &nbsp;<asp:Label ID="lblCreated" runat="server"></asp:Label>
-                            &nbsp;<asp:Label ID="lblError" runat="server" Font-Bold="True" 
-                                Font-Size="X-Small" ForeColor="Red" />
+                            &nbsp;<asp:Label ID="lblError" runat="server" Font-Bold="True" Font-Size="X-Small"
+                                ForeColor="Red" />
                         </td>
                     </tr>
                     <tr>
@@ -129,12 +131,6 @@
                     </tr>
                 </table>
             </td>
-            <td valign="top" rowspan="4">
-                <b>
-                    <asp:Image ID="Image2" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/tag_blue.png" />
-                    Tags:&nbsp;&nbsp;<uc1:Tags ID="TagsTreeExistingTasks" runat="server" Visible="True" />
-                </b>
-            </td>
         </tr>
         <tr>
             <td valign="top">
@@ -145,15 +141,13 @@
                                 <asp:Button ID="btnComments" runat="server" OnClick="btnComments_Click" Text="Comments"
                                     BackColor="#CCCCCC" BorderColor="#CCCCCC" BorderStyle="Inset" Font-Bold="True"
                                     ForeColor="Red" Width="100px" />
-                                <asp:Button ID="btnWorkItems" runat="server" BackColor="#F0F0F0" 
-                                    BorderColor="#CCCCCC" BorderStyle="Outset" OnClick="btnWorkItems_Click" 
-                                    Text="Work" Width="100px" />
-                                <asp:Button ID="btnAssociations" runat="server" BackColor="#F0F0F0" 
-                                    BorderColor="#CCCCCC" BorderStyle="Outset" OnClick="btnAssociations_Click" 
-                                    Text="Associations" Visible="False" Width="100px" />
-                                <asp:Button ID="btnLogs" runat="server" BackColor="#F0F0F0" 
-                                    BorderColor="#CCCCCC" BorderStyle="Outset" OnClick="btnLogs_Click" Text="Logs" 
+                                <asp:Button ID="btnWorkItems" runat="server" BackColor="#F0F0F0" BorderColor="#CCCCCC"
+                                    BorderStyle="Outset" OnClick="btnWorkItems_Click" Text="Work" Width="100px" />
+                                <asp:Button ID="btnAssociations" runat="server" BackColor="#F0F0F0" BorderColor="#CCCCCC"
+                                    BorderStyle="Outset" OnClick="btnAssociations_Click" Text="Associations" Visible="False"
                                     Width="100px" />
+                                <asp:Button ID="btnLogs" runat="server" BackColor="#F0F0F0" BorderColor="#CCCCCC"
+                                    BorderStyle="Outset" OnClick="btnLogs_Click" Text="Logs" Width="100px" />
                             </td>
                         </tr>
                     </table>
@@ -168,16 +162,17 @@
                     BorderWidth="1px" Height="250px" ScrollBars="Vertical" Width="500px" Visible="False">
                     Associated Tickets</asp:Panel>
                 <asp:Panel ID="pnlLogs" runat="server" BorderColor="#CCCCCC" BorderStyle="Solid"
-                    BorderWidth="1px" Height="300px" ScrollBars="Auto" Width="510px" 
-                    Visible="False" Wrap="False">
+                    BorderWidth="1px" Height="300px" ScrollBars="Auto" Width="510px" Visible="False"
+                    Wrap="False">
                     <uc3:Logs ID="LogsControl" runat="server" />
                 </asp:Panel>
-    </asp:Panel>
-</td> </tr>
-<tr>
-    <td valign="top">
-        <asp:Label ID="lblDetailsError" runat="server" EnableViewState="False" ForeColor="Red" />
-        
-    </td>
-</tr>
-</table> </asp:Panel> 
+    </table></td> <td valign="top"><p>
+    <asp:Image ID="Image2" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/tag_blue.png" />
+    <b>Tags:</b></p>
+<uc1:Tags ID="TagsTreeExistingTasks" runat="server" Visible="True" /></td>
+            </tr>
+</table>
+   
+</asp:Panel>
+<asp:Label ID="lblDetailsError" runat="server" EnableViewState="False" ForeColor="Red" />
+

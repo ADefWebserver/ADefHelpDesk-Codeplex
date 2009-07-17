@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Comments.ascx.cs" Inherits="ADefWebserver.Modules.ADefHelpDesk.Comments" %>
-<asp:Panel ID="pnlInsertComment" runat="server" GroupingText="Insert New Comment" Width="540px"
+<asp:Panel ID="pnlInsertComment" runat="server" GroupingText="Insert New Comment" width="540px"
     Font-Size="X-Small" BorderStyle="Outset">
     <table>
         <tr>
@@ -15,10 +15,10 @@
         <tr>
             <td colspan="2" nowrap="nowrap">
                 &nbsp;<asp:Label ID="lblAttachFile1" runat="server" Font-Bold="True" 
-                    Text="Attach File:"></asp:Label>
-                <asp:FileUpload ID="TicketFileUpload" runat="server" Width="190px" />
-                &nbsp;<asp:Button ID="btnInsertComment" runat="server" Font-Bold="True" OnClick="btnInsertComment_Click"
-                    Text="Insert" />
+                    Text="File:" />
+                <asp:FileUpload ID="TicketFileUpload" runat="server" />
+                &nbsp;<asp:Button ID="btnInsertComment" runat="server" Font-Bold="True" 
+                    OnClick="btnInsertComment_Click" Text="Insert" />
                 &nbsp;<asp:Button ID="btnInsertCommentAndEmail" runat="server" Font-Bold="True" 
                     OnClick="btnInsertCommentAndEmail_Click" Text="Insert and Email " />
                 <br />
@@ -34,7 +34,7 @@
         width: 43px;
     }
 </style><br />
-<table cellpadding="0" cellspacing="0" bgcolor="WhiteSmoke" Width="540px">
+<table cellpadding="0" cellspacing="0" bgcolor="WhiteSmoke" width="540px">
     <tr>
         <td class="style1">
             <asp:Image ID="Image6" runat="server" 

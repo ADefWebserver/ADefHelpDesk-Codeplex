@@ -1,10 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="View.ascx.cs" Inherits="ADefWebserver.Modules.ADefHelpDesk.View" %>
 <%@ Register Src="Controls/Tags.ascx" TagName="Tags" TagPrefix="uc1" %>
 <style type="text/css">
-    .style1
-    {
-        color: #FF0000;
-    }
     .style3
     {
         color: #FF0000;
@@ -105,119 +101,139 @@
                 </asp:Panel></td>
         </tr>
         <tr>
-            <td align="left">
-                <span class="style4">(</span><span class="style3">*</span><span class="style4">) Required field</span>
+            <td valign="top">
+                <table>
+                    <tr>
+                        <td align="right">
+                            <span class="style3">(*)</span><span class="style4"> Required field</span>
+                        </td>
+                        <td>
+                            &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <b><span class="style1">*</span> Name: </b>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtName" runat="server" MaxLength="350" TabIndex="1"></asp:TextBox>
+                            <asp:Label ID="lblName" runat="server"></asp:Label>
+                            <asp:TextBox ID="txtUserID" runat="server" Columns="1" Visible="False"></asp:TextBox>
+                            <asp:Button ID="btnClearUser" runat="server" OnClick="btnClearUser_Click" 
+                                Text="Clear User" Visible="False" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <b><span class="style1">*</span> Email:</b>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtEmail" runat="server" MaxLength="350" TabIndex="2"></asp:TextBox>
+                            <asp:Label ID="lblEmail" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <b>Phone:</b>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtPhone" runat="server" MaxLength="50" TabIndex="3"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <b><span class="style1">*</span> Description:</b>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtDescription" runat="server" Columns="50" MaxLength="50" 
+                                TabIndex="4"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <b>Detail:</b>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtDetails" runat="server" Columns="40" MaxLength="500" 
+                                Rows="5" TabIndex="5" TextMode="MultiLine"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <b>Date Due:</b>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtDueDate" runat="server" Columns="10" MaxLength="25" 
+                                TabIndex="6"></asp:TextBox>
+                            <asp:HyperLink ID="cmdStartCalendar" runat="server" 
+                                ImageUrl="~/DesktopModules/ADefHelpDesk/images/calendar.png"></asp:HyperLink>
+                            <b>Priority:</b>
+                            <asp:DropDownList ID="ddlPriority" runat="server" TabIndex="7">
+                                <asp:ListItem Selected="True">Normal</asp:ListItem>
+                                <asp:ListItem>High</asp:ListItem>
+                                <asp:ListItem>Low</asp:ListItem>
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            &nbsp;<asp:Label ID="lblAttachFile" runat="server" Font-Bold="True" 
+                                Text="Attach File:"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:FileUpload ID="TicketFileUpload" runat="server" TabIndex="8" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td align="left">
+                            <asp:Button ID="btnSubmit" runat="server" Font-Bold="True" ForeColor="#FF3300" 
+                                OnClick="btnSubmit_Click" TabIndex="9" Text="Submit Ticket" />
+                            <br />
+                            <br />
+                            <asp:Label ID="lblError" runat="server" EnableViewState="False" 
+                                Font-Bold="True" ForeColor="Red"></asp:Label>
+                        </td>
+                    </tr>
+                </table>
             </td>
-            <td>
+            <td colspan="2" valign="top">
+                <table>
+                    <tr>
+                        <td colspan="2">
+                            &nbsp;<asp:Image ID="Image1" runat="server" 
+                                ImageUrl="~/DesktopModules/ADefHelpDesk/images/tag_blue.png" />
+                            <b>&nbsp;Check all Tags that apply:</b>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <uc1:Tags ID="TagsTree" runat="server" EnableViewState="True" Visible="False" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+       
+        <tr>
+            <td dir="ltr">
                 &nbsp;</td>
-            <td>
-                <asp:Image ID="Image1" runat="server" 
-                    ImageUrl="~/DesktopModules/ADefHelpDesk/images/tag_blue.png" />
-                <b>Check all Tags that apply:</b>&nbsp;</td>
+            <td colspan="2" dir="ltr">
+                &nbsp;</td>
         </tr>
         <tr>
-            <td align="right">
-                <b><span class="style1">*</span> Name: </b>
-            </td>
-            <td>
-                <asp:TextBox ID="txtName" runat="server" MaxLength="350" TabIndex="1"></asp:TextBox>
-                <asp:Label ID="lblName" runat="server"></asp:Label>
-                <asp:TextBox ID="txtUserID" runat="server" Columns="1" Visible="False"></asp:TextBox>
-                <asp:Button ID="btnClearUser" runat="server" OnClick="btnClearUser_Click" 
-                    Text="Clear User" Visible="False" />
-            </td>
-            <td rowspan="10" valign="top">
-                <uc1:Tags ID="TagsTree" runat="server" EnableViewState="True" Visible="False" />
-            </td>
-        </tr>
-        <tr>
-            <td align="right">
-                <b><span class="style1">*</span> Email:</b>
-            </td>
-            <td>
-                <asp:TextBox ID="txtEmail" runat="server" MaxLength="350" TabIndex="2"></asp:TextBox>
-                <asp:Label ID="lblEmail" runat="server"></asp:Label>
-            </td>
-        </tr>
-        <tr>
-            <td align="right">
-                <b>Phone:</b>
-            </td>
-            <td>
-                <asp:TextBox ID="txtPhone" runat="server" MaxLength="50" TabIndex="3"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td align="right">
-                <b><span class="style1">*</span> Description:</b>
-            </td>
-            <td>
-                <asp:TextBox ID="txtDescription" runat="server" Columns="50" MaxLength="50" 
-                    TabIndex="4"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td align="right">
-                <b>Detail:</b>
-            </td>
-            <td>
-                <asp:TextBox ID="txtDetails" runat="server" Columns="40" MaxLength="500" Rows="5"
-                    TextMode="MultiLine" TabIndex="5"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td align="right">
-                <b>Date Due:</b>
-            </td>
-            <td>
-                <asp:TextBox ID="txtDueDate" runat="server" MaxLength="25" Columns="10" 
-                    TabIndex="6"></asp:TextBox>
-                <asp:HyperLink ID="cmdStartCalendar" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/calendar.png"></asp:HyperLink>
-                <b>Priority:</b>
-                <asp:DropDownList ID="ddlPriority" runat="server" TabIndex="7">
-                    <asp:ListItem Selected="True">Normal</asp:ListItem>
-                    <asp:ListItem>High</asp:ListItem>
-                    <asp:ListItem>Low</asp:ListItem>
-                </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td align="right">
-                &nbsp;<asp:Label ID="lblAttachFile" runat="server" Font-Bold="True" 
-                    Text="Attach File:"></asp:Label>
-            </td>
-            <td>
-                <asp:FileUpload ID="TicketFileUpload" runat="server" TabIndex="8" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                &nbsp;
-            </td>
-            <td>
-                &nbsp;
-            </td>
-        </tr>
-        <tr>
-            <td>
-                &nbsp;
-            </td>
-            <td align="left">
-                <asp:Button ID="btnSubmit" runat="server" Font-Bold="True" ForeColor="#FF3300" OnClick="btnSubmit_Click"
-                    Text="Submit Ticket" TabIndex="9" />
-                <br />
-                <br />
-                <asp:Label ID="lblError" runat="server" EnableViewState="False" Font-Bold="True"
-                    ForeColor="Red"></asp:Label>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                &nbsp;
-            </td>
-            <td align="right">
-                &nbsp;
-            </td>
+            <td dir="ltr">
+                &nbsp;</td>
+            <td colspan="2" dir="ltr">
+                &nbsp;</td>
         </tr>
     </table>
 </asp:Panel>

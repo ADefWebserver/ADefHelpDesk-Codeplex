@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Comments.ascx.cs" Inherits="ADefWebserver.Modules.ADefHelpDesk.Comments" %>
-<asp:Panel ID="pnlInsertComment" runat="server" GroupingText="Insert New Comment" width="540px"
-    Font-Size="X-Small" BorderStyle="Outset">
+<asp:Panel ID="pnlInsertComment" runat="server" 
+    GroupingText="Insert New Comment" width="540px"
+    Font-Size="X-Small" BorderStyle="None">
     <table>
         <tr>
             <td valign="top">

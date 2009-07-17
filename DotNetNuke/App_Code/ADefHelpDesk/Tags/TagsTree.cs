@@ -227,6 +227,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
                 var ChildResults = from AdefWebserverCategories in CategoriesTable.GetCategoriesTable(intPortalID, boolRequestorCatagories)
                                    where AdefWebserverCategories.ParentCategoryID == Convert.ToInt32(objListItem.Value)
+                                   orderby AdefWebserverCategories.CategoryName
                                    select AdefWebserverCategories;
 
                 CatagoriesEnumerable children = new CatagoriesEnumerable();

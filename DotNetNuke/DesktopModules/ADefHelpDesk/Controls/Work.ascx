@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Work.ascx.cs" Inherits="ADefWebserver.Modules.ADefHelpDesk.Work" %>
 <asp:Panel ID="pnlInsertComment" runat="server" GroupingText="Insert New Work" Width="540px"
-    Font-Size="X-Small" BorderStyle="Outset">
+    Font-Size="X-Small" BorderStyle="None">
     <table>
         <tr>
             <td valign="top">

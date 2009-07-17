@@ -112,6 +112,13 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 e.Node.ToolTip = e.Node.Text;
             }
 
+            if (!Convert.ToBoolean(objListItem.Attributes["RequestorVisible"]))
+            {
+                e.Node.ImageUrl = "";
+                e.Node.Text = "";
+                e.Node.ShowCheckBox = false;
+            }
+
             // Expand Node if it is in the SelectedCategories Array
             if (_SelectedCategories != null)
             {

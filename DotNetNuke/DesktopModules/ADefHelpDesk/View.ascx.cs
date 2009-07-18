@@ -37,6 +37,7 @@ using DotNetNuke.Security.Roles;
 using System.Web.UI.HtmlControls;
 using System.Web.UI;
 using Microsoft.VisualBasic;
+using DotNetNuke.Services.Localization;
 
 namespace ADefWebserver.Modules.ADefHelpDesk
 {
@@ -241,6 +242,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
                 // Show the Administrator user selector and Ticket Status selectors
                 pnlAdminUserSelection.Visible = true;
+                pnlAdminUserSelection.GroupingText = Localization.GetString("AdminUserSelectionGrouping.Text", LocalResourceFile);
                 pnlAdminTicketStatus.Visible = true;
 
                 // Load the Roles dropdown

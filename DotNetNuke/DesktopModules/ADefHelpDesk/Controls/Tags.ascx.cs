@@ -112,7 +112,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 e.Node.ToolTip = e.Node.Text;
             }
 
-            if (!Convert.ToBoolean(objListItem.Attributes["RequestorVisible"]))
+            if ((!Convert.ToBoolean(objListItem.Attributes["RequestorVisible"])) & ((_DisplayType != "Administrator")))
             {
                 e.Node.ImageUrl = "";
                 e.Node.Text = "";

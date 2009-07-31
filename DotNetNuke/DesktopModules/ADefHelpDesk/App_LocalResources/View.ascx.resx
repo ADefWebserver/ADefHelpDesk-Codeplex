@@ -120,6 +120,18 @@
   <data name="AdminUserSelectionGrouping.Text" xml:space="preserve">
     <value>Select User</value>
   </data>
+  <data name="ANewHelpDeskTicket.Text" xml:space="preserve">
+    <value>A new help desk ticket #{0} has been created.</value>
+  </data>
+  <data name="ANewHelpDeskTicketCreated.Text" xml:space="preserve">
+    <value>A new help desk ticket #{0} has been created '{1}'.</value>
+  </data>
+  <data name="ANewHelpDeskTicketHasBeenAssigned.Text" xml:space="preserve">
+    <value>A new help desk ticket #{0} has been Assigned '{1}'.</value>
+  </data>
+  <data name="AssignedTicketTo.Text" xml:space="preserve">
+    <value>{0} assigned ticket to {1}.</value>
+  </data>
   <data name="btnSearch.Text" xml:space="preserve">
     <value>Search</value>
   </data>
@@ -164,6 +176,21 @@
   </data>
   <data name="ddlStatusAdminResolved.Text" xml:space="preserve">
     <value>Resolved</value>
+  </data>
+  <data name="DeletedRole.Text" xml:space="preserve">
+    <value>[Deleted Role]</value>
+  </data>
+  <data name="DescriptionIsRequired.Text" xml:space="preserve">
+    <value>Description is required</value>
+  </data>
+  <data name="EmailIsRequired.Text" xml:space="preserve">
+    <value>Email is required</value>
+  </data>
+  <data name="HasCreatedANewHelpDeskTicket.Text" xml:space="preserve">
+    <value>{0} has created a new help desk ticket #{1} for you at http://{2}</value>
+  </data>
+  <data name="HelpDeskTicketAtHasBeenAssigned.Text" xml:space="preserve">
+    <value>A Help Desk Ticket #{0} at http://{1} has been assigned to {2}</value>
   </data>
   <data name="lblAssigned.Text" xml:space="preserve">
     <value>Assigned:</value>
@@ -251,5 +278,29 @@
   </data>
   <data name="lnlAnonymousContinue.Text" xml:space="preserve">
     <value>Click here to continue</value>
+  </data>
+  <data name="MustUseAValidDate.Text" xml:space="preserve">
+    <value>Must use a valid date</value>
+  </data>
+  <data name="NameIsRequired.Text" xml:space="preserve">
+    <value>Name is required</value>
+  </data>
+  <data name="NewHelpDeskTicketCreated.Text" xml:space="preserve">
+    <value>New Help Desk Ticket Created #{0}</value>
+  </data>
+  <data name="NewHelpDeskTicketCreatedAt.Text" xml:space="preserve">
+    <value>New Help Desk Ticket Created #{0} at http://{1}</value>
+  </data>
+  <data name="Unassigned.Text" xml:space="preserve">
+    <value>Unassigned</value>
+  </data>
+  <data name="UserIsNotFound.Text" xml:space="preserve">
+    <value>User is not found</value>
+  </data>
+  <data name="YouMaySeeStatusHere.Text" xml:space="preserve">
+    <value>You may see the status here: {0}</value>
+  </data>
+  <data name="YourTicketNumber.Text" xml:space="preserve">
+    <value>Your ticket number is # {0}</value>
   </data>
 </root>

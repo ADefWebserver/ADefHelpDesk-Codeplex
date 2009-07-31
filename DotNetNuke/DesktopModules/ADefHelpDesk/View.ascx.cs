@@ -320,7 +320,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 {
                     // Role no longer exists in Portal
                     ListItem RoleListItem = new ListItem();
-                    RoleListItem.Text = "[Deleted Role]";
+                    RoleListItem.Text = Localization.GetString("DeletedRole.Text", LocalResourceFile);
                     RoleListItem.Value = objADefHelpDesk_Role.RoleID.ToString();
                     ddlAssignedAdmin.Items.Add(RoleListItem);
                 }
@@ -328,7 +328,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
             // Add UnAssigned
             ListItem UnassignedRoleListItem = new ListItem();
-            UnassignedRoleListItem.Text = "Unassigned";
+            UnassignedRoleListItem.Text = Localization.GetString("Unassigned.Text", LocalResourceFile);
             UnassignedRoleListItem.Value = "-1";
             ddlAssignedAdmin.Items.Add(UnassignedRoleListItem);
         }
@@ -635,7 +635,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                         pnlNewTicket.Visible = false;
                         lnkNewTicket.Font.Bold = false;
                         lnkNewTicket.BackColor = System.Drawing.Color.Transparent;
-                        lblConfirmAnonymousUser.Text = String.Format("Your ticket number is # {0}", intTaskID.ToString());
+                        lblConfirmAnonymousUser.Text = String.Format(Localization.GetString("YourTicketNumber.Text", LocalResourceFile), intTaskID.ToString());
                     }
                     else
                     {
@@ -663,18 +663,18 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             {
                 if (txtName.Text.Trim().Length < 1)
                 {
-                    ColErrors.Add("Name is required");
+                    ColErrors.Add(Localization.GetString("NameIsRequired.Text", LocalResourceFile));
                 }
 
                 if (txtEmail.Text.Trim().Length < 1)
                 {
-                    ColErrors.Add("Email is required");
+                    ColErrors.Add(Localization.GetString("EmailIsRequired.Text", LocalResourceFile));
                 }
             }
 
             if (txtDescription.Text.Trim().Length < 1)
             {
-                ColErrors.Add("Description is required");
+                ColErrors.Add(Localization.GetString("DescriptionIsRequired.Text", LocalResourceFile));
             }
 
             // Validate the date only if a date was entered
@@ -686,7 +686,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 }
                 catch
                 {
-                    ColErrors.Add("Must use a valid date");
+                    ColErrors.Add(Localization.GetString("MustUseAValidDate.Text", LocalResourceFile));
                 }
             }
 
@@ -945,7 +945,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 }
                 else
                 {
-                    lblCurrentProcessorNotFound.Text = "User is not found";
+                    lblCurrentProcessorNotFound.Text = Localization.GetString("UserIsNotFound.Text", LocalResourceFile);
                     lblCurrentProcessorNotFound.Visible = true;
                     gvCurrentProcessor.Visible = false;
                 }
@@ -993,7 +993,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
                 string strPasswordLinkUrl = Utility.FixURLLink(DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}&TP={1}", TaskID, objADefHelpDesk_Tasks.TicketPassword)), PortalSettings.PortalAlias.HTTPAlias);
                 string strLinkUrl = Utility.FixURLLink(DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", TaskID)), PortalSettings.PortalAlias.HTTPAlias);
-                string strSubject = String.Format("New Help Desk Ticket Created #{0}", TaskID);
+                string strSubject = String.Format(Localization.GetString("NewHelpDeskTicketCreated.Text", LocalResourceFile), TaskID);
                 string strBody = "";
 
                 if (Convert.ToInt32(txtUserID.Text) != UserId || UserId == -1)
@@ -1001,16 +1001,16 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     if (UserId == -1)
                     {
                         // Anonymous user has created a ticket
-                        strBody = String.Format(@"A new help desk ticket #{0} has been created.", TaskID); ;
+                        strBody = String.Format(Localization.GetString("ANewHelpDeskTicket.Text", LocalResourceFile), TaskID); ;
                     }
                     else
                     {
                         // Admin has created a Ticket on behalf of another user
-                        strBody = String.Format(@"{0} has created a new help desk ticket #{1} for you at http://{2}", UserInfo.DisplayName, TaskID, PortalSettings.PortalAlias.HTTPAlias); ;
+                        strBody = String.Format(Localization.GetString("HasCreatedANewHelpDeskTicket.Text", LocalResourceFile), UserInfo.DisplayName, TaskID, PortalSettings.PortalAlias.HTTPAlias); ;
                     }
 
                     strBody = strBody + Environment.NewLine;
-                    strBody = strBody + String.Format(@"You may see the status here: {0}", strPasswordLinkUrl);
+                    strBody = strBody + String.Format(Localization.GetString("YouMaySeeStatusHere.Text", LocalResourceFile), strPasswordLinkUrl);
 
                     string strEmail = txtEmail.Text;
 
@@ -1036,10 +1036,10 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     else
                     {
                         // This is not an Admin so Notify the Admins
-                        strSubject = String.Format("New Help Desk Ticket Created #{0} at http://{1}", TaskID, PortalSettings.PortalAlias.HTTPAlias);
-                        strBody = String.Format(@"A new help desk ticket #{0} has been created '{1}'.", TaskID, txtDescription.Text);
+                        strSubject = String.Format(Localization.GetString("NewHelpDeskTicketCreatedAt.Text", LocalResourceFile), TaskID, PortalSettings.PortalAlias.HTTPAlias);
+                        strBody = String.Format(Localization.GetString("ANewHelpDeskTicketCreated.Text", LocalResourceFile), TaskID, txtDescription.Text);
                         strBody = strBody + Environment.NewLine;
-                        strBody = strBody + String.Format(@"You may see the status here: {0}", strLinkUrl);
+                        strBody = strBody + String.Format(Localization.GetString("YouMaySeeStatusHere.Text", LocalResourceFile), strLinkUrl);
 
                         // Get all users in the Admin Role
                         RoleController objRoleController = new RoleController();
@@ -1054,10 +1054,10 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 else
                 {
                     // A normal ticket has been created
-                    strSubject = String.Format("New Help Desk Ticket Created #{0} at http://{1}", TaskID, PortalSettings.PortalAlias.HTTPAlias);
-                    strBody = String.Format(@"A new help desk ticket #{0} has been created '{1}'.", TaskID, txtDescription.Text);
+                    strSubject = String.Format(Localization.GetString("NewHelpDeskTicketCreatedAt.Text", LocalResourceFile), TaskID, PortalSettings.PortalAlias.HTTPAlias);
+                    strBody = String.Format(Localization.GetString("ANewHelpDeskTicketCreated.Text", LocalResourceFile), TaskID, txtDescription.Text);
                     strBody = strBody + Environment.NewLine;
-                    strBody = strBody + String.Format(@"You may see the status here: {0}", strLinkUrl);
+                    strBody = strBody + String.Format(Localization.GetString("YouMaySeeStatusHere.Text", LocalResourceFile), strLinkUrl);
 
                     // Get all users in the Admin Role
                     RoleController objRoleController = new RoleController();
@@ -1083,10 +1083,10 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             RoleController objRoleController = new RoleController();
             string strAssignedRole = String.Format("{0}", objRoleController.GetRole(Convert.ToInt32(ddlAssignedAdmin.SelectedValue), PortalId).RoleName);
 
-            string strSubject = String.Format("A Help Desk Ticket #{0} at http://{1} has been assigned to {2}", TaskID, PortalSettings.PortalAlias.HTTPAlias, strAssignedRole);
-            string strBody = String.Format(@"A new help desk ticket #{0} has been Assigned '{1}'.", TaskID, txtDescription.Text);
+            string strSubject = String.Format(Localization.GetString("HelpDeskTicketAtHasBeenAssigned.Text", LocalResourceFile), TaskID, PortalSettings.PortalAlias.HTTPAlias, strAssignedRole);
+            string strBody = String.Format(Localization.GetString("ANewHelpDeskTicketHasBeenAssigned.Text", LocalResourceFile), TaskID, txtDescription.Text);
             strBody = strBody + Environment.NewLine;
-            strBody = strBody + String.Format(@"You may see the status here: {0}", DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", TaskID)));
+            strBody = strBody + String.Format(Localization.GetString("YouMaySeeStatusHere.Text", LocalResourceFile), DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", TaskID)));
 
             // Get all users in the AssignedRole Role
             ArrayList colAssignedRoleUsers = objRoleController.GetUsersByRoleName(PortalId, strAssignedRole);
@@ -1096,7 +1096,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 DotNetNuke.Services.Mail.Mail.SendMail(PortalSettings.Email, objUserInfo.Email, "", strSubject, strBody, "", "HTML", "", "", "", "");
             }
 
-            Log.InsertLog(Convert.ToInt32(TaskID), UserId, String.Format("{0} assigned ticket to {1}.", UserInfo.DisplayName, strAssignedRole));
+            Log.InsertLog(Convert.ToInt32(TaskID), UserId, String.Format(Localization.GetString("AssignedTicketTo.Text", LocalResourceFile), UserInfo.DisplayName, strAssignedRole));
         }
         #endregion
 
@@ -1443,7 +1443,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 }
                 catch
                 {
-                    AssignedLabel.Text = "(Role Deleted)";
+                    AssignedLabel.Text = Localization.GetString("DeletedRole.Text", LocalResourceFile);
                 }
                 AssignedLabel.ToolTip = AssignedLabel.Text;
 
@@ -1454,7 +1454,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             }
             else
             {
-                AssignedLabel.Text = "Unassigned";
+                AssignedLabel.Text = Localization.GetString("Unassigned.Text", LocalResourceFile);
             }
 
         }
@@ -1754,7 +1754,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     {
                         // Role no longer exists in Portal
                         ListItem RoleListItem = new ListItem();
-                        RoleListItem.Text = "[Deleted Role]";
+                        RoleListItem.Text = Localization.GetString("DeletedRole.Text", LocalResourceFile);
                         RoleListItem.Value = objADefHelpDesk_Role.RoleID.ToString();
                         ddlAssigned.Items.Add(RoleListItem);
                     }
@@ -1762,7 +1762,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
                 // Add UnAssigned
                 ListItem UnassignedRoleListItem = new ListItem();
-                UnassignedRoleListItem.Text = "Unassigned";
+                UnassignedRoleListItem.Text = Localization.GetString("Unassigned.Text", LocalResourceFile);
                 UnassignedRoleListItem.Value = "-1";
                 if (objADefHelpDesk_LastSearch.AssignedRoleID != null)
                 {

@@ -33,6 +33,7 @@ using Microsoft.VisualBasic;
 using System.Text;
 using System.IO;
 using DotNetNuke.Services.Exceptions;
+using DotNetNuke.Services.Localization;
 
 namespace ADefWebserver.Modules.ADefHelpDesk
 {
@@ -67,6 +68,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 cmdtxtStartCalendar2.NavigateUrl = DotNetNuke.Common.Utilities.Calendar.InvokePopupCal(txtStopDay);
                 cmdtxtStartCalendar3.NavigateUrl = DotNetNuke.Common.Utilities.Calendar.InvokePopupCal(txtStartDayEdit);
                 cmdtxtStartCalendar4.NavigateUrl = DotNetNuke.Common.Utilities.Calendar.InvokePopupCal(txtStopDayEdit);
+
+                pnlInsertComment.GroupingText = Localization.GetString("pnlInsertComment.Text", LocalResourceFile);
 
                 if (!Page.IsPostBack)
                 {
@@ -151,7 +154,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 }
                 catch
                 {
-                    lblError.Text = "Must provide valid start and stop dates and times";
+                    lblError.Text = Localization.GetString("MustProvideValidStarAndStopTimes.Text", LocalResourceFile);
                     return;
                 }
 
@@ -181,7 +184,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             }
             else
             {
-                lblError.Text = "Must provide a description";
+                lblError.Text = Localization.GetString("MustProvideADescription.Text", LocalResourceFile);
             }
         }
         #endregion
@@ -230,7 +233,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 }
                 else
                 {
-                    gvlblUser.Text = "<i>Requestor</i>";
+                    gvlblUser.Text = Localization.GetString("Requestor.Text", LocalResourceFile);
                 }
                 
                 // Time
@@ -250,16 +253,16 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     {
                         if (TimeDifference.Hours == 0)
                         {
-                            lblTimeSpan.Text = String.Format("<b>{0}</b> minute{1}", TimeDifference.Minutes.ToString(), ((TimeDifference.Minutes > 1) ? "s" : ""));
+                            lblTimeSpan.Text = String.Format(Localization.GetString("Minute.Text", LocalResourceFile), TimeDifference.Minutes.ToString(), ((TimeDifference.Minutes > 1) ? "s" : ""));
                         }
                         else
                         {
-                            lblTimeSpan.Text = String.Format("<b>{0}</b> hours <b>{1}</b> minute{2}", TimeDifference.Hours.ToString(), TimeDifference.Minutes.ToString(), ((TimeDifference.Minutes > 1) ? "s" : ""));
+                            lblTimeSpan.Text = String.Format(Localization.GetString("HoursandMinute.Text", LocalResourceFile), TimeDifference.Hours.ToString(), TimeDifference.Minutes.ToString(), ((TimeDifference.Minutes > 1) ? "s" : ""));
                         }
                     }
                     else
                     {
-                        lblTimeSpan.Text = String.Format("<b>{0}</b> Day{1} <b>{2}</b> hours <b>{3}</b> minute{4}", TimeDifference.Days.ToString(), ((TimeDifference.Days > 1) ? "s" : ""), TimeDifference.Hours.ToString(), TimeDifference.Minutes.ToString(), ((TimeDifference.Minutes > 1) ? "s" : ""));
+                        lblTimeSpan.Text = String.Format(Localization.GetString("DaysHoursMinutes.Text", LocalResourceFile), TimeDifference.Days.ToString(), ((TimeDifference.Days > 1) ? "s" : ""), TimeDifference.Hours.ToString(), TimeDifference.Minutes.ToString(), ((TimeDifference.Minutes > 1) ? "s" : ""));
                     }
                 }
                 catch (Exception ex)
@@ -299,7 +302,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         #region GetUserName
         private string GetUserName()
         {
-            string strUserName = "Anonymous";
+            string strUserName = Localization.GetString("Anonymous.Text", LocalResourceFile);
 
             if (UserId > -1)
             {
@@ -311,7 +314,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
         private string GetUserName(int intUserID)
         {
-            string strUserName = "Anonymous";
+            string strUserName = Localization.GetString("Anonymous.Text", LocalResourceFile);
 
             if (intUserID > -1)
             {
@@ -406,7 +409,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             }
             catch
             {
-                lblErrorEditComment.Text = "Must provide valid start and stop dates and times";
+                lblErrorEditComment.Text = Localization.GetString("MustProvideValidStarAndStopTimes.Text", LocalResourceFile);
                 return;
             }
 
@@ -443,7 +446,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             }
             else
             {
-                lblErrorEditComment.Text = "Must provide a description";
+                lblErrorEditComment.Text = Localization.GetString("MustProvideADescription.Text", LocalResourceFile);
             }
         }
         #endregion
@@ -574,6 +577,5 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             return strAdminRoleID;
         }
         #endregion
-
     }
 }

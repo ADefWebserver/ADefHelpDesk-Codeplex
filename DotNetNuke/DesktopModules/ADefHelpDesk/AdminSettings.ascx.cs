@@ -29,6 +29,7 @@ using DotNetNuke.Security.Roles;
 using DotNetNuke.Entities.Users;
 using System.Collections;
 using System.Drawing;
+using DotNetNuke.Services.Localization;
 
 namespace ADefWebserver.Modules.ADefHelpDesk
 {
@@ -50,6 +51,9 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
                 SetView("AdministratorRole");
                 DisplayAdminRoleDropDown();
+
+                btnAddNew.Text = Localization.GetString("btnAddNew.Text", LocalResourceFile);
+                btnUpdate.Text = Localization.GetString("btnUpdateAdminRole.Text", LocalResourceFile);
             }
         }
 
@@ -325,7 +329,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             objADefHelpDesk_Setting.SettingValue = ddlAdminRole.SelectedValue;
             objADefHelpDeskDALDataContext.SubmitChanges();
 
-            lblAdminRole.Text = "Updated";
+            lblAdminRole.Text = Localization.GetString("Updated.Text", LocalResourceFile);
         }
         #endregion
 
@@ -350,7 +354,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             UploadPermissionADefHelpDesk_Setting.SettingValue = ddlUploadPermission.SelectedValue;
             objADefHelpDeskDALDataContext.SubmitChanges();
 
-            lblUploadedFilesPath.Text = "Updated";
+            lblUploadedFilesPath.Text = Localization.GetString("Updated.Text", LocalResourceFile);
         }
         #endregion
 
@@ -520,7 +524,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         {
             ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
 
-            if (btnUpdate.Text == "Update")
+            if (btnUpdate.CommandName == "Update")
             {
                 var result = (from ADefHelpDesk_Categories in objADefHelpDeskDALDataContext.ADefHelpDesk_Categories
                               where ADefHelpDesk_Categories.CategoryID == Convert.ToInt32(txtCategoryID.Text)
@@ -648,7 +652,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         #region btnAddNew_Click
         protected void btnAddNew_Click(object sender, EventArgs e)
         {
-            if (btnAddNew.Text == "Add New")
+            if (btnAddNew.CommandName == "AddNew")
             {
                 SetFormToAddNew();
             }
@@ -668,8 +672,10 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             txtCategory.Text = "";
             chkRequesterVisible.Checked = true;
             chkSelectable.Checked = true;
-            btnAddNew.Text = "Cancel";
-            btnUpdate.Text = "Save";
+            btnAddNew.CommandName = "Cancel";
+            btnUpdate.CommandName = "Save";
+            btnAddNew.Text = Localization.GetString("Cancel.Text", LocalResourceFile);
+            btnUpdate.Text = Localization.GetString("Save.Text", LocalResourceFile);
             btnDelete.Visible = false;
             BindDropDown(-1);
 
@@ -694,8 +700,10 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         #region ResetForm
         private void ResetForm()
         {
-            btnAddNew.Text = "Add New";
-            btnUpdate.Text = "Update";
+            btnUpdate.CommandName = "Update";
+            btnAddNew.CommandName = "AddNew";
+            btnAddNew.Text = Localization.GetString("btnAddNew.Text", LocalResourceFile);
+            btnUpdate.Text = Localization.GetString("btnUpdateAdminRole.Text", LocalResourceFile);
             btnDelete.Visible = true;
         }
         #endregion
@@ -833,7 +841,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             }
             catch (Exception)
             {
-                RoleIDLabel.Text = "(Role Deleted)";
+                RoleIDLabel.Text = Localization.GetString("DeletedRole.Text", LocalResourceFile);
             }
         }
         #endregion
@@ -851,7 +859,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             if (colADefHelpDesk_Roles != null)
             {
                 RoleController objRoleController = new RoleController();
-                lblRoleError.Text = String.Format("Role '{0}' is already added.", objRoleController.GetRole(Convert.ToInt32(ddlRole.SelectedValue), PortalId).RoleName);
+                lblRoleError.Text = String.Format(Localization.GetString("RoleAlreadyAdded.Text", LocalResourceFile), objRoleController.GetRole(Convert.ToInt32(ddlRole.SelectedValue), PortalId).RoleName);
             }
             else
             {

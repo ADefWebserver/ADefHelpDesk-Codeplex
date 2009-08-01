@@ -8,7 +8,8 @@
             width: 19px;
         }
     </style>
-    <asp:LinkButton ID="lnkBack" runat="server" Font-Underline="True" OnClick="lnkBack_Click">Back</asp:LinkButton>
+    <asp:LinkButton ID="lnkBack" runat="server" resourcekey="lnkBack" Font-Underline="True"
+        OnClick="lnkBack_Click" Text="Back" />
     <br />
     <br />
     <table cellpadding="2">
@@ -16,21 +17,25 @@
             <td valign="top" align="left" nowrap="nowrap">
                 <p>
                     <asp:Image ID="Image1" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/user_suit.png" />
-                    <asp:LinkButton ID="lnkAdminRole" runat="server" Font-Underline="True" OnClick="lnkAdminRole_Click">Administrator Role</asp:LinkButton>
+                    <asp:LinkButton ID="lnkAdminRole" runat="server" Font-Underline="True" OnClick="lnkAdminRole_Click"
+                        resourcekey="lnkAdminRole" Text="Administrator Role" />
                 </p>
                 <p>
                     <asp:Image ID="Image4" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/folder.png"
                         Height="16px" />
-                    <asp:LinkButton ID="lnkUploadefFilesPath" runat="server" Font-Underline="True" OnClick="lnkUploadefFilesPath_Click">File Upload Settings</asp:LinkButton>
+                    <asp:LinkButton ID="lnkUploadefFilesPath" runat="server" Font-Underline="True" OnClick="lnkUploadefFilesPath_Click"
+                        resourcekey="lnkUploadefFilesPath" Text="File Upload Settings" />
                 </p>
                 <p>
                     <asp:Image ID="Image5" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/group.png"
                         Height="16px" />
-                    <asp:LinkButton ID="lnkRoles" runat="server" Font-Underline="True" OnClick="lnkRoles_Click">Assignment Roles</asp:LinkButton>
+                    <asp:LinkButton ID="lnkRoles" runat="server" Font-Underline="True" OnClick="lnkRoles_Click"
+                        resourcekey="lnkRoles" Text="Assignment Roles" />
                 </p>
                 <p>
                     <asp:Image ID="Image2" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/tag_blue.png" />
-                    <asp:LinkButton ID="lnkTagsAdmin" runat="server" Font-Underline="True" OnClick="lnkTagsAdmin_Click">Tags Administration</asp:LinkButton>
+                    <asp:LinkButton ID="lnkTagsAdmin" runat="server" Font-Underline="True" OnClick="lnkTagsAdmin_Click"
+                        resourcekey="lnkTagsAdmin" Text="Tags Administration" />
                 </p>
             </td>
             <td class="style1" valign="top">
@@ -49,7 +54,9 @@
                         </tr>
                         <tr>
                             <td>
-                                Administrator Role:&nbsp;
+                                <asp:Label ID="lbltxtAdministratorRole" runat="server" resourcekey="lbltxtAdministratorRole"
+                                    Text="Administrator Role:" />
+                                &nbsp;
                             </td>
                             <td>
                                 <asp:DropDownList ID="ddlAdminRole" runat="server">
@@ -60,7 +67,7 @@
                         <tr>
                             <td>
                                 <asp:Button ID="btnUpdateAdminRole" runat="server" OnClick="btnUpdateAdminRole_Click"
-                                    Text="Update" />
+                                    Text="Update" resourcekey="btnUpdateAdminRole" />
                             </td>
                             <td>
                                 &nbsp;
@@ -89,7 +96,8 @@
                         </tr>
                         <tr>
                             <td nowrap="nowrap" align="right">
-                                File Upload Path:
+                                <asp:Label ID="lbltxtFileUploadPath" runat="server" resourcekey="lbltxtFileUploadPath" Text="File Upload Path:" />
+                                &nbsp;
                             </td>
                             <td>
                                 <asp:TextBox ID="txtUploadedFilesPath" runat="server" Columns="50"></asp:TextBox>
@@ -97,32 +105,37 @@
                         </tr>
                         <tr>
                             <td>
-                                &nbsp;</td>
+                                &nbsp;
+                            </td>
                             <td>
-                                &nbsp;</td>
+                                &nbsp;
+                            </td>
                         </tr>
                         <tr>
                             <td align="right" nowrap="nowrap">
-                                File Upload Permission:
+                                <asp:Label ID="lbltxtFileUploadPermission" runat="server" resourcekey="lbltxtFileUploadPermission"
+                                    Text="File Upload Permission:" />
+                                &nbsp;
                             </td>
                             <td>
                                 <asp:DropDownList ID="ddlUploadPermission" runat="server">
-                                    <asp:ListItem Selected="True" Text="All" Value="All" />
-                                    <asp:ListItem Text="Administrator" Value="Administrator" />
-                                     <asp:ListItem Text="Administrator/Registered Users" 
-                                        Value="Administrator/Registered Users" />
+                                    <asp:ListItem Selected="True" Text="All" Value="All" resourcekey="ddlUploadPermissionAll" />
+                                    <asp:ListItem Text="Administrator" Value="Administrator" resourcekey="ddlUploadPermissionAdministrator" />
+                                    <asp:ListItem Text="Administrator/Registered Users" Value="Administrator/Registered Users" resourcekey="ddlUploadPermissionAdminRegUser"/>
                                 </asp:DropDownList>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                &nbsp;</td>
+                                &nbsp;
+                            </td>
                             <td>
-                                &nbsp;</td>
+                                &nbsp;
+                            </td>
                         </tr>
                         <tr>
                             <td>
-                                <asp:Button ID="btnUploadedFiles" runat="server" Text="Update" OnClick="btnUploadedFiles_Click" />
+                                <asp:Button ID="btnUploadedFiles" runat="server" Text="Update" resourcekey="btnUpdateAdminRole" OnClick="btnUploadedFiles_Click" />
                             </td>
                             <td>
                                 &nbsp;
@@ -143,7 +156,8 @@
                     <table cellpadding="0">
                         <tr>
                             <td colspan="2">
-                                Assignment Roles:
+                                &nbsp;<asp:Label ID="lbltxtAssignmentRoles" runat="server" resourcekey="lbltxtAssignmentRoles"
+                                    Text="Assignment Roles:" />
                             </td>
                         </tr>
                         <tr>
@@ -156,7 +170,7 @@
                                     <ItemTemplate>
                                         <tr style="">
                                             <td>
-                                                <asp:Button ID="DeleteButton" runat="server" CommandName="Delete" Text="Delete" OnClientClick='if (!confirm("Are you sure you want to delete?") ){return false;}' />
+                                                <asp:Button ID="DeleteButton" runat="server" CommandName="Delete" Text="Delete" resourcekey="DeleteButton" OnClientClick='if (!confirm("Are you sure you want to delete?") ){return false;}' />
                                             </td>
                                             <td>
                                                 <asp:Label ID="RoleIDLabel" runat="server" Text='<%# Eval("RoleID") %>' />
@@ -181,7 +195,7 @@
                                                             <th id="Th1" runat="server">
                                                             </th>
                                                             <th id="Th2" runat="server">
-                                                                Role
+                                                                <asp:Label ID="RoleLabel" resourcekey="RoleLabel" runat="server" Text="Role" />
                                                             </th>
                                                         </tr>
                                                         <tr id="itemPlaceholder" runat="server">
@@ -202,7 +216,7 @@
                             <td>
                             </td>
                             <td>
-                                &nbsp;<asp:Button ID="btnInsertRole" runat="server" OnClick="btnInsertRole_Click"
+                                &nbsp;<asp:Button ID="btnInsertRole" runat="server" resourcekey="btnInsertRole" OnClick="btnInsertRole_Click"
                                     Text="Insert" />
                                 &nbsp;<asp:DropDownList ID="ddlRole" runat="server" DataTextField="Text" DataValueField="Value" />
                             </td>
@@ -239,7 +253,7 @@
                                             <table>
                                                 <tr>
                                                     <td align="right">
-                                                        <asp:Label ID="lblCategory" runat="server" Text="Tag:"></asp:Label>
+                                                        <asp:Label ID="lblCategory" runat="server" resourcekey="lblCategory" Text="Tag:" />
                                                     </td>
                                                     <td>
                                                         <asp:TextBox ID="txtCategory" runat="server"></asp:TextBox>
@@ -247,7 +261,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td align="right">
-                                                        <asp:Label ID="lblParentCategory" runat="server" Text="Parent Tag:"></asp:Label>
+                                                        <asp:Label ID="lblParentCategory" runat="server" resourcekey="lblParentCategory" Text="Parent Tag:" />
                                                     </td>
                                                     <td>
                                                         <asp:DropDownList ID="ddlParentCategory" runat="server">
@@ -260,11 +274,11 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="right" colspan="2">
-                                                        <asp:CheckBox ID="chkRequesterVisible" runat="server" Checked="True" Text="Requester Visible"
+                                                    <td align="right" colspan="2" nowrap="nowrap">
+                                                        <asp:CheckBox ID="chkRequesterVisible" runat="server" Checked="True" resourcekey="chkRequesterVisible" Text="Requester Visible"
                                                             ToolTip="This option will be visible to users making a ticket request" />
                                                         &nbsp;
-                                                        <asp:CheckBox ID="chkSelectable" runat="server" Checked="True" Text="Selectable"
+                                                        <asp:CheckBox ID="chkSelectable" runat="server" Checked="True" Text="Selectable" resourcekey="chkSelectable"
                                                             ToolTip="Is a user able to select this option or is it just used for grouping?" />
                                                     </td>
                                                 </tr>
@@ -280,14 +294,14 @@
                                                 <tr>
                                                     <td align="center" colspan="2">
                                                         <asp:Button ID="btnUpdate" runat="server" ForeColor="Blue" OnClick="btnUpdate_Click"
-                                                            Text="Update" />
+                                                            Text="Update" CommandName="Update" />
                                                         &nbsp;
                                                         <asp:Button ID="btnAddNew" runat="server" ForeColor="Green" OnClick="btnAddNew_Click"
-                                                            Text="Add New" />
+                                                            Text="Add New" CommandName="AddNew" />
                                                         &nbsp;
                                                         <asp:Button ID="btnDelete" runat="server" ForeColor="Red" OnClick="btnDelete_Click"
                                                             OnClientClick="if (!confirm(&quot;Are you sure you want to delete?&quot;) ){return false;}"
-                                                            Text="Delete" />
+                                                            Text="Delete" resourcekey="btnDelete" />
                                                     </td>
                                                 </tr>
                                             </table>

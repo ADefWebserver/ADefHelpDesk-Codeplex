@@ -32,6 +32,7 @@ using System.Drawing;
 using Microsoft.VisualBasic;
 using System.Text;
 using System.IO;
+using DotNetNuke.Services.Localization;
 
 namespace ADefWebserver.Modules.ADefHelpDesk
 {
@@ -126,7 +127,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 {
                     // Role no longer exists in Portal
                     ListItem RoleListItem = new ListItem();
-                    RoleListItem.Text = "[Deleted Role]";
+                    RoleListItem.Text = Localization.GetString("DeletedRole.Text", LocalResourceFile);
                     RoleListItem.Value = objADefHelpDesk_Role.RoleID.ToString();
                     ddlAssigned.Items.Add(RoleListItem);
                 }
@@ -134,7 +135,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
             // Add UnAssigned
             ListItem UnassignedRoleListItem = new ListItem();
-            UnassignedRoleListItem.Text = "Unassigned";
+            UnassignedRoleListItem.Text = Localization.GetString("Unassigned.Text", LocalResourceFile);
             UnassignedRoleListItem.Value = "-1";
             ddlAssigned.Items.Add(UnassignedRoleListItem);
 
@@ -426,7 +427,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             }
 
             lblTask.Text = objADefHelpDesk_Tasks.TaskID.ToString();
-            lblCreated.Text = String.Format("<b>Created:</b> {0} {1}", objADefHelpDesk_Tasks.CreatedDate.ToShortDateString(), objADefHelpDesk_Tasks.CreatedDate.ToShortTimeString());
+            lblCreated.Text = String.Format(Localization.GetString("Created.Text", LocalResourceFile), objADefHelpDesk_Tasks.CreatedDate.ToShortDateString(), objADefHelpDesk_Tasks.CreatedDate.ToShortTimeString());
             ddlStatus.SelectedValue = objADefHelpDesk_Tasks.Status;
             ddlPriority.SelectedValue = objADefHelpDesk_Tasks.Priority;
             txtDescription.Text = objADefHelpDesk_Tasks.Description;
@@ -498,12 +499,12 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             {
                 if (txtName.Text.Trim().Length < 1)
                 {
-                    ColErrors.Add("Name is required");
+                    ColErrors.Add(Localization.GetString("NameIsRequired.Text", LocalResourceFile));
                 }
 
                 if (txtEmail.Text.Trim().Length < 1)
                 {
-                    ColErrors.Add("Email is required");
+                    ColErrors.Add(Localization.GetString("EmailIsRequired.Text", LocalResourceFile));
                 }
             }
 
@@ -516,7 +517,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 }
                 catch
                 {
-                    ColErrors.Add("Must use a valid Due date");
+                    ColErrors.Add(Localization.GetString("MustUseAValidDate.Text", LocalResourceFile));
                 }
             }
 
@@ -528,7 +529,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 }
                 catch
                 {
-                    ColErrors.Add("Must use a valid Start date");
+                    ColErrors.Add(Localization.GetString("MustUseAValidDate.Text", LocalResourceFile));
                 }
             }
 
@@ -540,7 +541,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 }
                 catch
                 {
-                    ColErrors.Add("Must use a valid Complete date");
+                    ColErrors.Add(Localization.GetString("MustUseAValidDate.Text", LocalResourceFile));
                 }
             }
 
@@ -552,7 +553,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 }
                 catch
                 {
-                    ColErrors.Add("Must use a valid number for Estimate Hours");
+                    ColErrors.Add(Localization.GetString("MustUseAValidEstimateHours.Text", LocalResourceFile));
                 }
             }
 
@@ -652,7 +653,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             }
 
             // Insert Log
-            Log.InsertLog(objADefHelpDesk_Task.TaskID, UserId, String.Format("{0} updated ticket.", UserInfo.DisplayName));
+            Log.InsertLog(objADefHelpDesk_Task.TaskID, UserId, String.Format(Localization.GetString("UpdatedTicket.Text", LocalResourceFile), UserInfo.DisplayName));
 
             return objADefHelpDesk_Task.TaskID;
         }
@@ -696,7 +697,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         #region ShowUpdated
         private void ShowUpdated()
         {
-            lblError.Text = "** Updated **";
+            lblError.Text = Localization.GetString("Updated.Text", LocalResourceFile);
 
             // Provide a way for the user to see that a record has been updated
             // multiple times by changing the color each time
@@ -721,12 +722,6 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             btnWorkItems.Font.Bold = false;
             btnWorkItems.ForeColor = Color.Black;
             pnlWorkItems.Visible = false;
-
-            btnAssociations.BorderStyle = BorderStyle.Outset;
-            btnAssociations.BackColor = Color.WhiteSmoke;
-            btnAssociations.Font.Bold = false;
-            btnAssociations.ForeColor = Color.Black;
-            pnlAssociations.Visible = false;
 
             btnLogs.BorderStyle = BorderStyle.Outset;
             btnLogs.BackColor = Color.WhiteSmoke;
@@ -770,20 +765,6 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         }
         #endregion
 
-        // Associations
-
-        #region btnAssociations_Click
-        protected void btnAssociations_Click(object sender, EventArgs e)
-        {
-            DisableAllButtons();
-            btnAssociations.BorderStyle = BorderStyle.Inset;
-            btnAssociations.BackColor = Color.LightGray;
-            btnAssociations.Font.Bold = true;
-            btnAssociations.ForeColor = Color.Red;
-            pnlAssociations.Visible = true;
-        }
-        #endregion
-
         // Emails
 
         #region NotifyAssignedGroupOfAssignment
@@ -791,12 +772,12 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         {
             RoleController objRoleController = new RoleController();
             string strAssignedRole = String.Format("{0}", objRoleController.GetRole(Convert.ToInt32(ddlAssigned.SelectedValue), PortalId).RoleName);
-            string strLinkUrl = Utility.FixURLLink(DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", Request.QueryString["TaskID"])), PortalSettings.PortalAlias.HTTPAlias);  
+            string strLinkUrl = Utility.FixURLLink(DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", Request.QueryString["TaskID"])), PortalSettings.PortalAlias.HTTPAlias);
 
-            string strSubject = String.Format("A Help Desk Ticket #{0} at http://{1} has been assigned to {2}", Request.QueryString["TaskID"], PortalSettings.PortalAlias.HTTPAlias, strAssignedRole);
-            string strBody = String.Format(@"A new help desk ticket #{0} has been Assigned '{1}'.", Request.QueryString["TaskID"], txtDescription.Text);
+            string strSubject = String.Format(Localization.GetString("HelpDeskTicketAtHasBeenAssigned.Text", LocalResourceFile), Request.QueryString["TaskID"], PortalSettings.PortalAlias.HTTPAlias, strAssignedRole);
+            string strBody = String.Format(Localization.GetString("ANewHelpDeskTicketHasBeenAssigned.Text", LocalResourceFile), Request.QueryString["TaskID"], txtDescription.Text);
             strBody = strBody + Environment.NewLine;
-            strBody = strBody + String.Format(@"You may see the status here: {0}", strLinkUrl);
+            strBody = strBody + String.Format(Localization.GetString("YouMaySeeStatusHere.Text", LocalResourceFile), strLinkUrl);
 
             // Get all users in the AssignedRole Role
             ArrayList colAssignedRoleUsers = objRoleController.GetUsersByRoleName(PortalId, strAssignedRole);
@@ -806,7 +787,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 DotNetNuke.Services.Mail.Mail.SendMail(PortalSettings.Email, objUserInfo.Email, "", strSubject, strBody, "", "HTML", "", "", "", "");
             }
 
-            Log.InsertLog(Convert.ToInt32(Request.QueryString["TaskID"]), UserId, String.Format("{0} assigned ticket to {1}.", UserInfo.DisplayName, strAssignedRole));
+            Log.InsertLog(Convert.ToInt32(Request.QueryString["TaskID"]), UserId, String.Format(Localization.GetString("AssignedTicketTo.Text", LocalResourceFile), UserInfo.DisplayName, strAssignedRole));
         }
         #endregion
 

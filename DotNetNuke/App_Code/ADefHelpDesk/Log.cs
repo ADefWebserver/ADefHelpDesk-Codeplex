@@ -24,6 +24,7 @@ using System.Linq;
 using System.Web.UI;
 using System.Collections;
 using System.Web.UI.WebControls;
+using Microsoft.VisualBasic;
 
 namespace ADefWebserver.Modules.ADefHelpDesk
 {
@@ -40,7 +41,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
             ADefHelpDesk_Log objADefHelpDesk_Log = new ADefHelpDesk_Log();
             objADefHelpDesk_Log.DateCreated = DateTime.Now;
-            objADefHelpDesk_Log.LogDescription = LogDescription;
+            objADefHelpDesk_Log.LogDescription = Strings.Left(LogDescription,499);
             objADefHelpDesk_Log.TaskID = TaskID;
             objADefHelpDesk_Log.UserID = UserID;
 

@@ -10,18 +10,18 @@
             <td valign="top" align="center">
                 <asp:CheckBox ID="chkCommentVisible" runat="server" Checked="True" Font-Size="X-Small"
                     Text="Visible to Requestor" AutoPostBack="True" 
-                    oncheckedchanged="chkCommentVisible_CheckedChanged" />
+                    oncheckedchanged="chkCommentVisible_CheckedChanged" resourcekey="chkCommentVisible" />
             </td>
         </tr>
         <tr>
             <td colspan="2" nowrap="nowrap">
                 &nbsp;<asp:Label ID="lblAttachFile1" runat="server" Font-Bold="True" 
-                    Text="File:" />
-                <asp:FileUpload ID="TicketFileUpload" runat="server" />
+                    Text="File:" resourcekey="lblAttachFile" />
+                &nbsp;<asp:FileUpload ID="TicketFileUpload" runat="server" />
                 &nbsp;<asp:Button ID="btnInsertComment" runat="server" Font-Bold="True" 
-                    OnClick="btnInsertComment_Click" Text="Insert" />
+                    OnClick="btnInsertComment_Click" Text="Insert" resourcekey="btnInsertComment" />
                 &nbsp;<asp:Button ID="btnInsertCommentAndEmail" runat="server" Font-Bold="True" 
-                    OnClick="btnInsertCommentAndEmail_Click" Text="Insert and Email " />
+                    OnClick="btnInsertCommentAndEmail_Click" Text="Insert and Email " resourcekey="btnInsertCommentAndEmail" />
                 <br />
                 <asp:Label ID="lblError" runat="server" EnableViewState="False" ForeColor="Red"></asp:Label>
             </td>
@@ -47,13 +47,17 @@
                 AlternateText="Visible to Requestor" />
         </td>
         <td style="border: 1px solid #CCCCCC" align="center">
-            <asp:Label ID="lblDescription" runat="server" Width="140px" Font-Bold="True">Comment</asp:Label>
+            <asp:Label ID="lblDescription" runat="server" Font-Bold="True" 
+                resourcekey="lblDescription" Style="margin-left: 0px" Text="Comment" 
+                Width="147px" />
         </td>
         <td style="border: 1px solid #CCCCCC" align="center">
-            <asp:Label ID="lblUser" runat="server" Width="152px" Font-Bold="True">User</asp:Label>
+            <asp:Label ID="lblUser0" runat="server" Width="138px" Font-Bold="True" 
+                resourcekey="lblUser" Text="User"></asp:Label>
         </td>
         <td style="border: 1px solid #CCCCCC" align="center">
-            <asp:Label ID="lblTime" runat="server" Width="150px" Font-Bold="True">Time</asp:Label>
+            <asp:Label ID="lblTime0" runat="server" Width="150px" Font-Bold="True" 
+                resourcekey="lblTime" Text="Time"></asp:Label>
         </td>
     </tr>
 </table></asp:Panel>
@@ -109,22 +113,22 @@
                 <asp:Image ID="Image3" runat="server" 
                     ImageUrl="~/DesktopModules/ADefHelpDesk/images/application_side_contract.png" />
                 <asp:LinkButton ID="lnkBack" runat="server" Font-Underline="True" 
-                    onclick="lnkBack_Click">Back</asp:LinkButton>&nbsp;<asp:Image ID="Image4" 
+                    onclick="lnkBack_Click" Text="Back" resourcekey="lnkBack" />&nbsp;<asp:Image ID="Image4" 
                     runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/page_add.png" />
                 <asp:LinkButton ID="lnkUpdate" runat="server" Text="Update" 
-                    Font-Underline="True" onclick="lnkUpdate_Click" />
+                    Font-Underline="True" onclick="lnkUpdate_Click" resourcekey="lnkUpdate" />
                 <asp:Image ID="ImgEmailUser" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/user_suit.png" /><asp:LinkButton 
                     ID="lnkUpdateRequestor" runat="server" Font-Underline="True" 
-                    onclick="lnkUpdateRequestor_Click" Text="Update and Email Requestor" />
+                    onclick="lnkUpdateRequestor_Click" Text="Update and Email Requestor" resourcekey="lnkUpdateAndEmail" />
 &nbsp;<asp:Image ID="Image5" runat="server" 
                     ImageUrl="~/DesktopModules/ADefHelpDesk/images/page_delete.png" />
                 <asp:LinkButton ID="lnkDelete" runat="server" 
                     OnClientClick='if (!confirm("Are you sure you want to delete?") ){return false;}' 
-                    Text="Delete" Font-Underline="True" onclick="lnkDelete_Click" />
+                    Text="Delete" Font-Underline="True" onclick="lnkDelete_Click" resourcekey="lnkDelete" />
             </td>
             <td valign="top" align="right">
                 <asp:CheckBox ID="chkCommentVisibleEdit" runat="server" Font-Size="X-Small" 
-                    Text="Visible to Requestor" AutoPostBack="True" 
+                    Text="Visible to Requestor" AutoPostBack="True" resourcekey="chkCommentVisible"
                     oncheckedchanged="chkCommentVisibleEdit_CheckedChanged" />
             </td>
         </tr>
@@ -136,15 +140,19 @@
             </tr>
         <tr>
             <td colspan="2">
-                <b>User:</b>
-                <asp:Label ID="lblDisplayUser" runat="server"></asp:Label>
-                &nbsp;<b>Insert Date:</b>&nbsp;<asp:Label ID="lblInsertDate" runat="server"></asp:Label>
+                <asp:Label ID="lblUserFooter" runat="server" Font-Bold="True" 
+                    resourcekey="lblUserFooter" Text="User:" />
+&nbsp;<asp:Label ID="lblDisplayUser" runat="server"></asp:Label>
+                &nbsp;<asp:Label ID="lblInsertDateFooter" runat="server" Font-Bold="True" 
+                    resourcekey="lblInsertDateFooter" Text="Insert Date:" />
+                &nbsp;<asp:Label ID="lblInsertDate" runat="server"></asp:Label>
                 &nbsp;
                   <asp:Panel ID="pnlDisplayFile" runat="server" Visible="False">
                     <span style="font-size: x-small; font-weight: bold;" >
                       <br />
-                      Attachment: 
-                      <asp:ImageButton ID="imgDelete" runat="server" 
+                      <asp:Label ID="lblAttachment" resourcekey="lblAttachment" runat="server" Font-Bold="True" 
+                          Text="Attachment:" />
+                      &nbsp;<asp:ImageButton ID="imgDelete" runat="server" 
                           ImageUrl="~/DesktopModules/ADefHelpDesk/images/cancel.png" 
                           ToolTip="Delete Attachment" 
                           OnClientClick='if (!confirm("Are you sure you want to delete?") ){return false;}' 
@@ -156,8 +164,8 @@
                 <asp:Panel ID="pnlAttachFile" runat="server" Visible="False">
                     <span style="font-size: x-small; font-weight: bold;">
                     <br />
-                    <asp:Label ID="lblAttachFile2" runat="server" Font-Bold="True" 
-                        Text="Attach File:"></asp:Label>
+                    <asp:Label ID="lblAttachFile2" resourcekey="lblAttachFile2" runat="server" Font-Bold="True" 
+                        Text="Attach File:" />
                     </span>
                     &nbsp;<asp:FileUpload ID="fuAttachment" runat="server" />
                     &nbsp;&nbsp;&nbsp;&nbsp;</asp:Panel>

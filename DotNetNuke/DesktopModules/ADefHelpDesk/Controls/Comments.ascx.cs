@@ -33,6 +33,7 @@ using Microsoft.VisualBasic;
 using System.Text;
 using System.IO;
 using DotNetNuke.Services.Exceptions;
+using DotNetNuke.Services.Localization;
 
 namespace ADefWebserver.Modules.ADefHelpDesk
 {
@@ -60,6 +61,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            pnlInsertComment.GroupingText = Localization.GetString("pnlInsertComment.Text", LocalResourceFile);
+
             if (!Page.IsPostBack)
             {
                 SetView("Default");
@@ -291,7 +294,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 }
                 else
                 {
-                    gvlblUser.Text = "<i>Requestor</i>";
+                    gvlblUser.Text = Localization.GetString("Requestor.Text", LocalResourceFile);
                 }
 
                 // Comment Visible checkbox
@@ -372,7 +375,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         #region GetUserName
         private string GetUserName()
         {
-            string strUserName = "Anonymous";
+            string strUserName = Localization.GetString("Anonymous.Text", LocalResourceFile);
 
             if (UserId > -1)
             {
@@ -384,7 +387,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
         private string GetUserName(int intUserID)
         {
-            string strUserName = "Anonymous";
+            string strUserName = Localization.GetString("Anonymous.Text", LocalResourceFile);
 
             if (intUserID > -1)
             {
@@ -786,13 +789,13 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
             string strLinkUrl = Utility.FixURLLink(DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleID.ToString(), String.Format(@"&TaskID={0}", TaskID)), PortalSettings.PortalAlias.HTTPAlias);
 
-            string strSubject = String.Format("Help Desk Ticket #{0} at http://{1} has been updated", Request.QueryString["TaskID"], PortalSettings.PortalAlias.HTTPAlias);
-            string strBody = String.Format(@"Help desk ticket #{0} '{1}' has been updated.", Request.QueryString["TaskID"], strDescription);
+            string strSubject = String.Format(Localization.GetString("HelpDeskTicketAtHasBeenupdated.Text", LocalResourceFile), Request.QueryString["TaskID"], PortalSettings.PortalAlias.HTTPAlias);
+            string strBody = String.Format(Localization.GetString("HelpDeskTicketHasBeenupdated.Text", LocalResourceFile), Request.QueryString["TaskID"], strDescription);
             strBody = strBody + Environment.NewLine + Environment.NewLine;
-            strBody = strBody + "Comments:" + Environment.NewLine;
+            strBody = strBody + Localization.GetString("Comments.Text", LocalResourceFile) + Environment.NewLine;
             strBody = strBody + strComment;
             strBody = strBody + Environment.NewLine + Environment.NewLine;
-            strBody = strBody + String.Format(@"You may see the full status here: {0}", strLinkUrl);
+            strBody = strBody + String.Format(Localization.GetString("YouMaySeeFullStatusHere.Text", LocalResourceFile), strLinkUrl);
 
             // Get all users in the AssignedRole Role
             ArrayList colAssignedRoleUsers = objRoleController.GetUsersByRoleName(PortalId, strAssignedRole);
@@ -802,7 +805,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 DotNetNuke.Services.Mail.Mail.SendMail(PortalSettings.Email, objUserInfo.Email, "", strSubject, strBody, "", "HTML", "", "", "", "");
             }
 
-            Log.InsertLog(Convert.ToInt32(Request.QueryString["TaskID"]), UserId, String.Format("{0} sent comment to {1}.", UserInfo.DisplayName, strAssignedRole));
+            Log.InsertLog(Convert.ToInt32(Request.QueryString["TaskID"]), UserId, String.Format(Localization.GetString("SentCommentTo.Text", LocalResourceFile), UserInfo.DisplayName, strAssignedRole));
         }
         #endregion
 
@@ -814,15 +817,15 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             if (strEmail != "")
             {
                 string strDescription = GetDescriptionOfTicket();
-                string strSubject = String.Format("Help Desk Ticket #{0} at http://{1} has been updated", Request.QueryString["TaskID"], PortalSettings.PortalAlias.HTTPAlias);
-                string strBody = String.Format(@"Help desk ticket #{0} '{1}' has been updated.", Request.QueryString["TaskID"], strDescription);
+                string strSubject = String.Format(Localization.GetString("HelpDeskTicketAtHasBeenupdated.Text", LocalResourceFile), Request.QueryString["TaskID"], PortalSettings.PortalAlias.HTTPAlias);
+                string strBody = String.Format(Localization.GetString("HelpDeskTicketHasBeenupdated.Text", LocalResourceFile), Request.QueryString["TaskID"], strDescription);
                 strBody = strBody + Environment.NewLine + Environment.NewLine;
-                strBody = strBody + "Comments:" + Environment.NewLine;
+                strBody = strBody + Localization.GetString("Comments.Text", LocalResourceFile) + Environment.NewLine;
                 strBody = strBody + strComment;
 
                 DotNetNuke.Services.Mail.Mail.SendMail(PortalSettings.Email, strEmail, "", strSubject, strBody, "", "HTML", "", "", "", "");
 
-                Log.InsertLog(Convert.ToInt32(Request.QueryString["TaskID"]), UserId, String.Format("Requestor at '{0}', was emailed comment: {1}.", strEmail, strComment));
+                Log.InsertLog(Convert.ToInt32(Request.QueryString["TaskID"]), UserId, String.Format(Localization.GetString("RequestorWasEmailed.Text", LocalResourceFile), strEmail, strComment));
             }
         }
         #endregion

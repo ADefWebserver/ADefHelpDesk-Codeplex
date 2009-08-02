@@ -36,6 +36,10 @@
       </modules>
       <files>
         <file>
+          <path>App_LocalResources</path>
+          <name>View.ascx.resx</name>
+        </file>
+        <file>
           <path>Controls</path>
           <name>Comments.ascx</name>
         </file>

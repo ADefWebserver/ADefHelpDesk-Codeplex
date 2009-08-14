@@ -172,7 +172,7 @@
     <value>New</value>
   </data>
   <data name="ddlStatusAdminOnHold.Text" xml:space="preserve">
-    <value>One Hold</value>
+    <value>On Hold</value>
   </data>
   <data name="ddlStatusAdminResolved.Text" xml:space="preserve">
     <value>Resolved</value>

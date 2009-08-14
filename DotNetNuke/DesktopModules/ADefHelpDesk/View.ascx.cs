@@ -1112,6 +1112,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
 
             IQueryable<ExistingTasks> result = from ADefHelpDesk_Tasks in objADefHelpDeskDALDataContext.ADefHelpDesk_Tasks
+                                               where ADefHelpDesk_Tasks.PortalID == PortalId
                                                orderby ADefHelpDesk_Tasks.CreatedDate descending
                                                select new ExistingTasks
                                                {

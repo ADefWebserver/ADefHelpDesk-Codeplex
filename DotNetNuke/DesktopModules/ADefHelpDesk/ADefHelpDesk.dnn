@@ -6,7 +6,7 @@
       <foldername>ADefHelpDesk</foldername>
       <modulename>ADefHelpDesk</modulename>
       <description>http://ADefWebserver.com</description>
-      <version>01.70.00</version>
+      <version>01.80.00</version>
       <businesscontrollerclass>
       </businesscontrollerclass>
       <modules>
@@ -37,7 +37,23 @@
       <files>
         <file>
           <path>App_LocalResources</path>
+          <name>AdminSettings.ascx.resx</name>
+        </file>
+        <file>
+          <path>App_LocalResources</path>
+          <name>EditTask.ascx.resx</name>
+        </file>
+        <file>
+          <path>App_LocalResources</path>
           <name>View.ascx.resx</name>
+        </file>
+        <file>
+          <path>Controls\App_LocalResources</path>
+          <name>CommentsControl.ascx.resx</name>
+        </file>
+        <file>
+          <path>Controls\App_LocalResources</path>
+          <name>WorkControl.ascx.resx</name>
         </file>
         <file>
           <path>Controls</path>

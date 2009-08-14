@@ -33,7 +33,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         private bool _RequestorCatagories;
 
         public CatagoriesTree(int PortalID, bool RequestorCatagories)
-            : base() 
+            : base()
         {
             _PortalID = PortalID;
             _RequestorCatagories = RequestorCatagories;
@@ -50,7 +50,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 view = new CatagoriesView(viewPath, _PortalID, _RequestorCatagories);
             }
             return view;
-        } 
+        }
         #endregion
 
         #region CreateControlCollection
@@ -61,13 +61,13 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         protected override ControlCollection CreateControlCollection()
         {
             return new ControlCollection(this);
-        } 
+        }
         #endregion
     }
 
     #region CatagoriesView
     public class CatagoriesView : HierarchicalDataSourceView
-    {        
+    {
         private string _viewPath;
         private int _PortalID;
         private bool _RequestorCatagories;
@@ -114,7 +114,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             }
 
             return CHE;
-        } 
+        }
         #endregion
 
         #region CatagoriesEnumerable
@@ -130,7 +130,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             {
                 return enumeratedItem as IHierarchyData;
             }
-        } 
+        }
         #endregion
 
         #region CatagoriesHierarchyData
@@ -165,7 +165,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
                     return ChildResults.Count() > 0;
                 }
-            } 
+            }
             #endregion
 
             #region string Path
@@ -175,7 +175,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 {
                     return objListItem.Value;
                 }
-            } 
+            }
             #endregion
 
             #region object Item
@@ -185,7 +185,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 {
                     return objListItem;
                 }
-            } 
+            }
             #endregion
 
             #region string Type
@@ -195,7 +195,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 {
                     return "ListItem";
                 }
-            } 
+            }
             #endregion
 
             #region string Text
@@ -205,7 +205,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 {
                     return objListItem.Text;
                 }
-            } 
+            }
             #endregion
 
             #region string Value
@@ -215,7 +215,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 {
                     return objListItem.Value;
                 }
-            } 
+            }
             #endregion
 
             #region GetChildren
@@ -240,6 +240,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     // AddDots method is used to add the dots to indicate the item is a sub item
                     objChildListItem.Text = String.Format("{0}", objCategory.CategoryName);
                     objChildListItem.Value = objCategory.CategoryID.ToString();
+                    objChildListItem.Attributes.Add("PortalID", intPortalID.ToString());
                     objChildListItem.Attributes.Add("Selectable", objCategory.Selectable.ToString());
                     objChildListItem.Attributes.Add("RequestorVisible", objCategory.RequestorVisible.ToString());
                     objListItem.Attributes.Add("RequestorCatagories", boolRequestorCatagories.ToString());
@@ -248,7 +249,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 }
 
                 return children;
-            } 
+            }
             #endregion
 
             #region GetParent
@@ -269,15 +270,16 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 // AddDots method is used to add the dots to indicate the item is a sub item
                 objChildListItem.Text = String.Format("{0}", ParentResult.CategoryName);
                 objChildListItem.Value = ParentResult.CategoryID.ToString();
+                objChildListItem.Attributes.Add("PortalID", intPortalID.ToString());
                 objChildListItem.Attributes.Add("Selectable", ParentResult.Selectable.ToString());
                 objChildListItem.Attributes.Add("RequestorVisible", ParentResult.RequestorVisible.ToString());
 
                 return new CatagoriesHierarchyData(objChildListItem);
-            } 
+            }
             #endregion
-        } 
+        }
         #endregion
 
-    } 
+    }
     #endregion
 }

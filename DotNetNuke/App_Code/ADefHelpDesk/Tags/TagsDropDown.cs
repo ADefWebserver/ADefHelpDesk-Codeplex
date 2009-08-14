@@ -32,15 +32,16 @@ namespace ADefWebserver.Modules.ADefHelpDesk
     public class CategoriesDropDown
     {
         private IQueryable<ADefHelpDesk_Category> EntireTable;
-        
+
         private int _PortalID;
         public int PortalID
         {
             get { return _PortalID; }
             set { _PortalID = value; }
         }
-        public CategoriesDropDown()
+        public CategoriesDropDown(int intPortalID)
         {
+            _PortalID = intPortalID;
             GetEntireTable();
         }
 
@@ -60,6 +61,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
             // Get the top level
             var results = from AdefWebserverCategories in EntireTable
+                          where AdefWebserverCategories.PortalID == PortalID
                           where AdefWebserverCategories.Level == 1
                           where AdefWebserverCategories.CategoryID != BranchNotToShow
                           orderby AdefWebserverCategories.CategoryName

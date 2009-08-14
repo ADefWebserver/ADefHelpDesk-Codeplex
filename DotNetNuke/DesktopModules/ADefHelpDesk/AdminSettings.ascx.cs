@@ -428,7 +428,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         private void BindDropDown(int intCategoryNotToShow)
         {
             // Bind drop-down
-            CategoriesDropDown colCategoriesDropDown = new CategoriesDropDown();
+            CategoriesDropDown colCategoriesDropDown = new CategoriesDropDown(PortalId);
             ListItemCollection objListItemCollection = colCategoriesDropDown.Categories(intCategoryNotToShow);
 
             // Don't show the currently selected node

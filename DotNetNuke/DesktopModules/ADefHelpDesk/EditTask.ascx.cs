@@ -422,8 +422,18 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 txtName.Visible = false;
                 lblEmail.Visible = true;
                 lblName.Visible = true;
-                lblEmail.Text = UserController.GetUser(PortalId, objADefHelpDesk_Tasks.RequesterUserID, false).Email;
-                lblName.Text = UserController.GetUser(PortalId, objADefHelpDesk_Tasks.RequesterUserID, false).DisplayName;
+
+                UserInfo objRequester = UserController.GetUser(PortalId, objADefHelpDesk_Tasks.RequesterUserID, false);
+
+                if (objRequester != null)
+                {
+                    lblEmail.Text = UserController.GetUser(PortalId, objADefHelpDesk_Tasks.RequesterUserID, false).Email;
+                    lblName.Text = UserController.GetUser(PortalId, objADefHelpDesk_Tasks.RequesterUserID, false).DisplayName;
+                }
+                else
+                {
+                    lblName.Text = "[User Deleted]";
+                }
             }
 
             lblTask.Text = objADefHelpDesk_Tasks.TaskID.ToString();

@@ -1420,7 +1420,14 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             // Format Requestor
             if (RequesterLabel.Text != "-1")
             {
-                RequesterNameLabel.Text = UserController.GetUser(PortalId, Convert.ToInt32(RequesterLabel.Text), false).DisplayName;
+                try
+                {
+                    RequesterNameLabel.Text = UserController.GetUser(PortalId, Convert.ToInt32(RequesterLabel.Text), false).DisplayName;
+                }
+                catch 
+                {
+                    RequesterNameLabel.Text = String.Format("[User Deleted]");
+                }
             }
             if (RequesterNameLabel.Text.Length > 10)
             {

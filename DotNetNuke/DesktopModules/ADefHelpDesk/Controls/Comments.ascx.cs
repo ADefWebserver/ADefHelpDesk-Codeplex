@@ -281,15 +281,24 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 Label gvlblUser = (Label)objGridViewRow.FindControl("gvlblUser");
                 if (gvlblUser.Text != "-1")
                 {
-                    string strDisplayName = UserController.GetUser(PortalId, Convert.ToInt32(gvlblUser.Text), false).DisplayName;
+                    UserInfo objUser = UserController.GetUser(PortalId, Convert.ToInt32(gvlblUser.Text), false);
 
-                    if (strDisplayName.Length > 25)
+                    if (objUser != null)
                     {
-                        gvlblUser.Text = String.Format("{0}...", Strings.Left(strDisplayName, 25));
+                        string strDisplayName = objUser.DisplayName;
+
+                        if (strDisplayName.Length > 25)
+                        {
+                            gvlblUser.Text = String.Format("{0}...", Strings.Left(strDisplayName, 25));
+                        }
+                        else
+                        {
+                            gvlblUser.Text = strDisplayName;
+                        }
                     }
                     else
                     {
-                        gvlblUser.Text = strDisplayName;
+                        gvlblUser.Text = "[User Deleted]";
                     }
                 }
                 else
@@ -391,7 +400,16 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
             if (intUserID > -1)
             {
-                strUserName = UserController.GetUser(PortalId, intUserID, false).DisplayName;
+                UserInfo objUser = UserController.GetUser(PortalId, intUserID, false);
+
+                if (objUser != null)
+                {
+                    strUserName = objUser.DisplayName;
+                }
+                else
+                {
+                    strUserName = Localization.GetString("Anonymous.Text", LocalResourceFile);
+                }
             }
 
             return strUserName;

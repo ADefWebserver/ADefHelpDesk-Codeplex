@@ -105,6 +105,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         protected void tvCategories_TreeNodeDataBound(object sender, TreeNodeEventArgs e)
         {
             ListItem objListItem = (ListItem)e.Node.DataItem;
+            e.Node.SelectAction = TreeNodeSelectAction.None;
             e.Node.ShowCheckBox = Convert.ToBoolean(objListItem.Attributes["Selectable"]);
             if (!Convert.ToBoolean(objListItem.Attributes["Selectable"]))
             {

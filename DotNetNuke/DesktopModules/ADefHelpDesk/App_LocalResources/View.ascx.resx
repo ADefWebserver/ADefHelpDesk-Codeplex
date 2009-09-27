@@ -303,4 +303,7 @@
   <data name="YourTicketNumber.Text" xml:space="preserve">
     <value>Your ticket number is # {0}</value>
   </data>
+  <data name="ddlAssignedAll.Text" xml:space="preserve">
+    <value>*All*</value>
+  </data>
 </root>

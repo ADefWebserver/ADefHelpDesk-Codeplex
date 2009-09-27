@@ -1726,7 +1726,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
                 // Add All
                 ListItem AllRoleListItem = new ListItem();
-                AllRoleListItem.Text = "*All*";
+                AllRoleListItem.Text = Localization.GetString("ddlAssignedAll.Text", LocalResourceFile);
                 AllRoleListItem.Value = "-2";
                 if (objADefHelpDesk_LastSearch.AssignedRoleID != null)
                 {

@@ -56,7 +56,7 @@
                 resourcekey="lblUser" Text="User"></asp:Label>
         </td>
         <td style="border: 1px solid #CCCCCC" align="center">
-            <asp:Label ID="lblTime0" runat="server" Width="150px" Font-Bold="True" 
+            <asp:Label ID="lblTime0" runat="server" Width="157px" Font-Bold="True" 
                 resourcekey="lblTime" Text="Time"></asp:Label>
         </td>
     </tr>
@@ -67,40 +67,40 @@
     <asp:GridView ID="gvComments" runat="server" AutoGenerateColumns="False" DataKeyNames="DetailID"
         DataSourceID="LDSComments" ShowHeader="False" 
         OnRowDataBound="gvComments_RowDataBound" 
-        onrowcommand="gvComments_RowCommand" Width="100%">
+        onrowcommand="gvComments_RowCommand" BorderStyle="None" 
+        CellPadding="2" CellSpacing="2" GridLines="None">
         <Columns>
             <asp:TemplateField ShowHeader="False">
                 <ItemTemplate>
                     <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" Font-Underline="True" 
-                        CommandArgument='<%# Bind("DetailID") %>' CommandName="Select" Text="Select"></asp:LinkButton>
+                        CommandArgument='<%# Bind("DetailID") %>' CommandName="Select" 
+                        Text="Select"></asp:LinkButton>
                 </ItemTemplate>
-                <ItemStyle Width="48px" />
             </asp:TemplateField>
             <asp:TemplateField >
                 <ItemTemplate>
-                    <asp:Label ID="lblDetailType" runat="server" Text='<%# Bind("DetailType") %>' Visible="False" />
-                    <asp:CheckBox ID="chkDetailType" runat="server" Checked="true" Enabled="False" ToolTip="Visible to Requestor" />
+                    <asp:Label ID="lblDetailType" runat="server" Text='<%# Bind("DetailType") %>' 
+                        Visible="False" />
+                    <asp:CheckBox ID="chkDetailType" runat="server" Checked="true" Enabled="False" 
+                        ToolTip="Visible to Requestor" />
                 </ItemTemplate>
-                <ItemStyle Width="20px" />
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Description" SortExpression="Description">
                 <ItemTemplate>
                     <asp:Label ID="lblComment" Font-Size="X-Small" runat="server" Text='<%# Bind("Description") %>'
-                        Width="148px"></asp:Label>
+                        Width="150px"></asp:Label>
                 </ItemTemplate>
-                <ItemStyle Width="213px" />
             </asp:TemplateField>
             <asp:TemplateField HeaderText="UserID" SortExpression="UserID">
                 <ItemTemplate>
                     <asp:Label ID="gvlblUser" Font-Size="X-Small" runat="server" Text='<%# Bind("UserID") %>'
-                        Width="150px"></asp:Label>
+                        Width="140px"></asp:Label>
                 </ItemTemplate>
-                <ItemStyle Width="110px" />
             </asp:TemplateField>
             <asp:TemplateField HeaderText="InsertDate" SortExpression="InsertDate">
                 <ItemTemplate>
                     <asp:Label ID="lblDate" runat="server" Font-Size="XX-Small" Text='<%# Bind("InsertDate") %>'
-                        Width="148px"></asp:Label>
+                        Width="140px"></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>

@@ -6,7 +6,7 @@
       <foldername>ADefHelpDesk</foldername>
       <modulename>ADefHelpDesk</modulename>
       <description>http://ADefWebserver.com</description>
-      <version>01.80.00</version>
+      <version>01.90.00</version>
       <businesscontrollerclass>
       </businesscontrollerclass>
       <modules>

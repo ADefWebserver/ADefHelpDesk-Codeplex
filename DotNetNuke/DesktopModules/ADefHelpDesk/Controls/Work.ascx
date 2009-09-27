@@ -92,7 +92,8 @@
                 &nbsp;
             </td>
             <td style="border: 1px solid #CCCCCC" align="center" class="style2">
-                <asp:Label ID="lblDescription" runat="server" Font-Bold="True" Width="147px" Style="margin-left: 0px" resourcekey="lblDescription" Text="Comment" />
+                <asp:Label ID="lblDescription" runat="server" Font-Bold="True" Width="143px" 
+                    Style="margin-left: 0px" resourcekey="lblDescription" Text="Comment" />
             </td>
             <td style="border: 1px solid #CCCCCC" align="center">
                 <asp:Label ID="lblUser" runat="server" Width="138px" resourcekey="lblUser" Font-Bold="True" Text="User" />
@@ -107,28 +108,26 @@
     Width="540px">
     <asp:GridView ID="gvComments" runat="server" AutoGenerateColumns="False" DataKeyNames="DetailID"
         DataSourceID="LDSComments" ShowHeader="False" OnRowDataBound="gvComments_RowDataBound"
-        OnRowCommand="gvComments_RowCommand" Width="100%">
+        OnRowCommand="gvComments_RowCommand" Width="100%" CellPadding="2" 
+        CellSpacing="2" GridLines="None">
         <Columns>
             <asp:TemplateField ShowHeader="False">
                 <ItemTemplate>
                     <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" Font-Underline="True"
                         CommandArgument='<%# Bind("DetailID") %>' CommandName="Select" Text="Select"></asp:LinkButton>
                 </ItemTemplate>
-                <ItemStyle Width="30px" />
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Description" SortExpression="Description">
                 <ItemTemplate>
                     <asp:Label ID="lblComment" Font-Size="X-Small" runat="server" Text='<%# Bind("Description") %>'
-                        Width="148px"></asp:Label>
+                        Width="144px"></asp:Label>
                 </ItemTemplate>
-                <ItemStyle Width="155px" />
             </asp:TemplateField>
             <asp:TemplateField HeaderText="UserID" SortExpression="UserID">
                 <ItemTemplate>
                     <asp:Label ID="gvlblUser" Font-Size="X-Small" runat="server" Text='<%# Bind("UserID") %>'
-                        Width="160px"></asp:Label>
+                        Width="154px"></asp:Label>
                 </ItemTemplate>
-                <ItemStyle Width="160px" />
             </asp:TemplateField>
             <asp:TemplateField HeaderText="InsertDate" SortExpression="InsertDate">
                 <ItemTemplate>

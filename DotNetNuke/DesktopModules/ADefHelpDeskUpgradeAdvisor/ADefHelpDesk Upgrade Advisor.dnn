@@ -1,0 +1,65 @@
+<dotnetnuke version="3.0" type="Module">
+  <folders>
+    <folder>
+      <name>ADefHelpDesk Upgrade Advisor</name>
+      <friendlyname>ADefHelpDesk Upgrade Advisor</friendlyname>
+      <foldername>ADefHelpDeskUpgradeAdvisor</foldername>
+      <modulename>ADefHelpDesk Upgrade Advisor</modulename>
+      <description>ADefHelpDesk Upgrade Advisor - used to determine if there are any known issues before upgrading ADefHelpDesk. http://ADefhelpDesk.com</description>
+      <version>01.00.00</version>
+      <businesscontrollerclass>
+      </businesscontrollerclass>
+      <modules>
+        <module>
+          <friendlyname>ADefHelpDeskUpgradeAdvisor</friendlyname>
+          <cachetime>0</cachetime>
+          <controls>
+            <control>
+              <title>ADefHelpDesk Upgrade Advisor</title>
+              <src>DesktopModules/ADefHelpDeskUpgradeAdvisor/View.ascx</src>
+              <type>View</type>
+            </control>
+          </controls>
+        </module>
+      </modules>
+      <files>
+        <file>
+          <path>ClientBin</path>
+          <name>UpgradeAdvisorClient.xap</name>
+        </file>
+        <file>
+          <path>Providers\DataProviders\SqlDataProvider</path>
+          <name>01.00.00.SqlDataProvider</name>
+        </file>
+        <file>
+          <name>Silverlight.js</name>
+        </file>
+        <file>
+          <name>View.ascx</name>
+        </file>
+        <file>
+          <name>View.ascx.cs</name>
+        </file>
+        <file>
+          <name>WebService.asmx</name>
+        </file>
+        <file>
+          <path>[app_code]Authendication</path>
+          <name>Authendication.cs</name>
+        </file>
+        <file>
+          <path>[app_code]Types</path>
+          <name>ADefHelpDeskAuthendicationHeader.cs</name>
+        </file>
+        <file>
+          <path>[app_code]Utility</path>
+          <name>Utility.cs</name>
+        </file>
+        <file>
+          <path>[app_code]</path>
+          <name>Webservice.cs</name>
+        </file>
+      </files>
+    </folder>
+  </folders>
+</dotnetnuke>

@@ -31,9 +31,10 @@
     }
 </script>
 
-<asp:Panel ID="SilverlightDesktopControl" align="center" runat="server" HorizontalAlign="Left">
+<asp:Label ID="lblError" runat="server" Text="You must be logged in to use the Upgrade Advisor" Visible="False"></asp:Label>
+<asp:Panel ID="SilverlightDesktopControl" align="center" runat="server" HorizontalAlign="Left">  
     <object data="data:application/x-silverlight-2," type="application/x-silverlight-2"
-        style="height:500px; width:500px;">
+        style="height:480px; width:640px;">
         <param name="source" value="<%=SilverlightSourceParams %>" />
         <param name="onError" value="onSilverlightError" />
         <param name="minRuntimeVersion" value="3.0.40624.0" />

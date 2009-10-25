@@ -33,6 +33,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI;
 using Microsoft.VisualBasic;
 using DotNetNuke.Services.Localization;
+using DotNetNuke.Entities.Modules;
 
 namespace ADefWebserver.Modules.ADefHelpDeskUpgradeAdvisor
 {
@@ -43,24 +44,34 @@ namespace ADefWebserver.Modules.ADefHelpDeskUpgradeAdvisor
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Register Silverlight.js file
-            Page.ClientScript.RegisterClientScriptInclude(this.GetType(), "SilverlightJS",
-                (this.TemplateSourceDirectory + "/Silverlight.js"));
+            // Must be logged in
+            if (UserId > -1)
+            {
+                // Register Silverlight.js file
+                Page.ClientScript.RegisterClientScriptInclude(this.GetType(), "SilverlightJS",
+                    (this.TemplateSourceDirectory + "/Silverlight.js"));
 
-            DotNetNuke.Entities.Users.UserInfo objUser;
-            objUser = DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo();
-            int intPortalID = objUser.PortalID;
-            int intUserID = objUser.UserID;
+                DotNetNuke.Entities.Users.UserInfo objUser;
+                objUser = DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo();
+                int intPortalID = objUser.PortalID;
+                int intUserID = objUser.UserID;
 
-            string strIPAddress = this.Context.Request.UserHostAddress;
-            string strSilverlightPassword = Authendication.SetSilverlightKey(objUser, ModuleId, strIPAddress);
-            string strWebServiceBase = GetWebServiceBase();
+                string strIPAddress = this.Context.Request.UserHostAddress;
+                string strSilverlightPassword = Authendication.SetSilverlightKey(objUser, ModuleId, strIPAddress);
+                string strWebServiceBase = GetWebServiceBase();
 
-            SilverlightSourceParams = this.TemplateSourceDirectory + "/ClientBin/UpgradeAdvisorClient.xap";
+                SilverlightSourceParams = this.TemplateSourceDirectory + "/ClientBin/UpgradeAdvisorClient.xap";
 
-            SilverlightInitParams =
-                String.Format("PortalID={0},ModuleId={1},UserID={2},Password={3},WebServiceBase={4}",
-                "0", ModuleId.ToString(), intUserID.ToString(), strSilverlightPassword, strWebServiceBase);
+                SilverlightInitParams =
+                    String.Format("PortalID={0},ModuleId={1},UserID={2},Password={3},WebServiceBase={4}",
+                    "0", ModuleId.ToString(), intUserID.ToString(), strSilverlightPassword, strWebServiceBase);
+            }
+            else
+            {
+                SilverlightDesktopControl.Visible = false;
+                lblError.Visible = true;
+
+            }
         }
 
         #region GetWebServiceBase
@@ -74,5 +85,6 @@ namespace ADefWebserver.Modules.ADefHelpDeskUpgradeAdvisor
             return strWebServiceBase;
         }
         #endregion
+        
     }
 }

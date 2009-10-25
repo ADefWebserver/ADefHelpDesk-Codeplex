@@ -1,0 +1,16 @@
+﻿<configuration>
+    <system.serviceModel>
+        <bindings>
+            <basicHttpBinding>
+                <binding name="WebServiceSoap" maxBufferSize="2147483647" maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
+            </basicHttpBinding>
+        </bindings>
+        <client>
+            <endpoint address="http://localhost:57926/ADefHelpDesk/DesktopModules/ADefHelpDeskUpgradeAdvisor/WebService.asmx"
+                binding="basicHttpBinding" bindingConfiguration="WebServiceSoap"
+                contract="UpgradeAdvisorWebService.WebServiceSoap" name="WebServiceSoap" />
+        </client>
+    </system.serviceModel>
+</configuration>

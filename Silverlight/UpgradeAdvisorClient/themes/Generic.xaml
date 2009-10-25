@@ -1,0 +1,58 @@
+﻿<ResourceDictionary  xmlns="http://schemas.microsoft.com/client/2007"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:vsm="clr-namespace:System.Windows;assembly=System.Windows" 
+                     xmlns:controls="clr-namespace:UpgradeAdvisorClient">
+    <Style TargetType="controls:WaitingIcon">
+        <Setter Property="StrokeThickness" Value="6.0"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF0A0E94" Offset="0.576"/>
+                    <GradientStop Color="#FF0FFF1B" Offset="1"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:WaitingIcon">                    
+                    <Grid>
+                        <vsm:VisualStateManager.VisualStateGroups>
+                            <vsm:VisualStateGroup x:Name="BusyIdleStates">
+                                <vsm:VisualState x:Name="BusyState">
+                                    <Storyboard AutoReverse="False" RepeatBehavior="Forever">
+                                        <PointAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="ellipse" Storyboard.TargetProperty="(Shape.Stroke).(LinearGradientBrush.StartPoint)">
+                                            <SplinePointKeyFrame KeyTime="00:00:00.25" Value="0.868,0.161"/>
+                                            <SplinePointKeyFrame KeyTime="00:00:00.5" Value="0.997,0.44"/>
+                                            <SplinePointKeyFrame KeyTime="00:00:00.75" Value="0.845,0.863"/>
+                                            <SplinePointKeyFrame KeyTime="00:00:01" Value="0.545,0.999"/>
+                                            <SplinePointKeyFrame KeyTime="00:00:01.2500000" Value="0.166,0.873"/>
+                                            <SplinePointKeyFrame KeyTime="00:00:01.5" Value="0.001,0.536"/>
+                                            <SplinePointKeyFrame KeyTime="00:00:01.7500000" Value="0.084,0.222"/>
+                                            <SplinePointKeyFrame KeyTime="00:00:02" Value="0.462,0.001"/>
+                                        </PointAnimationUsingKeyFrames>
+                                        <PointAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="ellipse" Storyboard.TargetProperty="(Shape.Stroke).(LinearGradientBrush.EndPoint)">
+                                            <SplinePointKeyFrame KeyTime="00:00:00.25" Value="0.132,0.839"/>
+                                            <SplinePointKeyFrame KeyTime="00:00:00.5" Value="0.003,0.56"/>
+                                            <SplinePointKeyFrame KeyTime="00:00:00.75" Value="0.155,0.137"/>
+                                            <SplinePointKeyFrame KeyTime="00:00:01" Value="0.455,0.001"/>
+                                            <SplinePointKeyFrame KeyTime="00:00:01.2500000" Value="0.834,0.127"/>
+                                            <SplinePointKeyFrame KeyTime="00:00:01.5" Value="0.999,0.464"/>
+                                            <SplinePointKeyFrame KeyTime="00:00:01.7500000" Value="0.916,0.778"/>
+                                            <SplinePointKeyFrame KeyTime="00:00:02" Value="0.538,0.999"/>
+                                        </PointAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="ellipse" Storyboard.TargetProperty="Opacity">
+                                            <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </vsm:VisualState>
+                                <vsm:VisualState x:Name="IdleState"/>
+                            </vsm:VisualStateGroup>
+                        </vsm:VisualStateManager.VisualStateGroups>
+                        <Ellipse StrokeThickness="{TemplateBinding StrokeThickness}" x:Name="ellipse" Stroke="{TemplateBinding Background}" Opacity="0">
+                        </Ellipse>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

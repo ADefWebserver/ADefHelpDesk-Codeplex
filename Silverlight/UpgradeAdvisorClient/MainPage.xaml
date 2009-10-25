@@ -1,9 +1,153 @@
 ﻿<UserControl x:Class="UpgradeAdvisorClient.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:cdc="clr-namespace:UpgradeAdvisorClient"
     mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480">
   <Canvas x:Name="LayoutRoot">
+  	<VisualStateManager.VisualStateGroups>
+  		<VisualStateGroup x:Name="VisualStateGroup">
+  			<VisualStateGroup.Transitions>
+  				<VisualTransition GeneratedDuration="00:00:00"/>
+  			</VisualStateGroup.Transitions>
+  			<VisualState x:Name="ShowGetVersionNumber">
+  				<Storyboard>
+  					<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="GetVersionNumber" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+  						<EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+  						<EasingDoubleKeyFrame KeyTime="00:00:01" Value="-4"/>
+  					</DoubleAnimationUsingKeyFrames>
+  					<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="GetVersionNumber" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+  						<EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+  						<EasingDoubleKeyFrame KeyTime="00:00:01" Value="-363"/>
+  					</DoubleAnimationUsingKeyFrames>
+  				</Storyboard>
+  			</VisualState>
+  			<VisualState x:Name="ShowGetVersionOfADefHelpdesk">
+  				<Storyboard>
+  					<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="GetADefHelpDeskVersion" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+  						<EasingDoubleKeyFrame KeyTime="00:00:01" Value="-1"/>
+  					</DoubleAnimationUsingKeyFrames>
+  					<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="GetADefHelpDeskVersion" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+  						<EasingDoubleKeyFrame KeyTime="00:00:01" Value="-618"/>
+  					</DoubleAnimationUsingKeyFrames>
+  				</Storyboard>
+  			</VisualState>
+  			<VisualState x:Name="ShowCheckUpgradeIssues">
+  				<Storyboard>
+  					<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="GetUpgradeItems" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+  						<EasingDoubleKeyFrame KeyTime="00:00:01" Value="-1"/>
+  					</DoubleAnimationUsingKeyFrames>
+  					<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="GetUpgradeItems" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+  						<EasingDoubleKeyFrame KeyTime="00:00:01" Value="-884"/>
+  					</DoubleAnimationUsingKeyFrames>
+  				</Storyboard>
+  			</VisualState>
+  		</VisualStateGroup>
+  	</VisualStateManager.VisualStateGroups>
   	<TextBlock Height="44" Width="448" Canvas.Left="25" Canvas.Top="29" TextWrapping="Wrap" FontSize="26.667" Foreground="#FF355F9B"><Run Text="ADefHelpDesk "/><Run FontFamily="Verdana" Text="Upgrade "/><Run Text="Advisor"/></TextBlock>
-  </Canvas>
+  	<TextBlock x:Name="txtHelloBox" Height="31" Width="415" Canvas.Left="118" Canvas.Top="91" TextWrapping="Wrap" FontSize="21.333" RenderTransformOrigin="0.5,0.5" TextAlignment="Center">
+  		<TextBlock.RenderTransform>
+  			<TransformGroup>
+  				<ScaleTransform/>
+  				<SkewTransform/>
+  				<RotateTransform/>
+  				<TranslateTransform/>
+  			</TransformGroup>
+  		</TextBlock.RenderTransform>
+  	</TextBlock>
+  	<Canvas x:Name="GetVersionNumber" Height="209" Width="280" Canvas.Left="193" Canvas.Top="520" RenderTransformOrigin="0.5,0.5">
+  		<Canvas.RenderTransform>
+  			<TransformGroup>
+  				<ScaleTransform/>
+  				<SkewTransform/>
+  				<RotateTransform/>
+  				<TranslateTransform/>
+  			</TransformGroup>
+  		</Canvas.RenderTransform>
+  		<Button x:Name="btnGetCurrentVersionNumber" Height="29" Width="280" RenderTransformOrigin="0.5,0.5" Content="Get Current Upgrade Advisor Version Number" ToolTipService.ToolTip="Get the current version number of the ADefHelpDesk Upgrade Advisor from ADefHelpDesk.com" Click="btnGetCurrentVersionNumber_Click">
+  			<Button.RenderTransform>
+  				<TransformGroup>
+  					<ScaleTransform/>
+  					<SkewTransform/>
+  					<RotateTransform/>
+  					<TranslateTransform/>
+  				</TransformGroup>
+  			</Button.RenderTransform>
+  		</Button>
+  		<TextBlock x:Name="txtCurrentUpgradeVersionNumber" Height="96" Width="280" RenderTransformOrigin="0.5,0.5" Canvas.Top="46" FontSize="21.333" TextWrapping="Wrap" TextAlignment="Center">
+  			<TextBlock.RenderTransform>
+  				<TransformGroup>
+  					<ScaleTransform/>
+  					<SkewTransform/>
+  					<RotateTransform/>
+  					<TranslateTransform/>
+  				</TransformGroup>
+  			</TextBlock.RenderTransform>
+  		</TextBlock>
+  		<Button x:Name="btnContinuetoHelpDeskVersion" Click="btnContinuetoHelpDeskVersion_Click" Height="25" Width="280" Foreground="Black" Canvas.Top="184" Content="Continue" Visibility="Collapsed"/>
+  	</Canvas>
+  	<TextBlock x:Name="txtError" Height="70" Width="624" Canvas.Left="8" Canvas.Top="402" TextWrapping="Wrap"/>
+  	<Canvas x:Name="GetADefHelpDeskVersion" Height="209" Width="280" Canvas.Left="193" Canvas.Top="772" RenderTransformOrigin="0.5,0.5">
+  		<Canvas.RenderTransform>
+  			<TransformGroup>
+  				<ScaleTransform/>
+  				<SkewTransform/>
+  				<RotateTransform/>
+  				<TranslateTransform/>
+  			</TransformGroup>
+  		</Canvas.RenderTransform>
+  		<Button x:Name="btnGetVersionOfADefHelpDesk" Click="btnGetVersionOfADefHelpDesk_Click" Height="29" Width="280" RenderTransformOrigin="0.5,0.5" Content="Get Current Version Of ADefHelpDesk" ToolTipService.ToolTip="Get the current version number of the ADefHelpDesk Upgrade Advisor from ADefHelpDesk">
+  			<Button.RenderTransform>
+  				<TransformGroup>
+  					<ScaleTransform/>
+  					<SkewTransform/>
+  					<RotateTransform/>
+  					<TranslateTransform/>
+  				</TransformGroup>
+  			</Button.RenderTransform>
+  		</Button>
+  		<TextBlock x:Name="txtCurrentVersionOfADefHelpDesk" Height="96" Width="280" RenderTransformOrigin="0.5,0.5" Canvas.Top="46" FontSize="21.333" TextWrapping="Wrap" TextAlignment="Center">
+  			<TextBlock.RenderTransform>
+  				<TransformGroup>
+  					<ScaleTransform/>
+  					<SkewTransform/>
+  					<RotateTransform/>
+  					<TranslateTransform/>
+  				</TransformGroup>
+  			</TextBlock.RenderTransform>
+  		</TextBlock>
+  		<Button x:Name="btnContinuetoUpgradeCheck" Click="btnContinuetoUpgradeCheck_Click" Height="25" Width="280" Foreground="Black" Canvas.Top="184" Content="Continue" Visibility="Collapsed"/>
+  	</Canvas>
+  	<Canvas x:Name="GetUpgradeItems" Height="209" Width="280" Canvas.Left="193" Canvas.Top="1029" RenderTransformOrigin="0.5,0.5">
+  		<Canvas.RenderTransform>
+  			<TransformGroup>
+  				<ScaleTransform/>
+  				<SkewTransform/>
+  				<RotateTransform/>
+  				<TranslateTransform/>
+  			</TransformGroup>
+  		</Canvas.RenderTransform>
+  		<Button x:Name="btnGetUpgradeItems" Height="29" Width="280" RenderTransformOrigin="0.5,0.5" Content="Check for any Upgrade Issues" ToolTipService.ToolTip="Get the upgrade Items to check from ADefHelpDesk.com" Click="btnGetUpgradeItems_Click">
+  			<Button.RenderTransform>
+  				<TransformGroup>
+  					<ScaleTransform/>
+  					<SkewTransform/>
+  					<RotateTransform/>
+  					<TranslateTransform/>
+  				</TransformGroup>
+  			</Button.RenderTransform>
+  		</Button>
+  		<Button x:Name="btnContinuetoCheckUpgradeItems" Height="25" Width="280" Foreground="Black" Canvas.Top="184" Content="Check Upgrade Items" Visibility="Collapsed" ToolTipService.ToolTip="Check each of the Upgrade Items to see if any will prevent an upgrade" Click="btnContinuetoCheckUpgradeItems_Click"/>
+  		<ListBox x:Name="lstUpgradeItems" Height="100" Width="280" Canvas.Top="57"/>
+  	</Canvas>
+        <cdc:WaitingIcon x:Name="waitingIcon" Width="87" Height="85" RenderTransformOrigin="0.45,0.5" Canvas.Left="293" Canvas.Top="227" >
+            <cdc:WaitingIcon.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF070B9C" Offset="0.57599997520446777"/>
+                    <GradientStop Color="#FFFFFFFF" Offset="1"/>
+                </LinearGradientBrush>
+            </cdc:WaitingIcon.Background>
+        </cdc:WaitingIcon>
+    </Canvas>
 </UserControl>

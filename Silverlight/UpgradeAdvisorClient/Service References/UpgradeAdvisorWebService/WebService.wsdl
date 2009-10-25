@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://ADefHelpDesk.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://ADefHelpDesk.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://ADefHelpDesk.com/">
+      <s:element name="HelloUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PortalID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModuleId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HelloUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloUserResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CurrentVersionOfADefHelpDeskUpgradeAdvisor">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PortalID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModuleId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CurrentVersionOfADefHelpDeskUpgradeAdvisorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CurrentVersionOfADefHelpDeskUpgradeAdvisorResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUpgradeItems">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PortalID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModuleId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCurrentVersion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUpgradeItemsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUpgradeItemsResult" type="tns:ArrayOfUpgradeItems" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfUpgradeItems">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UpgradeItems" nillable="true" type="tns:UpgradeItems" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UpgradeItems">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Item" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemDetails" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemMethodName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CurrentVersionOfADefHelpDesk">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PortalID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModuleId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CurrentVersionOfADefHelpDeskResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CurrentVersionOfADefHelpDeskResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ADefHelpDeskLastSearchCurrentPagePresent">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PortalID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModuleId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ADefHelpDeskLastSearchCurrentPagePresentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ADefHelpDeskLastSearchCurrentPagePresentResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloUserSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloUser" />
+  </wsdl:message>
+  <wsdl:message name="HelloUserSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="CurrentVersionOfADefHelpDeskUpgradeAdvisorSoapIn">
+    <wsdl:part name="parameters" element="tns:CurrentVersionOfADefHelpDeskUpgradeAdvisor" />
+  </wsdl:message>
+  <wsdl:message name="CurrentVersionOfADefHelpDeskUpgradeAdvisorSoapOut">
+    <wsdl:part name="parameters" element="tns:CurrentVersionOfADefHelpDeskUpgradeAdvisorResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUpgradeItemsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUpgradeItems" />
+  </wsdl:message>
+  <wsdl:message name="GetUpgradeItemsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUpgradeItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="CurrentVersionOfADefHelpDeskSoapIn">
+    <wsdl:part name="parameters" element="tns:CurrentVersionOfADefHelpDesk" />
+  </wsdl:message>
+  <wsdl:message name="CurrentVersionOfADefHelpDeskSoapOut">
+    <wsdl:part name="parameters" element="tns:CurrentVersionOfADefHelpDeskResponse" />
+  </wsdl:message>
+  <wsdl:message name="ADefHelpDeskLastSearchCurrentPagePresentSoapIn">
+    <wsdl:part name="parameters" element="tns:ADefHelpDeskLastSearchCurrentPagePresent" />
+  </wsdl:message>
+  <wsdl:message name="ADefHelpDeskLastSearchCurrentPagePresentSoapOut">
+    <wsdl:part name="parameters" element="tns:ADefHelpDeskLastSearchCurrentPagePresentResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WebServiceSoap">
+    <wsdl:operation name="HelloUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">HelloUser</wsdl:documentation>
+      <wsdl:input message="tns:HelloUserSoapIn" />
+      <wsdl:output message="tns:HelloUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CurrentVersionOfADefHelpDeskUpgradeAdvisor">
+      <wsdl:input message="tns:CurrentVersionOfADefHelpDeskUpgradeAdvisorSoapIn" />
+      <wsdl:output message="tns:CurrentVersionOfADefHelpDeskUpgradeAdvisorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUpgradeItems">
+      <wsdl:input message="tns:GetUpgradeItemsSoapIn" />
+      <wsdl:output message="tns:GetUpgradeItemsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CurrentVersionOfADefHelpDesk">
+      <wsdl:input message="tns:CurrentVersionOfADefHelpDeskSoapIn" />
+      <wsdl:output message="tns:CurrentVersionOfADefHelpDeskSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ADefHelpDeskLastSearchCurrentPagePresent">
+      <wsdl:input message="tns:ADefHelpDeskLastSearchCurrentPagePresentSoapIn" />
+      <wsdl:output message="tns:ADefHelpDeskLastSearchCurrentPagePresentSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WebServiceSoap" type="tns:WebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloUser">
+      <soap:operation soapAction="http://ADefHelpDesk.com/HelloUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CurrentVersionOfADefHelpDeskUpgradeAdvisor">
+      <soap:operation soapAction="http://ADefHelpDesk.com/CurrentVersionOfADefHelpDeskUpgradeAdvisor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUpgradeItems">
+      <soap:operation soapAction="http://ADefHelpDesk.com/GetUpgradeItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CurrentVersionOfADefHelpDesk">
+      <soap:operation soapAction="http://ADefHelpDesk.com/CurrentVersionOfADefHelpDesk" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ADefHelpDeskLastSearchCurrentPagePresent">
+      <soap:operation soapAction="http://ADefHelpDesk.com/ADefHelpDeskLastSearchCurrentPagePresent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WebServiceSoap12" type="tns:WebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloUser">
+      <soap12:operation soapAction="http://ADefHelpDesk.com/HelloUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CurrentVersionOfADefHelpDeskUpgradeAdvisor">
+      <soap12:operation soapAction="http://ADefHelpDesk.com/CurrentVersionOfADefHelpDeskUpgradeAdvisor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUpgradeItems">
+      <soap12:operation soapAction="http://ADefHelpDesk.com/GetUpgradeItems" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CurrentVersionOfADefHelpDesk">
+      <soap12:operation soapAction="http://ADefHelpDesk.com/CurrentVersionOfADefHelpDesk" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ADefHelpDeskLastSearchCurrentPagePresent">
+      <soap12:operation soapAction="http://ADefHelpDesk.com/ADefHelpDeskLastSearchCurrentPagePresent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WebService">
+    <wsdl:port name="WebServiceSoap" binding="tns:WebServiceSoap">
+      <soap:address location="http://localhost:57926/ADefHelpDesk/DesktopModules/ADefHelpDeskUpgradeAdvisor/WebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WebServiceSoap12" binding="tns:WebServiceSoap12">
+      <soap12:address location="http://localhost:57926/ADefHelpDesk/DesktopModules/ADefHelpDeskUpgradeAdvisor/WebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

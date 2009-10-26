@@ -9,6 +9,7 @@
       <version>01.00.00</version>
       <businesscontrollerclass>
       </businesscontrollerclass>
+      <permissions>RefelectionPermission</permissions>
       <modules>
         <module>
           <friendlyname>ADefHelpDeskUpgradeAdvisor</friendlyname>

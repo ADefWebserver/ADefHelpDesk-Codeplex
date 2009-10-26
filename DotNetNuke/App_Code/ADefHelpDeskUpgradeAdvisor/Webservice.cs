@@ -151,12 +151,7 @@ namespace ADefWebserver.Modules.ADefHelpDeskUpgradeAdvisor
             Authendication Authendication = new Authendication(SilverlightDesktopAuthendicationHeader);
             if (Authendication.IsUserValid())
             {
-                ModuleController objModuleController = new ModuleController();
-                var colModuleInfo = objModuleController.GetAllModules().Cast<ModuleInfo>().ToList();
-
-                var objModule = (from Module in colModuleInfo
-                                 where Module.ModuleTitle == "ADefHelpDesk"
-                                 select Module).FirstOrDefault();
+                DesktopModuleInfo objModule = DotNetNuke.Common.Globals.GetDesktopModuleByName("ADefHelpDesk");
 
                 if (objModule != null)
                 {

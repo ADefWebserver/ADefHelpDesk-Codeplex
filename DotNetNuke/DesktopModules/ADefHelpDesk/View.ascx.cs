@@ -204,6 +204,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             objADefHelpDesk_LastSearch.Priority = UpdateADefHelpDesk_LastSearch.Priority;
             objADefHelpDesk_LastSearch.Status = UpdateADefHelpDesk_LastSearch.Status;
             objADefHelpDesk_LastSearch.CurrentPage = UpdateADefHelpDesk_LastSearch.CurrentPage;
+            objADefHelpDesk_LastSearch.PageSize = Convert.ToInt32(ddlPageSize.SelectedValue);
 
             objADefHelpDeskDALDataContext.SubmitChanges();
         }
@@ -362,7 +363,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 TagsTreeExistingTasks.Expand = false;
             }
 
-            // Only Logged in users can have saved Categiries in the Tag tree
+            // Only Logged in users can have saved Categories in the Tag tree
             if ((UserId > -1) & (SearchCriteria.Categories != null))
             {
                 if (SearchCriteria.Categories.Trim() != "")
@@ -519,6 +520,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             ExistingADefHelpDesk_LastSearch.Priority = null;
             ExistingADefHelpDesk_LastSearch.Status = null;
             ExistingADefHelpDesk_LastSearch.CurrentPage = 1;
+            ExistingADefHelpDesk_LastSearch.PageSize = 25;
+            ddlPageSize.SelectedValue = "25";
             SaveLastSearchCriteria(ExistingADefHelpDesk_LastSearch);
 
             Response.Redirect(DotNetNuke.Common.Globals.NavigateURL(), true);
@@ -1299,7 +1302,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             #endregion
 
             #region Paging
-            int intPageSize = 25;
+            int intPageSize = (objLastSearch.PageSize != null) ? Convert.ToInt32(objLastSearch.PageSize) : Convert.ToInt32(ddlPageSize.SelectedValue);
             int intCurrentPage = (Convert.ToInt32(objLastSearch.CurrentPage) == 0) ? 1 : Convert.ToInt32(objLastSearch.CurrentPage);
 
             //Paging
@@ -1646,6 +1649,9 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 // Current Page
                 objADefHelpDesk_LastSearch.CurrentPage = GetCurrentPage();
 
+                // Page Size
+                objADefHelpDesk_LastSearch.PageSize = Convert.ToInt32(ddlPageSize.SelectedValue);
+
                 // Save Search Criteria
                 SaveLastSearchCriteria(objADefHelpDesk_LastSearch);
                 // Execute Search
@@ -1722,6 +1728,12 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     txtCreated.Text = objADefHelpDesk_LastSearch.CreatedDate.Value.AddDays(1).ToShortDateString();
                 }
 
+                // Page Size
+                if (objADefHelpDesk_LastSearch.PageSize != null)
+                {
+                    ddlPageSize.SelectedValue = objADefHelpDesk_LastSearch.PageSize.ToString();
+                }
+
                 // Load Dropdown
                 ddlAssigned.Items.Clear();
 
@@ -1791,7 +1803,6 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     }
                 }
                 ddlAssigned.Items.Add(UnassignedRoleListItem);
-
             }
         }
         #endregion
@@ -1858,6 +1869,9 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
             // Current Page
             objADefHelpDesk_LastSearch.CurrentPage = GetCurrentPage();
+
+            // Page Size
+            objADefHelpDesk_LastSearch.PageSize = Convert.ToInt32(ddlPageSize.SelectedValue);
 
             return objADefHelpDesk_LastSearch;
         }
@@ -1983,6 +1997,16 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             int intCurrentPage = Convert.ToInt32(objADefHelpDesk_LastSearch.CurrentPage ?? 1);
             intCurrentPage = -1;
             objADefHelpDesk_LastSearch.CurrentPage = intCurrentPage;
+            SaveLastSearchCriteria(objADefHelpDesk_LastSearch);
+            DisplayExistingTickets(SearchCriteria);
+        } 
+        #endregion
+
+        #region ddlPageSize_SelectedIndexChanged
+        protected void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ADefHelpDesk_LastSearch objADefHelpDesk_LastSearch = GetLastSearchCriteria();
+            objADefHelpDesk_LastSearch.PageSize = Convert.ToInt32(ddlPageSize.SelectedValue);
             SaveLastSearchCriteria(objADefHelpDesk_LastSearch);
             DisplayExistingTickets(SearchCriteria);
         } 

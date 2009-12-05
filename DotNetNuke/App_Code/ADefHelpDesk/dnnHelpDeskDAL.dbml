@@ -117,6 +117,7 @@
       <Column Name="AssignedRoleID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Categories" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
       <Column Name="CurrentPage" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PageSize" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 12.625" name="ADefHelpDeskDAL">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 13" name="ADefHelpDeskDAL">
   <DataContextMoniker Name="/ADefHelpDeskDALDataContext" />
   <nestedChildShapes>
     <classShape Id="505b039b-4672-4898-a930-8080151191ea" absoluteBounds="3.625, 7.125, 2, 1.7708968098958327">
@@ -8,10 +8,10 @@
         <elementListCompartment Id="6eef6569-4996-4d37-ac34-4c60129f10e0" absoluteBounds="3.6400000000000006, 7.5850000000000009, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="305f566f-acd8-43f8-8052-7d3ad6c51319" absoluteBounds="6.125, 10.75, 2, 1.5785953776041666">
+    <classShape Id="305f566f-acd8-43f8-8052-7d3ad6c51319" absoluteBounds="6.125, 11.125, 2, 1.5785953776041666">
       <DataClassMoniker Name="/ADefHelpDeskDALDataContext/ADefHelpDesk_Setting" />
       <nestedChildShapes>
-        <elementListCompartment Id="0aa0c122-029a-4ae8-b941-173c82414336" absoluteBounds="6.14, 11.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="0aa0c122-029a-4ae8-b941-173c82414336" absoluteBounds="6.14, 11.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="7dd2b5d8-542a-45ca-bccf-784953b753c1" absoluteBounds="3.625, 3.75, 2, 1.3862939453125005">
@@ -92,16 +92,16 @@
         <classShapeMoniker Id="01b4d4a1-bb1d-4222-bd81-38548294090e" />
       </nodes>
     </associationConnector>
-    <classShape Id="da3c7f68-fdf1-488f-96ea-00528e26c166" absoluteBounds="6.125, 9.125, 2, 1.3862939453125">
+    <classShape Id="da3c7f68-fdf1-488f-96ea-00528e26c166" absoluteBounds="6.125, 9.5, 2, 1.3862939453125">
       <DataClassMoniker Name="/ADefHelpDeskDALDataContext/ADefHelpDesk_Role" />
       <nestedChildShapes>
-        <elementListCompartment Id="6f42d9ab-92ae-4c60-a51a-ef0d57ebe590" absoluteBounds="6.14, 9.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="6f42d9ab-92ae-4c60-a51a-ef0d57ebe590" absoluteBounds="6.14, 9.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="13329265-30e3-459d-b35a-ac0c59f16a38" absoluteBounds="6.125, 6, 2, 2.9247054036458331">
+    <classShape Id="b6ac3b86-0ea5-481e-94ca-d973971447d9" absoluteBounds="6.125, 6.125, 2, 3.1170068359375">
       <DataClassMoniker Name="/ADefHelpDeskDALDataContext/ADefHelpDesk_LastSearch" />
       <nestedChildShapes>
-        <elementListCompartment Id="f7641c85-090d-4316-ad2e-b2ef6a479801" absoluteBounds="6.14, 6.46, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="752553e4-0f25-46c3-b7c7-202b0f14443e" absoluteBounds="6.14, 6.585, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

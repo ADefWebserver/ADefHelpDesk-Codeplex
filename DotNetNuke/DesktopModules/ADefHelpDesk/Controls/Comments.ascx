@@ -5,7 +5,8 @@
     <table>
         <tr>
             <td valign="top">
-                <asp:TextBox ID="txtComment" runat="server" Columns="50" Rows="2" TextMode="MultiLine"></asp:TextBox>
+                <asp:TextBox ID="txtComment" runat="server" Columns="50" Rows="4" 
+                    TextMode="MultiLine"></asp:TextBox>
             </td>
             <td valign="top" align="center">
                 <asp:CheckBox ID="chkCommentVisible" runat="server" Checked="True" Font-Size="X-Small"

@@ -246,12 +246,14 @@
 <asp:Panel ID="pnlConfirmAnonymousUserEntry" runat="server" Visible="False">
     <div class="style5">
         <h2>
-            <asp:Label ID="lblTicketHasBeenSubmitted" resourcekey="lblTicketHasBeenSubmitted" runat="server" Text="Your Ticket has been submitted." /><br />
+            <asp:Label ID="lblTicketHasBeenSubmitted" resourcekey="lblTicketHasBeenSubmitted"
+                runat="server" Text="Your Ticket has been submitted." /><br />
             <br />
             <asp:Label ID="lblConfirmAnonymousUser" runat="server"></asp:Label>
             <br />
             <br />
-            <asp:LinkButton ID="lnlAnonymousContinue" runat="server" Font-Underline="True" OnClick="lnlAnonymousContinue_Click" Text="Click here to continue" resourcekey="lnlAnonymousContinue"/>
+            <asp:LinkButton ID="lnlAnonymousContinue" runat="server" Font-Underline="True" OnClick="lnlAnonymousContinue_Click"
+                Text="Click here to continue" resourcekey="lnlAnonymousContinue" />
         </h2>
     </div>
 </asp:Panel>
@@ -300,7 +302,8 @@
                                 <th id="Th9" runat="server" nowrap="nowrap" colspan="6" style="border-style: none">
                                 </th>
                                 <th id="Th8" runat="server" nowrap="nowrap" align="right" colspan="2" style="border: 1px solid #989898;">
-                                    <asp:Label ID="lblSearchText1" runat="server" resourcekey="lblSearchText1" Text="Ticket # or Search Text:" ForeColor="#333333" />
+                                    <asp:Label ID="lblSearchText1" runat="server" resourcekey="lblSearchText1" Text="Ticket # or Search Text:"
+                                        ForeColor="#333333" />
                                 </th>
                             </tr>
                             <tr id="Tr1" runat="server">
@@ -390,7 +393,8 @@
                                             <th id="Th9" runat="server" nowrap="nowrap" colspan="6" style="border-style: none">
                                             </th>
                                             <th id="Th8" runat="server" nowrap="nowrap" align="right" colspan="2" style="border: 1px solid #989898;">
-                                                <asp:Label ID="lblSearchText2" runat="server" resourcekey="lblSearchText2" Text="Ticket # or Search Text:" ForeColor="#333333" />
+                                                <asp:Label ID="lblSearchText2" runat="server" resourcekey="lblSearchText2" Text="Ticket # or Search Text:"
+                                                    ForeColor="#333333" />
                                             </th>
                                         </tr>
                                         <tr id="Tr1" runat="server">
@@ -444,14 +448,14 @@
                                             </th>
                                             <th runat="server" nowrap="nowrap">
                                                 <asp:LinkButton ID="lnkPriority" runat="server" CommandName="Sort" CommandArgument="Priority"
-                                                    Text="Priority" Font-Underline="True" resourcekey="lnkPriority" /><asp:ImageButton ID="PriorityImage" CommandName="Sort"
-                                                        CommandArgument="Priority" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/dt-arrow-dn.png"
-                                                        Visible="false" />
+                                                    Text="Priority" Font-Underline="True" resourcekey="lnkPriority" /><asp:ImageButton
+                                                        ID="PriorityImage" CommandName="Sort" CommandArgument="Priority" runat="server"
+                                                        ImageUrl="~/DesktopModules/ADefHelpDesk/images/dt-arrow-dn.png" Visible="false" />
                                             </th>
                                             <th runat="server" nowrap="nowrap">
                                                 <asp:LinkButton ID="lnkDueDate" runat="server" CommandName="Sort" CommandArgument="DueDate"
-                                                    Text="Due" Font-Underline="True" resourcekey="lnkDueDate" /><asp:ImageButton ID="DueDateImage" CommandName="Sort"
-                                                        CommandArgument="DueDate" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/dt-arrow-dn.png"
+                                                    Text="Due" Font-Underline="True" resourcekey="lnkDueDate" /><asp:ImageButton ID="DueDateImage"
+                                                        CommandName="Sort" CommandArgument="DueDate" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/dt-arrow-dn.png"
                                                         Visible="false" />
                                             </th>
                                             <th runat="server" nowrap="nowrap">
@@ -496,16 +500,19 @@
                     </LayoutTemplate>
                 </asp:ListView>
                 <asp:Panel ID="pnlPaging" runat="server">
-                    <asp:LinkButton ID="lnkPrevious" runat="server" OnClick="lnkPrevious_Click">&lt;</asp:LinkButton>
+                    <asp:LinkButton runat="server" Font-Underline="True" Text="&lt;&lt;" ID="lnkFirst" OnClick="lnkFirst_Click" Visible="False" />
+                    &nbsp;<asp:LinkButton ID="lnkPrevious" Font-Underline="True" runat="server" Text="&lt;" OnClick="lnkPrevious_Click" />
                     &nbsp;<asp:Label ID="lblRecords" runat="server"></asp:Label>
-                    &nbsp;<asp:LinkButton ID="lnkNext" runat="server" OnClick="lnkNext_Click">&gt;</asp:LinkButton>
+                    &nbsp;<asp:LinkButton ID="lnkNext" runat="server" Font-Underline="True" Text="&gt;" OnClick="lnkNext_Click" />
+                    &nbsp;<asp:LinkButton ID="lnkLast" runat="server" Font-Underline="True" OnClick="lnkLast_Click" Text="&gt;&gt;" Visible="False" />
                     <asp:TextBox ID="txtCurrentPage" runat="server" Columns="1" Visible="False"></asp:TextBox>
                 </asp:Panel>
                 <br />
             </td>
             <td valign="top" nowrap="nowrap">
                 <asp:Image ID="Image2" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/tag_blue.png" />
-                <b>&nbsp;<asp:Label ID="lblSearchTags" resourcekey="lblSearchTags" runat="server" Text="Search Tags:" /><uc1:Tags ID="TagsTreeExistingTasks" runat="server" Visible="False" />
+                <b>&nbsp;<asp:Label ID="lblSearchTags" resourcekey="lblSearchTags" runat="server"
+                    Text="Search Tags:" /><uc1:Tags ID="TagsTreeExistingTasks" runat="server" Visible="False" />
                 </b>
             </td>
         </tr>

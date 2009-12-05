@@ -1315,9 +1315,20 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     intPages += 1;
                 }
 
+                // If Current Page is -1 then it is intended to be set to last page
+                if (intCurrentPage == -1)
+                {
+                    intCurrentPage = intPages;
+                    ADefHelpDesk_LastSearch objADefHelpDesk_LastSearch = GetLastSearchCriteria();
+                    objADefHelpDesk_LastSearch.CurrentPage = intCurrentPage;
+                    SaveLastSearchCriteria(objADefHelpDesk_LastSearch);
+                }
+
                 // Show and hide buttons
+                lnkFirst.Visible = (intCurrentPage > 1);
                 lnkPrevious.Visible = (intCurrentPage > 1);
                 lnkNext.Visible = (intCurrentPage != intPages);
+                lnkLast.Visible = (intCurrentPage != intPages);
 
                 lblRecords.Text = String.Format("{0} of {1}", intCurrentPage.ToString(), intPages.ToString());
             }
@@ -1953,5 +1964,28 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         }
         #endregion
 
-    }
+        #region lnkFirst_Click
+        protected void lnkFirst_Click(object sender, EventArgs e)
+        {
+            ADefHelpDesk_LastSearch objADefHelpDesk_LastSearch = GetLastSearchCriteria();
+            int intCurrentPage = Convert.ToInt32(objADefHelpDesk_LastSearch.CurrentPage ?? 2);
+            intCurrentPage = 1;
+            objADefHelpDesk_LastSearch.CurrentPage = intCurrentPage;
+            SaveLastSearchCriteria(objADefHelpDesk_LastSearch);
+            DisplayExistingTickets(SearchCriteria);
+        } 
+        #endregion
+
+        #region lnkLast_Click
+        protected void lnkLast_Click(object sender, EventArgs e)
+        {
+            ADefHelpDesk_LastSearch objADefHelpDesk_LastSearch = GetLastSearchCriteria();
+            int intCurrentPage = Convert.ToInt32(objADefHelpDesk_LastSearch.CurrentPage ?? 1);
+            intCurrentPage = -1;
+            objADefHelpDesk_LastSearch.CurrentPage = intCurrentPage;
+            SaveLastSearchCriteria(objADefHelpDesk_LastSearch);
+            DisplayExistingTickets(SearchCriteria);
+        } 
+        #endregion
+}
 }

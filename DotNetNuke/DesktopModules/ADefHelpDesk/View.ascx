@@ -211,8 +211,7 @@
                 <table>
                     <tr>
                         <td>
-                            &nbsp;<asp:Image ID="imgTags" runat="server" 
-                                ImageUrl="~/DesktopModules/ADefHelpDesk/images/tag_blue.png" />
+                            &nbsp;<asp:Image ID="imgTags" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/tag_blue.png" />
                             &nbsp;
                             <asp:Label ID="lblCheckTags" runat="server" Font-Bold="True" Text="Check all Tags that apply:"
                                 resourcekey="lblCheckTags" />
@@ -500,12 +499,12 @@
                             </tr>
                         </table>
                     </LayoutTemplate>
-                </asp:ListView>                    
+                </asp:ListView>
                 <table cellpadding="2">
                     <tr>
                         <td>
-                            Page Size:&nbsp;<asp:DropDownList ID="ddlPageSize" runat="server" 
-                                AutoPostBack="True" onselectedindexchanged="ddlPageSize_SelectedIndexChanged">
+                            Page Size:&nbsp;<asp:DropDownList ID="ddlPageSize" runat="server" AutoPostBack="True"
+                                OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">
                                 <asp:ListItem>5</asp:ListItem>
                                 <asp:ListItem>10</asp:ListItem>
                                 <asp:ListItem Selected="True">25</asp:ListItem>
@@ -516,28 +515,34 @@
                                 <asp:ListItem>500</asp:ListItem>
                                 <asp:ListItem>1000</asp:ListItem>
                             </asp:DropDownList>
-                            &nbsp;</td>
+                            &nbsp;
+                        </td>
                         <td>
                             <asp:Panel ID="pnlPaging" runat="server">
-                                <asp:LinkButton ID="lnkFirst" runat="server" Font-Underline="True" 
-                                    OnClick="lnkFirst_Click" Text="&lt;&lt;" Visible="False" />
-                                &nbsp;<asp:LinkButton ID="lnkPrevious" runat="server" Font-Underline="True" 
-                                    OnClick="lnkPrevious_Click" Text="&lt;" />
-                                &nbsp;<asp:Label ID="lblRecords" runat="server"></asp:Label>
-                                &nbsp;<asp:LinkButton ID="lnkNext" runat="server" Font-Underline="True" 
-                                    OnClick="lnkNext_Click" Text="&gt;" />
-                                &nbsp;<asp:LinkButton ID="lnkLast" runat="server" Font-Underline="True" 
-                                    OnClick="lnkLast_Click" Text="&gt;&gt;" Visible="False" />
-                                <asp:TextBox ID="txtCurrentPage" runat="server" Columns="1" Visible="False"></asp:TextBox>
-                            </asp:Panel>
+                                <asp:LinkButton ID="lnkFirst" runat="server" Font-Underline="True" OnClick="lnkFirst_Click"
+                                    Text="&lt;&lt;" Visible="False" />
+                                &nbsp;<asp:LinkButton ID="lnkPrevious" runat="server" Font-Underline="True" OnClick="lnkPrevious_Click"
+                                    Text="&lt;" />
+                                &nbsp;
+                                <asp:DataList ID="PagingDataList" runat="server" DataKeyField="PageNumber" RepeatColumns="20"
+                                    RepeatDirection="Horizontal" ShowFooter="False" ShowHeader="False" OnItemDataBound="PagingDataList_ItemDataBound"
+                                    RepeatLayout="Flow">
+                                    <ItemTemplate>
+                                        <asp:LinkButton Font-Size="Larger" ID="lnkPage" Text='<%# Eval("PageNumber") %>'
+                                            runat="server" CommandArgument='<%# Eval("PageNumber") %>' OnClick="lnkPage_Click" />
+                                    </ItemTemplate>
+                                </asp:DataList>
+                                &nbsp;<asp:LinkButton ID="lnkNext" runat="server" Font-Underline="True" OnClick="lnkNext_Click"
+                                    Text="&gt;" />
+                                &nbsp;<asp:LinkButton ID="lnkLast" runat="server" Font-Underline="True" OnClick="lnkLast_Click"
+                                    Text="&gt;&gt;" Visible="False" />&nbsp;</asp:Panel>
                         </td>
                     </tr>
                 </table>
                 <br />
             </td>
             <td valign="top" nowrap="nowrap">
-                <asp:Image ID="img2Tags" runat="server" 
-                    ImageUrl="~/DesktopModules/ADefHelpDesk/images/tag_blue.png" />
+                <asp:Image ID="img2Tags" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/tag_blue.png" />
                 <b>&nbsp;<asp:Label ID="lblSearchTags" resourcekey="lblSearchTags" runat="server"
                     Text="Search Tags:" /><uc1:Tags ID="TagsTreeExistingTasks" runat="server" Visible="False" />
                 </b>

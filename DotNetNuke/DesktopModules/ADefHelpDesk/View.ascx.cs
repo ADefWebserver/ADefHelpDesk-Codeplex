@@ -67,6 +67,13 @@ namespace ADefWebserver.Modules.ADefHelpDesk
     }
     #endregion
 
+    #region ListPage
+    public class ListPage
+    {
+        public int PageNumber { get; set; }
+    } 
+    #endregion
+
     public partial class View : DotNetNuke.Entities.Modules.PortalModuleBase
     {
         #region SortExpression
@@ -113,6 +120,25 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             get
             {
                 return GetLastSearchCriteria();
+            }
+        }
+        #endregion
+
+        #region CurrentPage
+        public string CurrentPage
+        {
+            get
+            {
+                if (ViewState["CurrentPage"] == null)
+                {
+                    ViewState["CurrentPage"] = "1";
+                }
+
+                return Convert.ToString(ViewState["CurrentPage"]);
+            }
+            set
+            {
+                ViewState["CurrentPage"] = value;
             }
         }
         #endregion
@@ -535,7 +561,10 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             ExistingADefHelpDesk_LastSearch.Status = null;
             ExistingADefHelpDesk_LastSearch.CurrentPage = 1;
             ExistingADefHelpDesk_LastSearch.PageSize = 25;
+
             ddlPageSize.SelectedValue = "25";
+            CurrentPage = "1";
+
             SaveLastSearchCriteria(ExistingADefHelpDesk_LastSearch);
 
             Response.Redirect(DotNetNuke.Common.Globals.NavigateURL(), true);
@@ -1319,22 +1348,22 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             int intCurrentPage = (Convert.ToInt32(objLastSearch.CurrentPage) == 0) ? 1 : Convert.ToInt32(objLastSearch.CurrentPage);
 
             //Paging
-            int intPages = 0;
+            int intTotalPages = 1;
             int intRecords = FinalResult.Count();
             if ((intRecords > 0) & (intRecords > intPageSize))
             {
-                intPages = (intRecords / intPageSize);
+                intTotalPages = (intRecords / intPageSize);
 
                 // If there are more records add 1 to page count
                 if (intRecords % intPageSize > 0)
                 {
-                    intPages += 1;
+                    intTotalPages += 1;
                 }
 
                 // If Current Page is -1 then it is intended to be set to last page
                 if (intCurrentPage == -1)
                 {
-                    intCurrentPage = intPages;
+                    intCurrentPage = intTotalPages;
                     ADefHelpDesk_LastSearch objADefHelpDesk_LastSearch = GetLastSearchCriteria();
                     objADefHelpDesk_LastSearch.CurrentPage = intCurrentPage;
                     SaveLastSearchCriteria(objADefHelpDesk_LastSearch);
@@ -1343,16 +1372,14 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 // Show and hide buttons
                 lnkFirst.Visible = (intCurrentPage > 1);
                 lnkPrevious.Visible = (intCurrentPage > 1);
-                lnkNext.Visible = (intCurrentPage != intPages);
-                lnkLast.Visible = (intCurrentPage != intPages);
-
-                lblRecords.Text = String.Format("{0} of {1}", intCurrentPage.ToString(), intPages.ToString());
+                lnkNext.Visible = (intCurrentPage != intTotalPages);
+                lnkLast.Visible = (intCurrentPage != intTotalPages);
             }
             #endregion
 
             // If the current page is greater than the number of pages
             // reset to page one and save 
-            if (intCurrentPage > intPages)
+            if (intCurrentPage > intTotalPages)
             {
                 intCurrentPage = 1;
                 ADefHelpDesk_LastSearch objADefHelpDesk_LastSearch = GetLastSearchCriteria();
@@ -1367,20 +1394,30 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             lvTasks.DataBind();
 
             // Display paging panel
-            pnlPaging.Visible = (intPages > 1);
+            pnlPaging.Visible = (intTotalPages > 1);
+
+            // Set CurrentPage
+            CurrentPage = intCurrentPage.ToString();
+
+            #region Page number list
+            List<ListPage> pageList = new List<ListPage>();
+
+            int nStartRange = intCurrentPage > 10 ? intCurrentPage - 10 : 1;
+            if (intTotalPages - nStartRange < 19)
+                nStartRange = intTotalPages > 19 ? intTotalPages - 19 : 1;
+
+            for (int nPage = nStartRange; nPage < nStartRange + 20 && nPage <= intTotalPages; nPage++)
+                pageList.Add(new ListPage { PageNumber = nPage });
+            PagingDataList.DataSource = pageList;
+            PagingDataList.DataBind();
+            #endregion
         }
         #endregion
 
         #region GetCurrentPage
         private int GetCurrentPage()
         {
-            int intCurrentPage;
-            if (int.TryParse(txtCurrentPage.Text, out intCurrentPage) == false)
-            {
-                intCurrentPage = 1;
-            }
-
-            return intCurrentPage;
+            return Convert.ToInt32(CurrentPage);
         }
         #endregion
 
@@ -2024,5 +2061,30 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             DisplayExistingTickets(SearchCriteria);
         }
         #endregion
-    }
+
+        #region lnkPage_Click
+        protected void lnkPage_Click(object sender, EventArgs e)
+        {
+            LinkButton lnkButton = sender as LinkButton;
+            CurrentPage = lnkButton.CommandArgument;
+
+            ADefHelpDesk_LastSearch objADefHelpDesk_LastSearch = GetLastSearchCriteria();
+            objADefHelpDesk_LastSearch.CurrentPage = Convert.ToInt32(lnkButton.CommandArgument);
+            SaveLastSearchCriteria(objADefHelpDesk_LastSearch);
+            DisplayExistingTickets(SearchCriteria);
+        }
+        #endregion
+
+        #region PagingDataList_ItemDataBound
+        protected void PagingDataList_ItemDataBound(object sender, DataListItemEventArgs e)
+        {
+            LinkButton pageLink = e.Item.FindControl("lnkPage") as LinkButton;
+            if (Convert.ToInt32(pageLink.CommandArgument) == GetCurrentPage())
+                pageLink.Font.Underline = false;
+            else
+                pageLink.Font.Underline = true;
+        }
+        #endregion
+
+}
 }

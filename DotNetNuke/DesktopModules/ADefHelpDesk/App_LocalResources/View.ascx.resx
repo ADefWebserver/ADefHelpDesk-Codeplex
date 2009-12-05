@@ -306,4 +306,7 @@
   <data name="ddlAssignedAll.Text" xml:space="preserve">
     <value>*All*</value>
   </data>
+  <data name="lblNoRecords.Text" xml:space="preserve">
+    <value>No Records Returned</value>
+  </data>
 </root>

@@ -379,7 +379,8 @@
                             </tr>
                             <tr runat="server">
                                 <td colspan="8">
-                                    No records returned
+                                    <asp:Label ID="lblNoRecords" runat="server" resourcekey="lblNoRecords" Text="No Records Returned"
+                                        ForeColor="#333333" />
                                 </td>
                             </tr>
                         </table>

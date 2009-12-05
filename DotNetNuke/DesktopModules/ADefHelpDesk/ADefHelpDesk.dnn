@@ -6,7 +6,7 @@
       <foldername>ADefHelpDesk</foldername>
       <modulename>ADefHelpDesk</modulename>
       <description>http://ADefWebserver.com</description>
-      <version>01.95.00</version>
+      <version>02.00.00</version>
       <businesscontrollerclass>
       </businesscontrollerclass>
       <modules>
@@ -182,6 +182,10 @@
         <file>
           <path>Providers\DataProviders\SqlDataProvider</path>
           <name>01.50.00.SqlDataProvider</name>
+        </file>
+        <file>
+          <path>Providers\DataProviders\SqlDataProvider</path>
+          <name>02.00.00.SqlDataProvider</name>
         </file>
         <file>
           <name>AdminSettings.ascx</name>

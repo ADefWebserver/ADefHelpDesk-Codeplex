@@ -69,7 +69,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
                 if (ViewOnly)
                 {
-                    SetViewOnlyMode();                    
+                    SetViewOnlyMode();
                 }
 
                 ShowFileUpload();
@@ -112,7 +112,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     }
                 }
             }
-        } 
+        }
         #endregion
 
         #region SetView
@@ -798,7 +798,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             int intRole = GetAssignedRole();
             if (intRole > -1)
             {
-                strAssignedRole = String.Format("{0}", objRoleController.GetRole(intRole, PortalId).RoleName);                
+                strAssignedRole = String.Format("{0}", objRoleController.GetRole(intRole, PortalId).RoleName);
             }
             else
             {
@@ -834,16 +834,40 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
             if (strEmail != "")
             {
-                string strDescription = GetDescriptionOfTicket();
-                string strSubject = String.Format(Localization.GetString("HelpDeskTicketAtHasBeenupdated.Text", LocalResourceFile), Request.QueryString["TaskID"], PortalSettings.PortalAlias.HTTPAlias);
-                string strBody = String.Format(Localization.GetString("HelpDeskTicketHasBeenupdated.Text", LocalResourceFile), Request.QueryString["TaskID"], strDescription);
-                strBody = strBody + Environment.NewLine + Environment.NewLine;
-                strBody = strBody + Localization.GetString("Comments.Text", LocalResourceFile) + Environment.NewLine;
-                strBody = strBody + strComment;
+                ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
 
-                DotNetNuke.Services.Mail.Mail.SendMail(PortalSettings.Email, strEmail, "", strSubject, strBody, "", "HTML", "", "", "", "");
+                var result = (from ADefHelpDesk_TaskDetails in objADefHelpDeskDALDataContext.ADefHelpDesk_Tasks
+                              where ADefHelpDesk_TaskDetails.TaskID == Convert.ToInt32(Request.QueryString["TaskID"])
+                              select ADefHelpDesk_TaskDetails).FirstOrDefault();
 
-                Log.InsertLog(Convert.ToInt32(Request.QueryString["TaskID"]), UserId, String.Format(Localization.GetString("RequestorWasEmailed.Text", LocalResourceFile), strEmail, strComment));
+                if (result != null)
+                {
+                    string strLinkUrl = "";
+                    if (result.RequesterUserID > -1)
+                    {
+                        // This is a registred User / Provide link to ticket
+                        strLinkUrl = Utility.FixURLLink(DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleID.ToString(), String.Format(@"&TaskID={0}", TaskID)), PortalSettings.PortalAlias.HTTPAlias);
+                    }
+                    else
+                    {
+                        // This is NOT a registred User / Provide link to ticket with a password
+                        strLinkUrl = Utility.FixURLLink(DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleID.ToString(), String.Format(@"&TaskID={0}&TP={1}", TaskID, result.TicketPassword)), PortalSettings.PortalAlias.HTTPAlias);
+                    }
+
+                    string strDescription = result.Description;
+                    string strSubject = String.Format(Localization.GetString("HelpDeskTicketAtHasBeenupdated.Text", LocalResourceFile), Request.QueryString["TaskID"], PortalSettings.PortalAlias.HTTPAlias);
+                    string strBody = String.Format(Localization.GetString("HelpDeskTicketHasBeenupdated.Text", LocalResourceFile), Request.QueryString["TaskID"], strDescription);
+                    strBody = strBody + Environment.NewLine + Environment.NewLine;
+                    strBody = strBody + Localization.GetString("Comments.Text", LocalResourceFile) + Environment.NewLine;
+                    strBody = strBody + strComment;
+                    strBody = strBody + Environment.NewLine + Environment.NewLine;
+                    strBody = strBody + String.Format(Localization.GetString("YouMaySeeFullStatusHere.Text", LocalResourceFile), strLinkUrl);
+                                        
+                    DotNetNuke.Services.Mail.Mail.SendMail(PortalSettings.Email, strEmail, "", strSubject, strBody, "", "HTML", "", "", "", "");
+
+                    Log.InsertLog(Convert.ToInt32(Request.QueryString["TaskID"]), UserId, String.Format(Localization.GetString("RequestorWasEmailed.Text", LocalResourceFile), strEmail, strComment));
+
+                }
             }
         }
         #endregion
@@ -937,7 +961,15 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 }
                 else
                 {
-                    strEmail = UserController.GetUser(PortalId, result.RequesterUserID, false).Email;
+                    try
+                    {
+                        strEmail = UserController.GetUser(PortalId, result.RequesterUserID, false).Email;
+                    }
+                    catch (Exception)
+                    {
+                        // User no longer exists
+                        strEmail = "";
+                    }
                 }
             }
 

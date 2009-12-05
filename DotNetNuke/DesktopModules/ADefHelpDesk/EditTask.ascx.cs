@@ -385,6 +385,17 @@ namespace ADefWebserver.Modules.ADefHelpDesk
 
                 TagsTreeExistingTasks.SelectedCategories = ArrIntCatagories;
             }
+
+            // Set visibility of Tags
+            bool RequestorCatagories = (TagsTreeExistingTasks.DisplayType == "Administrator") ? false : true;
+
+            int CountOfCatagories = (from AdefWebserverCategories in CategoriesTable.GetCategoriesTable(PortalId, RequestorCatagories)
+                                     where AdefWebserverCategories.PortalID == PortalId
+                                     where AdefWebserverCategories.Level == 1
+                                     select AdefWebserverCategories).Count();
+
+            imgTags.Visible = (CountOfCatagories > 0);
+            lbltxtTags.Visible = (CountOfCatagories > 0);
         }
         #endregion
 

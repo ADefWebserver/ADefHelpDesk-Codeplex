@@ -376,6 +376,20 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     TagsTreeExistingTasks.SelectedCategories = ArrIntCatagories;
                 }
             }
+
+            // Set visibility of Tags
+            bool RequestorCatagories = (TagsTreeExistingTasks.DisplayType == "Administrator") ? false : true;
+            ADefHelpDeskDALDataContext objADefHelpDeskDALDataContext = new ADefHelpDeskDALDataContext();
+
+            int CountOfCatagories = (from AdefWebserverCategories in CategoriesTable.GetCategoriesTable(PortalId, RequestorCatagories)
+                                     where AdefWebserverCategories.PortalID == PortalId
+                                     where AdefWebserverCategories.Level == 1
+                                     select AdefWebserverCategories).Count();
+
+            imgTags.Visible = (CountOfCatagories > 0);
+            img2Tags.Visible = (CountOfCatagories > 0);
+            lblCheckTags.Visible = (CountOfCatagories > 0);
+            lblSearchTags.Visible = (CountOfCatagories > 0);
         }
         #endregion
 
@@ -595,7 +609,6 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 lblName.Visible = false;
                 lblEmail.Visible = false;
             }
-
         }
         #endregion
 
@@ -1438,7 +1451,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                 {
                     RequesterNameLabel.Text = UserController.GetUser(PortalId, Convert.ToInt32(RequesterLabel.Text), false).DisplayName;
                 }
-                catch 
+                catch
                 {
                     RequesterNameLabel.Text = String.Format("[User Deleted]");
                 }
@@ -1987,7 +2000,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             objADefHelpDesk_LastSearch.CurrentPage = intCurrentPage;
             SaveLastSearchCriteria(objADefHelpDesk_LastSearch);
             DisplayExistingTickets(SearchCriteria);
-        } 
+        }
         #endregion
 
         #region lnkLast_Click
@@ -1999,7 +2012,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             objADefHelpDesk_LastSearch.CurrentPage = intCurrentPage;
             SaveLastSearchCriteria(objADefHelpDesk_LastSearch);
             DisplayExistingTickets(SearchCriteria);
-        } 
+        }
         #endregion
 
         #region ddlPageSize_SelectedIndexChanged
@@ -2009,7 +2022,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             objADefHelpDesk_LastSearch.PageSize = Convert.ToInt32(ddlPageSize.SelectedValue);
             SaveLastSearchCriteria(objADefHelpDesk_LastSearch);
             DisplayExistingTickets(SearchCriteria);
-        } 
+        }
         #endregion
-}
+    }
 }

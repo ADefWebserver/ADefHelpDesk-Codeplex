@@ -179,7 +179,8 @@
                     <uc3:Logs ID="LogsControl" runat="server" />
                 </asp:Panel>
     </table></td> <td valign="top"><p>
-    <asp:Image ID="Image2" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/tag_blue.png" />
+    <asp:Image ID="imgTags" runat="server" 
+                    ImageUrl="~/DesktopModules/ADefHelpDesk/images/tag_blue.png" />
     <b>
                 <asp:Label ID="lbltxtTags" runat="server" resourcekey="lbltxtTags" 
                     Text="Tags:" />

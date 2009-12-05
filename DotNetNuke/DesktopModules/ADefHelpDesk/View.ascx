@@ -211,7 +211,8 @@
                 <table>
                     <tr>
                         <td>
-                            &nbsp;<asp:Image ID="Image1" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/tag_blue.png" />
+                            &nbsp;<asp:Image ID="imgTags" runat="server" 
+                                ImageUrl="~/DesktopModules/ADefHelpDesk/images/tag_blue.png" />
                             &nbsp;
                             <asp:Label ID="lblCheckTags" runat="server" Font-Bold="True" Text="Check all Tags that apply:"
                                 resourcekey="lblCheckTags" />
@@ -534,7 +535,8 @@
                 <br />
             </td>
             <td valign="top" nowrap="nowrap">
-                <asp:Image ID="Image2" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/tag_blue.png" />
+                <asp:Image ID="img2Tags" runat="server" 
+                    ImageUrl="~/DesktopModules/ADefHelpDesk/images/tag_blue.png" />
                 <b>&nbsp;<asp:Label ID="lblSearchTags" resourcekey="lblSearchTags" runat="server"
                     Text="Search Tags:" /><uc1:Tags ID="TagsTreeExistingTasks" runat="server" Visible="False" />
                 </b>

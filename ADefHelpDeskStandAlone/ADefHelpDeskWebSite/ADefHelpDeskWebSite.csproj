@@ -1,0 +1,400 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D1D95C19-5647-4E60-9DA8-A5055CA9E321}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ADefHelpDeskWebSite</RootNamespace>
+    <AssemblyName>ADefHelpDeskWebSite</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default.aspx" />
+    <Content Include="images\ADefHelpDesk_clear.gif" />
+    <Content Include="images\application_side_contract.png" />
+    <Content Include="images\calendar.png" />
+    <Content Include="images\cancel.png" />
+    <Content Include="images\cog.png" />
+    <Content Include="images\dt-arrow-dn.png" />
+    <Content Include="images\dt-arrow-up.png" />
+    <Content Include="images\FamFamIconsLicense.txt" />
+    <Content Include="images\folder.png" />
+    <Content Include="images\GridSpacer.gif" />
+    <Content Include="images\group.png" />
+    <Content Include="images\layout.png" />
+    <Content Include="images\layout_add.png" />
+    <Content Include="images\magnifier.png" />
+    <Content Include="images\page_add.png" />
+    <Content Include="images\page_delete.png" />
+    <Content Include="images\sprite.png" />
+    <Content Include="images\table.png" />
+    <Content Include="images\tag.png" />
+    <Content Include="images\tag_blue.png" />
+    <Content Include="images\user_suit.png" />
+    <Content Include="images\world.png" />
+    <Content Include="images\world_delete.png" />
+    <Content Include="Login.aspx" />
+    <Content Include="SetupWizard.aspx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Administration.aspx.cs">
+      <DependentUpon>Administration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administration.aspx.designer.cs">
+      <DependentUpon>Administration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="classes\RoleController.cs" />
+    <Compile Include="classes\Email.cs" />
+    <Compile Include="classes\GeneralSettings.cs" />
+    <Compile Include="classes\UserController.cs" />
+    <Compile Include="classes\UserInfo.cs" />
+    <Compile Include="classes\Log.cs" />
+    <Compile Include="classes\ModuleBase.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="classes\Utility.cs" />
+    <Compile Include="Controls\AdminSettings.ascx.cs">
+      <DependentUpon>AdminSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\AdminSettings.ascx.designer.cs">
+      <DependentUpon>AdminSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Comments.ascx.cs">
+      <DependentUpon>Comments.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Comments.ascx.designer.cs">
+      <DependentUpon>Comments.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EditTask.ascx.cs">
+      <DependentUpon>EditTask.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\EditTask.ascx.designer.cs">
+      <DependentUpon>EditTask.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Logs.ascx.cs">
+      <DependentUpon>Logs.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Logs.ascx.designer.cs">
+      <DependentUpon>Logs.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Tags.ascx.cs">
+      <DependentUpon>Tags.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Tags.ascx.designer.cs">
+      <DependentUpon>Tags.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\View.ascx.cs">
+      <DependentUpon>View.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\View.ascx.designer.cs">
+      <DependentUpon>View.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Work.ascx.cs">
+      <DependentUpon>Work.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Work.ascx.designer.cs">
+      <DependentUpon>Work.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Account.aspx.cs">
+      <DependentUpon>Account.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account.aspx.designer.cs">
+      <DependentUpon>Account.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\dnnHelpDeskDAL.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dnnHelpDeskDAL.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SetupWizard.aspx.cs">
+      <DependentUpon>SetupWizard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SetupWizard.aspx.designer.cs">
+      <DependentUpon>SetupWizard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tags\TagsDropDown.cs" />
+    <Compile Include="Tags\TagsTable.cs" />
+    <Compile Include="Tags\TagsTree.cs" />
+    <Compile Include="TaskEdit.aspx.cs">
+      <DependentUpon>TaskEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TaskEdit.aspx.designer.cs">
+      <DependentUpon>TaskEdit.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DAL\dnnHelpDeskDAL.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>dnnHelpDeskDAL.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DAL\dnnHelpDeskDAL.dbml.layout">
+      <DependentUpon>dnnHelpDeskDAL.dbml</DependentUpon>
+    </None>
+    <None Include="SQLScripts\01.00.00.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Controls\App_LocalResources\AdminSettings.ascx.resx" />
+    <Content Include="Controls\App_LocalResources\EditTask.ascx.resx" />
+    <Content Include="Controls\App_LocalResources\View.ascx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Administration.aspx" />
+    <Content Include="Controls\AdminSettings.ascx" />
+    <Content Include="Controls\App_LocalResources\Comments.ascx.resx" />
+    <Content Include="Controls\App_LocalResources\Work.ascx.resx" />
+    <Content Include="Controls\Comments.ascx" />
+    <Content Include="Controls\EditTask.ascx" />
+    <Content Include="Controls\Logs.ascx" />
+    <Content Include="images\email_link.png" />
+    <Content Include="images\key_go.png" />
+    <Content Include="Module.css" />
+    <Content Include="Controls\Tags.ascx" />
+    <Content Include="Controls\View.ascx" />
+    <Content Include="Controls\Work.ascx" />
+    <Content Include="Register.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_LocalResources\Register.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_LocalResources\Default.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_LocalResources\Login.aspx.resx" />
+    <Content Include="Account.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_LocalResources\Account.aspx.resx" />
+    <Content Include="css\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="css\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="css\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="css\smoothness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="css\smoothness\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="css\smoothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="css\smoothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="css\smoothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="css\smoothness\images\ui-icons_222222_256x240.png" />
+    <Content Include="css\smoothness\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="css\smoothness\images\ui-icons_454545_256x240.png" />
+    <Content Include="css\smoothness\images\ui-icons_888888_256x240.png" />
+    <Content Include="css\smoothness\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="css\smoothness\jquery-ui-1.8.custom.css" />
+    <Content Include="external\jquery.bgiframe-2.1.1.js" />
+    <Content Include="external\jquery.cookie.js" />
+    <Content Include="external\jquery.metadata.js" />
+    <Content Include="external\qunit.css" />
+    <Content Include="external\qunit.js" />
+    <Content Include="jquery-1.4.2.js" />
+    <Content Include="TaskEdit.aspx" />
+    <Content Include="themes\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="themes\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="themes\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="themes\smoothness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="themes\smoothness\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="themes\smoothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="themes\smoothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="themes\smoothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="themes\smoothness\images\ui-icons_222222_256x240.png" />
+    <Content Include="themes\smoothness\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="themes\smoothness\images\ui-icons_454545_256x240.png" />
+    <Content Include="themes\smoothness\images\ui-icons_888888_256x240.png" />
+    <Content Include="themes\smoothness\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="themes\smoothness\jquery-ui-1.8.custom.css" />
+    <Content Include="themes\smoothness\jquery.ui.all.css" />
+    <Content Include="themes\smoothness\jquery.ui.base.css" />
+    <Content Include="themes\smoothness\jquery.ui.core.css" />
+    <Content Include="themes\smoothness\jquery.ui.datepicker.css" />
+    <Content Include="themes\smoothness\jquery.ui.theme.css" />
+    <Content Include="ui\i18n\jquery-ui-i18n.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-af.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-ar.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-az.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-bg.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-bs.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-ca.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-cs.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-da.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-de.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-el.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-en-GB.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-eo.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-es.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-et.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-eu.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-fa.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-fi.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-fo.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-fr-CH.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-fr.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-he.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-hr.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-hu.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-hy.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-id.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-is.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-it.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-ja.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-ko.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-lt.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-lv.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-ms.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-nl.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-no.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-pl.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-pt-BR.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-ro.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-ru.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-sk.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-sl.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-sq.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-sr-SR.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-sr.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-sv.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-ta.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-th.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-tr.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-uk.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-vi.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-zh-CN.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-zh-HK.js" />
+    <Content Include="ui\i18n\jquery.ui.datepicker-zh-TW.js" />
+    <Content Include="ui\jquery-ui-1.8.custom.js" />
+    <Content Include="ui\jquery.ui.core.js" />
+    <Content Include="ui\jquery.ui.datepicker.js" />
+    <Content Include="ui\jquery.ui.mouse.js" />
+    <Content Include="ui\jquery.ui.position.js" />
+    <Content Include="ui\jquery.ui.widget.js" />
+    <Content Include="ui\minified\jquery.ui.core.min.js" />
+    <Content Include="ui\minified\jquery.ui.datepicker.min.js" />
+    <Content Include="ui\minified\jquery.ui.mouse.min.js" />
+    <Content Include="ui\minified\jquery.ui.position.min.js" />
+    <Content Include="ui\minified\jquery.ui.widget.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_LocalResources\TaskEdit.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Upload\" />
+    <Folder Include="Verify\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>62040</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 14" name="dnnHelpDeskDAL">
+  <DataContextMoniker Name="/dnnHelpDeskDALDataContext" />
+  <nestedChildShapes>
+    <classShape Id="0c53f653-d0da-45bd-8ebf-785c936f6430" absoluteBounds="3.125, 8.875, 2, 1.9631982421874987">
+      <DataClassMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_Attachment" />
+      <nestedChildShapes>
+        <elementListCompartment Id="222de9a7-165c-4c98-8c1c-234fb9683912" absoluteBounds="3.1399999999999997, 9.335, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b96f43b5-7ebd-48f2-b0d3-c19f276f281a" absoluteBounds="3.125, 12.75, 2, 1.0016910807291666">
+      <DataClassMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_Version" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6895a976-7979-4c58-b69e-29991da68943" absoluteBounds="3.1400000000000006, 13.21, 1.9700000000000002, 0.44169108072916669" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7f6066d5-9027-456b-8c93-85355bd579bf" absoluteBounds="5.5, 3.875, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_Category" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b60258cf-2eef-4e3a-a651-966f4afcaaa3" absoluteBounds="5.5150000000000006, 4.3350000000000009, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5b8a3491-365e-4e5e-adf5-73ce76d20302" absoluteBounds="5.5, 6.25, 2, 3.1170068359375005">
+      <DataClassMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_LastSearch" />
+      <nestedChildShapes>
+        <elementListCompartment Id="27fd4182-9202-4a2e-a030-66a2ce1bc4f3" absoluteBounds="5.5150000000000006, 6.71, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1264f498-16c2-4d5b-9e63-011909a0ae21" absoluteBounds="3.125, 6.875, 2, 1.7708968098958327">
+      <DataClassMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_Log" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3b7725fd-84bd-4c42-8534-e0240be1e21e" absoluteBounds="3.14, 7.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="225887dc-e8aa-4b78-80cd-f7890cbcfdf3" absoluteBounds="5.5, 11.5, 2, 1.3862939453125003">
+      <DataClassMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_Role" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7be19b97-e89e-4b57-bb8d-44414caaf89f" absoluteBounds="5.515, 11.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5cf4d364-b58c-4168-84b8-abfa8728ef4e" absoluteBounds="5.5, 9.625, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_Setting" />
+      <nestedChildShapes>
+        <elementListCompartment Id="47745442-07ba-4f09-9517-bef880a5b12b" absoluteBounds="5.5150000000000006, 10.085, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="520e93c8-d961-4fa9-baa4-d6cfef4f735d" absoluteBounds="3.125, 3.875, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_TaskAssociation" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c785de26-a172-41de-816f-63046b247a4c" absoluteBounds="3.14, 4.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="104a5672-04a6-4c03-8f30-2a799ffb1e69" absoluteBounds="3.125, 5.375, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_TaskCategory" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8a923390-25fd-48cf-a954-ee447bc0a31b" absoluteBounds="3.1399999999999997, 5.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="bdd9e882-47d9-4e9d-9059-84fc2b78197f" absoluteBounds="0.75, 8.25, 2, 2.3478011067708344">
+      <DataClassMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_TaskDetail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c2c73c06-e073-439e-a3bf-978a35ccfe07" absoluteBounds="0.76500000000000012, 8.71, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6d63543f-6e3e-4ba3-b2f0-0f8daf3c96c3" absoluteBounds="0.75, 3.875, 2, 3.8862125651041666">
+      <DataClassMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_Task" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6cb3233f-d25b-4772-a380-7f27b2d9d101" absoluteBounds="0.765, 4.335, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="79fa3b0e-dc57-433d-a0df-40cb0f432183" absoluteBounds="3.125, 11.125, 2, 1.3862939453125003">
+      <DataClassMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_UserRole" />
+      <nestedChildShapes>
+        <elementListCompartment Id="141a0bab-d9f0-4779-856d-084b49227c18" absoluteBounds="3.1400000000000006, 11.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 5.70274983723958); (5.125 : 5.70274983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_Category/ADefHelpDesk_Category_ADefHelpDesk_TaskCategory" />
+      <nodes>
+        <classShapeMoniker Id="7f6066d5-9027-456b-8c93-85355bd579bf" />
+        <classShapeMoniker Id="104a5672-04a6-4c03-8f30-2a799ffb1e69" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 9.73640055338542); (3.125 : 9.73640055338542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_TaskDetail/ADefHelpDesk_TaskDetail_ADefHelpDesk_Attachment" />
+      <nodes>
+        <classShapeMoniker Id="bdd9e882-47d9-4e9d-9059-84fc2b78197f" />
+        <classShapeMoniker Id="0c53f653-d0da-45bd-8ebf-785c936f6430" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 7.31810628255208); (3.125 : 7.31810628255208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_Task/ADefHelpDesk_Task_ADefHelpDesk_Log" />
+      <nodes>
+        <classShapeMoniker Id="6d63543f-6e3e-4ba3-b2f0-0f8daf3c96c3" />
+        <classShapeMoniker Id="1264f498-16c2-4d5b-9e63-011909a0ae21" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 4.56814697265625); (3.125 : 4.56814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_Task/ADefHelpDesk_Task_ADefHelpDesk_TaskAssociation" />
+      <nodes>
+        <classShapeMoniker Id="6d63543f-6e3e-4ba3-b2f0-0f8daf3c96c3" />
+        <classShapeMoniker Id="520e93c8-d961-4fa9-baa4-d6cfef4f735d" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 6.06814697265625); (3.125 : 6.06814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_Task/ADefHelpDesk_Task_ADefHelpDesk_TaskCategory" />
+      <nodes>
+        <classShapeMoniker Id="6d63543f-6e3e-4ba3-b2f0-0f8daf3c96c3" />
+        <classShapeMoniker Id="104a5672-04a6-4c03-8f30-2a799ffb1e69" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.75 : 7.76121256510417); (1.75 : 8.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_Task/ADefHelpDesk_Task_ADefHelpDesk_TaskDetail" />
+      <nodes>
+        <classShapeMoniker Id="6d63543f-6e3e-4ba3-b2f0-0f8daf3c96c3" />
+        <classShapeMoniker Id="bdd9e882-47d9-4e9d-9059-84fc2b78197f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 12.0056469726562); (5.125 : 12.0056469726562)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_Role/ADefHelpDesk_Role_ADefHelpDesk_UserRole" />
+      <nodes>
+        <classShapeMoniker Id="225887dc-e8aa-4b78-80cd-f7890cbcfdf3" />
+        <classShapeMoniker Id="79fa3b0e-dc57-433d-a0df-40cb0f432183" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="0f094e4f-d2c5-4335-a896-cb384690dc10" absoluteBounds="0.75, 11.125, 2, 2.5401025390625">
+      <DataClassMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6f9339e2-50b6-4953-b1cb-654bb99c590c" absoluteBounds="0.76500000000000012, 11.585, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 11.8181469726562); (3.125 : 11.8181469726562)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dnnHelpDeskDALDataContext/ADefHelpDesk_User/ADefHelpDesk_User_ADefHelpDesk_UserRole" />
+      <nodes>
+        <classShapeMoniker Id="0f094e4f-d2c5-4335-a896-cb384690dc10" />
+        <classShapeMoniker Id="79fa3b0e-dc57-433d-a0df-40cb0f432183" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

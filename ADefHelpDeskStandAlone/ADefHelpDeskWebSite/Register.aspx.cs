@@ -256,15 +256,7 @@ namespace ADefHelpDeskWebSite
             bool boolValidated = false;
             string strValidEmailAddress = GetLocalResourceObject("ValidEmailAddress.Text").ToString();
 
-            if (!
-                (
-                Regex.IsMatch(txtEmail.Text.Trim(),
-                @"^[-a-zA-Z0-9][-.a-zA-Z0-9]*@[-.a-zA-Z0-9]+(\.[-.a-zA-Z0-9]+)*\.
-                    (com|edu|info|gov|int|mil|net|org|biz|name|museum|coop|aero|pro|
-                    [a-zA-Z]{2})$",
-                    RegexOptions.IgnorePatternWhitespace)
-                    )
-                )
+            if (txtEmail.Text.IndexOf("@") < 1)
             {
                 ltError.Text = ltError.Text + "<br>" + strValidEmailAddress; ;
             }

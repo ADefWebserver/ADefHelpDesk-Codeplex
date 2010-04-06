@@ -65,6 +65,8 @@ namespace ADefHelpDeskWebSite
                 txtFirstName.Text = objUser.FirstName;
                 txtLastName.Text = objUser.LastName;
                 txtEmail.Text = objUser.Email;
+                txtPassword.Attributes["value"] = "**********";
+                txtConfirmPassword.Attributes["value"] = "**********";
             }
         }
 
@@ -92,11 +94,11 @@ namespace ADefHelpDeskWebSite
 
                 // GetUser
                 var objUser = (from ADefHelpDesk_Users in dnnHelpDeskDALDataContext.ADefHelpDesk_Users
-                                           where ADefHelpDesk_Users.UserID == Convert.ToInt32(HttpContext.Current.User.Identity.Name)
-                                           select ADefHelpDesk_Users).FirstOrDefault();
+                               where ADefHelpDesk_Users.UserID == Convert.ToInt32(HttpContext.Current.User.Identity.Name)
+                               select ADefHelpDesk_Users).FirstOrDefault();
 
                 // Only update password if it was entered
-                if (txtPassword.Text.Trim().Length > 0)
+                if (txtPassword.Text != "**********")
                 {
                     objUser.Password = Utility.HashPassword(txtUserName.Text.Trim().ToLower() + txtPassword.Text.Trim());
                 }
@@ -125,7 +127,7 @@ namespace ADefHelpDeskWebSite
 
             var result = (from ADefHelpDesk_Users in dnnHelpDeskDALDataContext.ADefHelpDesk_Users
                           where ADefHelpDesk_Users.Email == txtEmail.Text.Trim()
-                          where ADefHelpDesk_Users.UserID != Convert.ToInt32(HttpContext.Current.User.Identity.Name)                                           
+                          where ADefHelpDesk_Users.UserID != Convert.ToInt32(HttpContext.Current.User.Identity.Name)
                           select ADefHelpDesk_Users).FirstOrDefault();
 
             if (result != null)
@@ -145,19 +147,11 @@ namespace ADefHelpDeskWebSite
         private bool ValidatePassword()
         {
             bool boolValidated = false;
-            // Only validate password if it was entered
-            if (txtPassword.Text.Trim().Length > 0 || txtConfirmPassword.Text.Trim().Length > 0)
-            {
-                string strPasswordMatch = GetLocalResourceObject("PasswordMatch.Text").ToString();
+            string strPasswordMatch = GetLocalResourceObject("PasswordMatch.Text").ToString();
 
-                if (txtPassword.Text.Trim() != txtConfirmPassword.Text.Trim())
-                {
-                    ltError.Text = ltError.Text + "<br>" + strPasswordMatch;
-                }
-                else
-                {
-                    boolValidated = true;
-                }
+            if (txtPassword.Text.Trim() != txtConfirmPassword.Text.Trim())
+            {
+                ltError.Text = ltError.Text + "<br>" + strPasswordMatch;
             }
             else
             {
@@ -171,6 +165,12 @@ namespace ADefHelpDeskWebSite
         #region ValidatePasswordLength
         private bool ValidatePasswordLength()
         {
+            // Only validate password if it is not 10 astericks
+            if (txtPassword.Text == "**********")
+            {
+                return true;
+            }
+
             bool boolValidated = false;
             // Only validate password if it was entered
             if (txtPassword.Text.Trim().Length > 0 || txtConfirmPassword.Text.Trim().Length > 0)
@@ -202,15 +202,7 @@ namespace ADefHelpDeskWebSite
             bool boolValidated = false;
             string strValidEmailAddress = GetLocalResourceObject("ValidEmailAddress.Text").ToString();
 
-            if (!
-                (
-                Regex.IsMatch(txtEmail.Text.Trim(),
-                @"^[-a-zA-Z0-9][-.a-zA-Z0-9]*@[-.a-zA-Z0-9]+(\.[-.a-zA-Z0-9]+)*\.
-                    (com|edu|info|gov|int|mil|net|org|biz|name|museum|coop|aero|pro|
-                    [a-zA-Z]{2})$",
-                    RegexOptions.IgnorePatternWhitespace)
-                    )
-                )
+            if (txtEmail.Text.IndexOf("@") < 1)
             {
                 ltError.Text = ltError.Text + "<br>" + strValidEmailAddress; ;
             }

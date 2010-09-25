@@ -151,6 +151,14 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         }
         #endregion
 
+        #region LocalizePriorityBinding
+        public string LocalizePriorityBinding(string Value)
+        {
+            // From: http://adefhelpdesk.codeplex.com/workitem/26043
+            return Localization.GetString(string.Format("ddlPriority{0}", Value.Replace(" ", "")), LocalResourceFile);
+        }
+        #endregion
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try

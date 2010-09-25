@@ -272,7 +272,7 @@
                                 <asp:Label ID="StatusLabel" runat="server" Text='<%# LocalizeStatusBinding(Eval("Status", "{0}")) %>' />
                             </td>
                             <td>
-                                <asp:Label ID="PriorityLabel" runat="server" Text='<%# Eval("Priority") %>' />
+                                <asp:Label ID="PriorityLabel" runat="server" Text='<%# LocalizePriorityBinding(Eval("Priority", "{0}")) %>' />
                             </td>
                             <td>
                                 <asp:Label ID="DueDateLabel" runat="server" Text='<%# Eval("DueDate") %>' />

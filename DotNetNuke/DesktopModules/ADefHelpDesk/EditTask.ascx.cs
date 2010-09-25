@@ -795,7 +795,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             string strAssignedRole = String.Format("{0}", objRoleController.GetRole(Convert.ToInt32(ddlAssigned.SelectedValue), PortalId).RoleName);
             string strLinkUrl = Utility.FixURLLink(DotNetNuke.Common.Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "EditTask", "mid=" + ModuleId.ToString(), String.Format(@"&TaskID={0}", Request.QueryString["TaskID"])), PortalSettings.PortalAlias.HTTPAlias);
 
-            string strSubject = String.Format(Localization.GetString("HelpDeskTicketAtHasBeenAssigned.Text", LocalResourceFile), Request.QueryString["TaskID"], PortalSettings.PortalAlias.HTTPAlias, strAssignedRole);
+            string strSubject = "[" + Localization.GetString(String.Format("ddlStatusAdmin{0}.Text", ddlStatus.SelectedValue), LocalResourceFile) + "] " + String.Format(Localization.GetString("HelpDeskTicketAtHasBeenAssigned.Text", LocalResourceFile), Request.QueryString["TaskID"], PortalSettings.PortalAlias.HTTPAlias, strAssignedRole);
             string strBody = String.Format(Localization.GetString("ANewHelpDeskTicketHasBeenAssigned.Text", LocalResourceFile), Request.QueryString["TaskID"], txtDescription.Text);
             strBody = strBody + Environment.NewLine;
             strBody = strBody + String.Format(Localization.GetString("YouMaySeeStatusHere.Text", LocalResourceFile), strLinkUrl);

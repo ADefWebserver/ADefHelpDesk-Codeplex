@@ -269,7 +269,7 @@
                                 <asp:HyperLink ID="lnkTaskID" runat="server" Text='<%# Eval("TaskID") %>' Font-Underline="True" />
                             </td>
                             <td>
-                                <asp:Label ID="StatusLabel" runat="server" Text='<%# Eval("Status") %>' />
+                                <asp:Label ID="StatusLabel" runat="server" Text='<%# LocalizeStatusBinding(Eval("Status", "{0}")) %>' />
                             </td>
                             <td>
                                 <asp:Label ID="PriorityLabel" runat="server" Text='<%# Eval("Priority") %>' />

@@ -71,7 +71,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
     public class ListPage
     {
         public int PageNumber { get; set; }
-    } 
+    }
     #endregion
 
     public partial class View : DotNetNuke.Entities.Modules.PortalModuleBase
@@ -140,6 +140,14 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             {
                 ViewState["CurrentPage"] = value;
             }
+        }
+        #endregion
+
+        #region LocalizeStatusBinding
+        public string LocalizeStatusBinding(string Value)
+        {
+            // From: http://adefhelpdesk.codeplex.com/workitem/26043
+            return Localization.GetString(string.Format("ddlStatusAdmin{0}",Value.Replace(" ","")), LocalResourceFile);
         }
         #endregion
 
@@ -2086,5 +2094,5 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         }
         #endregion
 
-}
+    }
 }

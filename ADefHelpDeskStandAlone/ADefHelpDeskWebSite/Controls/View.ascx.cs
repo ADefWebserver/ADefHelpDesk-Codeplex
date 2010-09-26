@@ -139,6 +139,22 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         }
         #endregion
 
+        #region LocalizeStatusBinding
+        public string LocalizeStatusBinding(string Value)
+        {
+            // From: http://adefhelpdesk.codeplex.com/workitem/26043
+            return GetLocalResourceObject(string.Format("ddlStatusAdmin{0}.Text", Value.Replace(" ", ""))).ToString();
+        }
+        #endregion
+
+        #region LocalizePriorityBinding
+        public string LocalizePriorityBinding(string Value)
+        {
+            // From: http://adefhelpdesk.codeplex.com/workitem/26043
+            return GetLocalResourceObject(string.Format("ddlPriority{0}.Text", Value.Replace(" ", ""))).ToString();
+        }
+        #endregion
+
         protected void Page_Load(object sender, EventArgs e)
         {
             // Register JQuery Calendar JavaScript

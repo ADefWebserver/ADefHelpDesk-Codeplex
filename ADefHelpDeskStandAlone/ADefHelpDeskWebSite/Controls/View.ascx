@@ -14,8 +14,7 @@
 <table cellpadding="2">
     <tr>
         <td>
-            <asp:Image ID="imgNewTicket" runat="server" 
-                ImageUrl="~/images/layout_add.png" />
+            <asp:Image ID="imgNewTicket" runat="server" ImageUrl="~/images/layout_add.png" />
             <asp:LinkButton ID="lnkNewTicket" runat="server" BackColor="#CCCCCC" Font-Underline="True"
                 OnClick="lnkNewTicket_Click" Text="New Ticket" meta:resourcekey="lnkNewTicket" />
         </td>
@@ -35,11 +34,10 @@
                 OnClick="lnkAdministratorSettings_Click" Text="Administrator Settings" meta:resourcekey="lnkAdministratorSettings" />
         </td>
         <td>
-            &nbsp;<asp:Image ID="imgAccount" runat="server" 
-                ImageUrl="~/images/user_suit.png" />
-            <asp:LinkButton ID="lnkAccount" runat="server" Font-Underline="True" 
-                PostBackUrl="~/Account.aspx"  />
-        &nbsp;</td>
+            &nbsp;<asp:Image ID="imgAccount" runat="server" ImageUrl="~/images/user_suit.png" />
+            <asp:LinkButton ID="lnkAccount" runat="server" Font-Underline="True" PostBackUrl="~/Account.aspx" />
+            &nbsp;
+        </td>
     </tr>
 </table>
 <asp:Panel ID="pnlNewTicket" runat="server">
@@ -173,7 +171,8 @@
                             <asp:TextBox ID="txtDueDate" runat="server" Columns="10" MaxLength="25" TabIndex="6" />
                             <asp:Label ID="lbltxtPriority" runat="server" Text="Priority:" meta:resourcekey="lbltxtPriority" />
                             &nbsp;<asp:DropDownList ID="ddlPriority" runat="server" TabIndex="7">
-                                <asp:ListItem Selected="True" meta:resourcekey="ddlPriorityNormal" Value="Normal" Text="Normal" />
+                                <asp:ListItem Selected="True" meta:resourcekey="ddlPriorityNormal" Value="Normal"
+                                    Text="Normal" />
                                 <asp:ListItem meta:resourcekey="ddlPriorityHigh" Value="High" Text="High" />
                                 <asp:ListItem meta:resourcekey="ddlPriorityLow" Value="Low" Text="Low" />
                             </asp:DropDownList>
@@ -273,10 +272,10 @@
                                 <asp:HyperLink ID="lnkTaskID" runat="server" Text='<%# Eval("TaskID") %>' Font-Underline="True" />
                             </td>
                             <td>
-                                <asp:Label ID="StatusLabel" runat="server" Text='<%# Eval("Status") %>' />
+                                <asp:Label ID="StatusLabel" runat="server" Text='<%# LocalizeStatusBinding(Eval("Status", "{0}")) %>' />
                             </td>
                             <td>
-                                <asp:Label ID="PriorityLabel" runat="server" Text='<%# Eval("Priority") %>' />
+                                <asp:Label ID="PriorityLabel" runat="server" Text='<%# LocalizePriorityBinding(Eval("Priority", "{0}")) %>' />
                             </td>
                             <td>
                                 <asp:Label ID="DueDateLabel" runat="server" Text='<%# Eval("DueDate") %>' />
@@ -404,7 +403,8 @@
                                         </tr>
                                         <tr id="Tr1" runat="server">
                                             <th id="Th11" runat="server" style="border-style: none" nowrap="nowrap">
-                                                <asp:Button ID="btnSearch" runat="server" Text="Search" meta:resourcekey="btnSearch" CommandName="Search" />
+                                                <asp:Button ID="btnSearch" runat="server" Text="Search" meta:resourcekey="btnSearch"
+                                                    CommandName="Search" />
                                             </th>
                                             <th id="Th21" runat="server" nowrap="nowrap">
                                                 <asp:DropDownList ID="ddlStatus" runat="server" Width="60">
@@ -459,37 +459,33 @@
                                             </th>
                                             <th id="Th42" runat="server" nowrap="nowrap">
                                                 <asp:LinkButton ID="lnkDueDate" runat="server" CommandName="Sort" CommandArgument="DueDate"
-                                                    Text="Due" Font-Underline="True" meta:resourcekey="lnkDueDate" /><asp:ImageButton ID="DueDateImage"
-                                                        CommandName="Sort" CommandArgument="DueDate" runat="server" ImageUrl="~/images/dt-arrow-dn.png"
-                                                        Visible="false" />
+                                                    Text="Due" Font-Underline="True" meta:resourcekey="lnkDueDate" /><asp:ImageButton
+                                                        ID="DueDateImage" CommandName="Sort" CommandArgument="DueDate" runat="server"
+                                                        ImageUrl="~/images/dt-arrow-dn.png" Visible="false" />
                                             </th>
                                             <th id="Th52" runat="server" nowrap="nowrap">
                                                 <asp:LinkButton ID="lnkCreatedDate" runat="server" CommandName="Sort" CommandArgument="CreatedDate"
                                                     Text="Created" Font-Underline="True" meta:resourcekey="lnkCreatedDate" />
                                                 <asp:ImageButton ID="CreatedDateImage" CommandName="Sort" CommandArgument="CreatedDate"
-                                                    runat="server" ImageUrl="~/images/dt-arrow-dn.png"
-                                                    Visible="false" />
+                                                    runat="server" ImageUrl="~/images/dt-arrow-dn.png" Visible="false" />
                                             </th>
                                             <th id="Th62" runat="server" nowrap="nowrap">
                                                 <asp:LinkButton ID="lnkAssigned" runat="server" CommandName="Sort" CommandArgument="Assigned"
                                                     Text="Assigned" Font-Underline="True" meta:resourcekey="lnkAssigned" />
                                                 <asp:ImageButton ID="AssignedImage" CommandName="Sort" CommandArgument="Assigned"
-                                                    runat="server" ImageUrl="~/images/dt-arrow-dn.png"
-                                                    Visible="false" />
+                                                    runat="server" ImageUrl="~/images/dt-arrow-dn.png" Visible="false" />
                                             </th>
                                             <th id="Th72" runat="server" nowrap="nowrap">
                                                 <asp:LinkButton ID="lnkDescription" runat="server" CommandName="Sort" CommandArgument="Description"
                                                     Text="Description" Font-Underline="True" meta:resourcekey="lnkDescription" />
                                                 <asp:ImageButton ID="DescriptionImage" CommandName="Sort" CommandArgument="Description"
-                                                    runat="server" ImageUrl="~/images/dt-arrow-dn.png"
-                                                    Visible="false" />
+                                                    runat="server" ImageUrl="~/images/dt-arrow-dn.png" Visible="false" />
                                             </th>
                                             <th id="Th82" runat="server" nowrap="nowrap">
                                                 <asp:LinkButton ID="lnkRequester" runat="server" CommandName="Sort" CommandArgument="Requester"
                                                     Text="Requester" Font-Underline="True" meta:resourcekey="lnkRequester" />
                                                 <asp:ImageButton ID="RequesterImage" CommandName="Sort" CommandArgument="Requester"
-                                                    runat="server" ImageUrl="~/images/dt-arrow-dn.png"
-                                                    Visible="false" />
+                                                    runat="server" ImageUrl="~/images/dt-arrow-dn.png" Visible="false" />
                                             </th>
                                         </tr>
                                         <tr id="itemPlaceholder" runat="server">

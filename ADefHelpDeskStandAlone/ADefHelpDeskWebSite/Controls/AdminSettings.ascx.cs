@@ -66,6 +66,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                     Response.Redirect("Default.aspx");
                 }
 
+                LoadGeneralSettings();
                 SetView("UserManager");
 
                 btnAddNew.Text = GetLocalResourceObject("btnAddNew.Text").ToString();
@@ -1360,6 +1361,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             txtUploadedFilesPath.Text = GeneralSettings.FileUploadPath;
             ddlUserRegistration.SelectedValue = GeneralSettings.AllowRegistration.ToString();
             ddlVerifiedRegistration.SelectedValue = GeneralSettings.VerifiedRegistration.ToString();
+            lblVersion.Text = String.Format("ADefHelpDesk Version: {0}", GeneralSettings.Version);
             // enable Verified Registration only if User Registration is true
             ddlVerifiedRegistration.Enabled = (ddlUserRegistration.SelectedValue == "True");
         }

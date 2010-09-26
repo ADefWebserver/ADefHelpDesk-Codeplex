@@ -40,10 +40,10 @@ namespace ADefWebserver.Modules.ADefHelpDesk
     public partial class SetupWizard : System.Web.UI.Page
     {
         string strConnection;
-        string strCurrentVersion = "01.00.00";
+        string strCurrentVersion = "02.10.00";
         string[] arrSQLScriptsToRun = new string[] 
     { 
-        "01.00.00.sql"
+        "01.00.00.sql","02.10.00.sql"
     };
 
         protected void Page_Load(object sender, EventArgs e)

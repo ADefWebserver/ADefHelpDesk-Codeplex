@@ -36,7 +36,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         #region DatabaseReady
         public static bool DatabaseReady()
         {
-            string strCurrentVersion = "01.00.00";
+            string strCurrentVersion = "02.10.00";
             // This method returns true if the database exists and the table is created
             bool CanConnect = true;
 

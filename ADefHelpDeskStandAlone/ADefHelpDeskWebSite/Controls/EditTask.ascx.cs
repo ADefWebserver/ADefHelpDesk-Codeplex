@@ -791,7 +791,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             string strAssignedRole = String.Format("{0}", objRoleController.GetRole(PortalId, Convert.ToInt32(ddlAssigned.SelectedValue)).RoleName);
             string strLinkUrl = string.Format("{0}?TaskID={1}", Utility.NavigateURL(this.Context, "TaskEdit.aspx"), Request.QueryString["TaskID"]);
 
-            string strSubject = String.Format(GetLocalResourceObject("HelpDeskTicketAtHasBeenAssigned.Text").ToString(), Request.QueryString["TaskID"], HttpContext.Current.Request.Url.DnsSafeHost, strAssignedRole);
+            string strSubject = "[" + GetLocalResourceObject(String.Format("ddlStatusAdmin{0}.Text", ddlStatus.SelectedValue)).ToString() + "] " + String.Format(GetLocalResourceObject("HelpDeskTicketAtHasBeenAssigned.Text").ToString(), Request.QueryString["TaskID"], HttpContext.Current.Request.Url.DnsSafeHost, strAssignedRole);
             string strBody = String.Format(GetLocalResourceObject("ANewHelpDeskTicketHasBeenAssigned.Text").ToString(), Request.QueryString["TaskID"], txtDescription.Text);
             strBody = strBody + Environment.NewLine;
             strBody = strBody + String.Format(GetLocalResourceObject("YouMaySeeStatusHere.Text").ToString(), strLinkUrl);

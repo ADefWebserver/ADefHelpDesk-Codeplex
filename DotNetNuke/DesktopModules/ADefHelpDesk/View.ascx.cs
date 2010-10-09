@@ -284,6 +284,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             {
                 lnkAdministratorSettings.Visible = true;
                 imgAdministrator.Visible = true;
+                TicketFileUpload.Visible = true;
+                lblAttachFile.Visible = true;
 
                 // Show the Administrator user selector and Ticket Status selectors
                 pnlAdminUserSelection.Visible = true;
@@ -320,6 +322,11 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                             lblAttachFile.Visible = false;
                             TicketFileUpload.Visible = false;
                         }
+                        else
+                        {
+                            TicketFileUpload.Visible = true;
+                            lblAttachFile.Visible = true;
+                        }
                         #endregion
                     }
                     else
@@ -328,6 +335,11 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                         lblAttachFile.Visible = false;
                         TicketFileUpload.Visible = false;
                     }
+                }
+                else
+                {
+                    TicketFileUpload.Visible = true;
+                    lblAttachFile.Visible = true;
                 }
                 #endregion
             }

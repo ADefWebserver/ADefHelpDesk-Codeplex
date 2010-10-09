@@ -18,19 +18,23 @@
                 OnClick="lnkNewTicket_Click" Text="New Ticket" resourcekey="lnkNewTicket" />
         </td>
         <td>
-            <asp:Image ID="imgExitingTickets" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/layout.png" />
+            <asp:Image ID="imgExitingTickets" runat="server" 
+                ImageUrl="~/DesktopModules/ADefHelpDesk/images/layout.png" Visible="False" />
             <asp:LinkButton ID="lnkExistingTickets" runat="server" Font-Underline="True" OnClick="lnkExistingTickets_Click"
-                Text="Existing Tickets" resourcekey="lnkExistingTickets" />
+                Text="Existing Tickets" resourcekey="lnkExistingTickets" Visible="False" />
         </td>
         <td>
-            <asp:Image ID="imgMagnifier" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/magnifier.png" />
+            <asp:Image ID="imgMagnifier" runat="server" 
+                ImageUrl="~/DesktopModules/ADefHelpDesk/images/magnifier.png" Visible="False" />
             <asp:LinkButton ID="lnkResetSearch" runat="server" Font-Underline="True" OnClick="lnkResetSearch_Click"
-                Text="Reset Search" resourcekey="lnkResetSearch" />
+                Text="Reset Search" resourcekey="lnkResetSearch" Visible="False" />
         </td>
         <td>
-            <asp:Image ID="imgAdministrator" runat="server" ImageUrl="~/DesktopModules/ADefHelpDesk/images/cog.png" />
+            <asp:Image ID="imgAdministrator" runat="server" 
+                ImageUrl="~/DesktopModules/ADefHelpDesk/images/cog.png" Visible="False" />
             <asp:LinkButton ID="lnkAdministratorSettings" runat="server" Font-Underline="True"
-                OnClick="lnkAdministratorSettings_Click" Text="Administrator Settings" resourcekey="lnkAdministratorSettings" />
+                OnClick="lnkAdministratorSettings_Click" Text="Administrator Settings" 
+                resourcekey="lnkAdministratorSettings" Visible="False" />
         </td>
         <td>
             &nbsp;
@@ -41,7 +45,8 @@
     <table>
         <tr>
             <td align="left" colspan="2">
-                <asp:Panel ID="pnlAdminUserSelection" runat="server" GroupingText="Select User">
+                <asp:Panel ID="pnlAdminUserSelection" runat="server" GroupingText="Select User" 
+                    Visible="False">
                     <table border="0" cellpadding="4">
                         <tr>
                             <td nowrap="nowrap" valign="top">
@@ -178,10 +183,11 @@
                     <tr>
                         <td align="right">
                             &nbsp;<asp:Label ID="lblAttachFile" runat="server" Font-Bold="True" Text="Attach File:"
-                                resourcekey="lblAttachFile" />
+                                resourcekey="lblAttachFile" Visible="False" />
                         </td>
                         <td>
-                            <asp:FileUpload ID="TicketFileUpload" runat="server" TabIndex="8" />
+                            <asp:FileUpload ID="TicketFileUpload" runat="server" TabIndex="8" 
+                                Visible="False" />
                         </td>
                     </tr>
                     <tr>
@@ -257,12 +263,13 @@
         </h2>
     </div>
 </asp:Panel>
-<asp:Panel ID="pnlExistingTickets" runat="server">
+<asp:Panel ID="pnlExistingTickets" runat="server" Visible="False">
     <table cellpadding="2">
         <tr>
             <td valign="top">
                 <asp:ListView ID="lvTasks" runat="server" OnItemDataBound="lvTasks_ItemDataBound"
-                    OnSorting="lvTasks_Sorting" OnItemCommand="lvTasks_ItemCommand" OnDataBound="lvTasks_DataBound">
+                    OnSorting="lvTasks_Sorting" OnItemCommand="lvTasks_ItemCommand" 
+                    OnDataBound="lvTasks_DataBound" Visible="False">
                     <ItemTemplate>
                         <tr class='<%# Container.DataItemIndex % 2 == 0 ? "row" : "altrow" %>'>
                             <td align="center">

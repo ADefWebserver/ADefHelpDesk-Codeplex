@@ -259,12 +259,14 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             if (UserId > -1)
             {
                 lnkExistingTickets.Visible = true;
+                lvTasks.Visible = true;
                 imgExitingTickets.Visible = true;
                 SetView("Existing Tickets");
             }
             else
             {
                 lnkExistingTickets.Visible = false;
+                lvTasks.Visible = false;
                 imgExitingTickets.Visible = false;
                 SetView("New Ticket");
             }

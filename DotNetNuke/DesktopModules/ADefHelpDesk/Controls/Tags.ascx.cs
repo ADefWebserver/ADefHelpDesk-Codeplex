@@ -21,21 +21,8 @@
 
 using System;
 using System.Linq;
-using System.Web;
-using System.Web.UI.WebControls;
-using System.Collections.Generic;
-using DotNetNuke;
-using DotNetNuke.Common;
-using DotNetNuke.Security;
-using DotNetNuke.Security.Roles;
-using DotNetNuke.Services.Localization;
-using DotNetNuke.Services.Exceptions;
-using DotNetNuke.Entities.Modules;
-using DotNetNuke.Entities.Users;
-using System.Collections;
-using System.DirectoryServices;
-using System.Drawing;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace ADefWebserver.Modules.ADefHelpDesk
 {

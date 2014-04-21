@@ -1199,7 +1199,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                                                    Assigned = ADefHelpDesk_Tasks.AssignedRoleID.ToString(),
                                                    Description = ADefHelpDesk_Tasks.Description,
                                                    Requester = ADefHelpDesk_Tasks.RequesterUserID.ToString(),
-                                                   RequesterName = ADefHelpDesk_Tasks.RequesterName
+                                                   RequesterName = ADefHelpDesk_Tasks.RequesterName,
+                                                   Categories = string.Join(",", ADefHelpDesk_Tasks.ADefHelpDesk_TaskCategories.OrderBy(x => x.CategoryID).Select(x => x.CategoryID.ToString()).ToArray())                                              
                                                };
 
             #region Only show users the records they should see
@@ -1296,17 +1297,8 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             // Filter Tags
             if (objLastSearch.Categories != null)
             {
-                char[] delimiterChars = { ',' };
-                string[] ArrStrCategories = objLastSearch.Categories.Split(delimiterChars);
-                // Convert the Categories selected from the Tags tree to an array of integers
-                int[] ArrIntCatagories = Array.ConvertAll<string, int>(ArrStrCategories, new Converter<string, int>(ConvertStringToInt));
-
-                // Perform a query that does in intersect between all the Catagories selected and all the categories that each TaskID has
-                // The number of values that match must equal the number of values that were selected in the Tags tree
                 FinalResult = (from Categories in FinalResult.AsQueryable()
-                               where ((from ADefHelpDesk_TaskCategories in objADefHelpDeskDALDataContext.ADefHelpDesk_TaskCategories
-                                       where ADefHelpDesk_TaskCategories.TaskID == Categories.TaskID
-                                       select ADefHelpDesk_TaskCategories.CategoryID).ToArray<int>()).Intersect(ArrIntCatagories).Count() == ArrIntCatagories.Length
+                               where Categories.Categories == objLastSearch.Categories
                                select Categories).ToList();
             }
             #endregion

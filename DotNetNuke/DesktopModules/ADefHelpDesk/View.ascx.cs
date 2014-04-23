@@ -55,7 +55,7 @@ namespace ADefWebserver.Modules.ADefHelpDesk
         public string Requester { get; set; }
         public string RequesterName { get; set; }
         public string Search { get; set; }
-        public int?[] Categories { get; set; }
+        public string Categories { get; set; }
     }
     #endregion
 
@@ -1199,8 +1199,9 @@ namespace ADefWebserver.Modules.ADefHelpDesk
                                                    Assigned = ADefHelpDesk_Tasks.AssignedRoleID.ToString(),
                                                    Description = ADefHelpDesk_Tasks.Description,
                                                    Requester = ADefHelpDesk_Tasks.RequesterUserID.ToString(),
-                                                   RequesterName = ADefHelpDesk_Tasks.RequesterName,
-                                                   Categories = string.Join(",", ADefHelpDesk_Tasks.ADefHelpDesk_TaskCategories.OrderBy(x => x.CategoryID).Select(x => x.CategoryID.ToString()).ToArray())                                              
+                                                   RequesterName = (ADefHelpDesk_Tasks.RequesterUserID == -1) ? ADefHelpDesk_Tasks.RequesterName : ((objADefHelpDeskDALDataContext.Users.Where(x => x.UserID == ADefHelpDesk_Tasks.RequesterUserID).FirstOrDefault() == null) ? "[user deleted]" :
+                                                   objADefHelpDeskDALDataContext.Users.Where(x => x.UserID == ADefHelpDesk_Tasks.RequesterUserID).FirstOrDefault().DisplayName),
+                                                   Categories = string.Join(",", ADefHelpDesk_Tasks.ADefHelpDesk_TaskCategories.OrderBy(x => x.CategoryID).Select(x => x.CategoryID.ToString()).ToArray())
                                                };
 
             #region Only show users the records they should see
@@ -1273,25 +1274,48 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             }
             #endregion
 
+            List<ExistingTasks> FinalResult = new List<ExistingTasks>();
+
             #region Filter TextBox (Search)
             // Filter TextBox
             if (strSearchText.Trim().Length > 0)
             {
-                result = (from Search in result
-                          join details in objADefHelpDeskDALDataContext.ADefHelpDesk_TaskDetails
-                          on Search.TaskID equals details.TaskID into joined
-                          from leftjoin in joined.DefaultIfEmpty()
-                          where Search.Description.Contains(strSearchText) ||
-                          Search.RequesterName.Contains(strSearchText) ||
-                          Search.TaskID.ToString().Contains(strSearchText) ||
-                          leftjoin.Description.Contains(strSearchText)
-                          select Search).Distinct();
+                // This causes duplications when there are many TaskDetails
+                // Put the results in a temp result
+                var tempResult = (from Search in result
+                                  from details in objADefHelpDeskDALDataContext.ADefHelpDesk_TaskDetails
+                                  where Search.TaskID == details.TaskID
+                                  where (Search.Description.Contains(strSearchText) ||
+                                  Search.RequesterName.Contains(strSearchText) ||
+                                  Search.TaskID.ToString().Contains(strSearchText))
+                                  select new ExistingTasks
+                                  {
+                                      TaskID = Search.TaskID,
+                                      Status = Search.Status,
+                                      Priority = Search.Priority,
+                                      DueDate = Search.DueDate,
+                                      CreatedDate = Search.CreatedDate,
+                                      Assigned = Search.Assigned,
+                                      Description = Search.Description,
+                                      Requester = Search.Requester,
+                                      RequesterName = Search.RequesterName,
+                                      Categories = Search.Categories
+                                  }).Distinct().ToList();
+
+                foreach (var item in tempResult)
+                {
+                    // Only add the Task if it is not already in the final collection
+                    if (FinalResult.Where(x => x.TaskID == item.TaskID).Count() == 0)
+                    {
+                        FinalResult.Add(item);
+                    }
+                }
+            }
+            else
+            {
+                FinalResult = result.Distinct().ToList();
             }
             #endregion
-
-            // Convert the results to a list because the query to filter the tags 
-            // must be made after the preceeding query results have been pulled from the database
-            List<ExistingTasks> FinalResult = result.Distinct().ToList();
 
             #region Filter Tags
             // Filter Tags

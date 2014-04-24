@@ -1282,27 +1282,46 @@ namespace ADefWebserver.Modules.ADefHelpDesk
             {
                 // This causes duplications when there are many TaskDetails
                 // Put the results in a temp result
-                var tempResult = (from Search in result
-                                  from details in objADefHelpDeskDALDataContext.ADefHelpDesk_TaskDetails
-                                  where Search.TaskID == details.TaskID
-                                  where (Search.Description.Contains(strSearchText) ||
-                                  Search.RequesterName.Contains(strSearchText) ||
-                                  Search.TaskID.ToString().Contains(strSearchText))
-                                  select new ExistingTasks
-                                  {
-                                      TaskID = Search.TaskID,
-                                      Status = Search.Status,
-                                      Priority = Search.Priority,
-                                      DueDate = Search.DueDate,
-                                      CreatedDate = Search.CreatedDate,
-                                      Assigned = Search.Assigned,
-                                      Description = Search.Description,
-                                      Requester = Search.Requester,
-                                      RequesterName = Search.RequesterName,
-                                      Categories = Search.Categories
-                                  }).Distinct().ToList();
+                var tempResult1 = (from Search in result
+                                   from details in objADefHelpDeskDALDataContext.ADefHelpDesk_TaskDetails
+                                   where Search.TaskID == details.TaskID
+                                   where (Search.Description.Contains(strSearchText) ||
+                                   Search.RequesterName.Contains(strSearchText) ||
+                                   Search.TaskID.ToString().Contains(strSearchText))
+                                   select new ExistingTasks
+                                   {
+                                       TaskID = Search.TaskID,
+                                       Status = Search.Status,
+                                       Priority = Search.Priority,
+                                       DueDate = Search.DueDate,
+                                       CreatedDate = Search.CreatedDate,
+                                       Assigned = Search.Assigned,
+                                       Description = Search.Description,
+                                       Requester = Search.Requester,
+                                       RequesterName = Search.RequesterName,
+                                       Categories = Search.Categories
+                                   }).ToList();
 
-                foreach (var item in tempResult)
+                // Get Tasks that may have no comments
+                var tempResult2 = (from Search in result
+                                   where (Search.Description.Contains(strSearchText) ||
+                                   Search.RequesterName.Contains(strSearchText) ||
+                                   Search.TaskID.ToString().Contains(strSearchText))
+                                   select new ExistingTasks
+                                   {
+                                       TaskID = Search.TaskID,
+                                       Status = Search.Status,
+                                       Priority = Search.Priority,
+                                       DueDate = Search.DueDate,
+                                       CreatedDate = Search.CreatedDate,
+                                       Assigned = Search.Assigned,
+                                       Description = Search.Description,
+                                       Requester = Search.Requester,
+                                       RequesterName = Search.RequesterName,
+                                       Categories = Search.Categories
+                                   }).ToList();
+
+                foreach (var item in tempResult1.Union(tempResult2))
                 {
                     // Only add the Task if it is not already in the final collection
                     if (FinalResult.Where(x => x.TaskID == item.TaskID).Count() == 0)
